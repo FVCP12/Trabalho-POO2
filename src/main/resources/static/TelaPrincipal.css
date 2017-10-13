@@ -1,0 +1,21 @@
+
+.inter_sup{
+    border: 1px solid;
+    border-color: #cccccc;  
+}
+
+.tela{
+    /*position: relative;*/
+    border: 4px solid;
+    border-color: #cccccc;
+    border-radius: 10px;
+    background-color: coral;
+    margin-top: 15%;
+    margin-left: 25%;
+    max-height: 50%;
+    max-width: 50%;
+}
+body{
+    background-image: url("fa.jpg");
+    background-size: 5%;
+}
