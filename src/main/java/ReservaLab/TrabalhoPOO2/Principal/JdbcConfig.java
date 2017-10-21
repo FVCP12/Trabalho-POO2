@@ -18,7 +18,7 @@ public class JdbcConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://DESKTOP-FELIPE\\\\SQLEXPRESS:1433;databasename=mvc");
+		dataSource.setUrl("jdbc:sqlserver://DESKTOP-FELIPE\\\\SQLEXPRESS:1433;databasename=SisDeReserLab");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("1234");
 		return dataSource;
