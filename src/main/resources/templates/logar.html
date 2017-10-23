@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Login</title>
+        <meta http-equiv="Content-Type" 
+    	content="text/html; charset=UTF-8" />
+    </head>
+    <body>
+        <span>Digite seu login e senha</span>
+        
+        <form action="#" th:action="@{/logando}"
+              th:object="${funcio}" method="post">
+            
+            <label>Login:</label>
+            <input type="text" th:field="*{ra}"/>
+            <label>Senha:</label>
+            <input type="text" th:field="*{senha}"/>
+          
+                <button name="logar" type="submit">Logar</button>       
+            
+        </form>
+        
+          <label th:text="${menssagem}"></label>
+          <a href="adminIni">aqui</a>>
+          
+    </body>
+</html>

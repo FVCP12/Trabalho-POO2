@@ -32,4 +32,7 @@ public class Reservas {
     @ManyToOne
     Horario horario;
     
+    @OneToOne
+    Chaves descricaoChave;
+    
 }

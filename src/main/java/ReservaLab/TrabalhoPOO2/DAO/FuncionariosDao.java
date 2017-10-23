@@ -19,4 +19,13 @@ public class FuncionariosDao extends Generica<Funcionarios>{
 		return sessionFactory.getCurrentSession();
 	} 
     
+        @SuppressWarnings("unchecked")
+        public Funcionarios buscarFuncionario(String ra,String senha){
+            
+            List<Funcionarios> func = getSession().createQuery("from funcionarios "+
+                    "where ra = :ra and senha = : senha").setParameter("ra", ra).setParameter("senha", senha).list();
+            
+            return func.get(0);
+        }
+        
 }

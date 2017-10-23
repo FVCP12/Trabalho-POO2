@@ -17,7 +17,64 @@ import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
 public class FuncionarioControle {
  
     @Autowired
-    private FuncionariosDao funcionarioDao;
+    private FuncionariosDao funcionarioDao;//usando para acessar o banco
+     
     
+    @GetMapping("/logar")//mapeando a tela logar 
+    public String logar(Model model) {
+        
+    	model.addAttribute("funcio", new Funcionarios());//cria no html uma variavel do tipo funcionario
+        
+        return "logar";
+    }
+    //////////////////////////
+   
+    ////////////////////////////////
+    
+    @PostMapping("/logando")//mapeando o formulario logando 
+    public String logandoSistema(
+    		@ModelAttribute Funcionarios funcionario, 
+    		Model model) {
+        
+        System.out.println("\n\ninicio\n\n"+funcionario.getRa()+"\n\nfim");
+        
+        /*
+        try{//encontrando a tela certa para abrir
+            Funcionarios f =funcionarioDao.buscarFuncionario(funcionario.getRa(),funcionario.getSenha());
+            
+            if(f.getFuncao().getCod_funcoes() == 1){               
+                return "adminIni";               
+            }else if(f.getFuncao().getCod_funcoes() == 2){           
+                return "professorIni";               
+            }else if(f.getFuncao().getCod_funcoes() == 3){              
+                return "portariaIni";                
+            }        
+        }catch(Exception e){*/
+            model.addAttribute("menssagem", 
+    			"Erro ao conctar, verifique sua senha ou usuario!");
+          
+        //}
+        return "logar";
+    }
+    
+    ////////////////////////////////////////
+    
+     @GetMapping("/adminIni")
+    public String adminLogin( Model model){
+        
+        return "adminIni";
+    }
+    
+    @GetMapping("/portariaIni")
+    public String portariaLogin( Model model){
+        
+        return "portariaIni";
+    }
+    
+    @GetMapping("/professorIni")
+    public String professorLogin( Model model){
+        
+        return "professorIni";
+    }
     
 }
