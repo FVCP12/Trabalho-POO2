@@ -48,6 +48,7 @@ public class FuncionarioControle {
                 return "portariaIni";                
             }        
         }catch(Exception e){
+            model.addAttribute("funcio", new Funcionarios());
             model.addAttribute("menssagem", 
     			"Erro ao conectar, verifique sua senha ou usuario!");
                  }
