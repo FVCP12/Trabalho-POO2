@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>Login</title>
@@ -6,7 +6,7 @@
     	content="text/html; charset=UTF-8" />
     </head>
     <body>
-        <span>Digite seu login e senha</span>
+        <p>Digite seu login e senha</p>
         
         <form action="#" th:action="@{/logando}"
               th:object="${funcio}" method="post">
@@ -21,7 +21,7 @@
         </form>
         
           <label th:text="${menssagem}"></label>
-          <a href="adminIni">aqui</a>>
+         
           
     </body>
 </html>

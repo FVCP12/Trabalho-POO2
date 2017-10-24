@@ -36,25 +36,23 @@ public class FuncionarioControle {
     		@ModelAttribute Funcionarios funcionario, 
     		Model model) {
         
-        System.out.println("\n\ninicio\n\n"+funcionario.getRa()+"\n\nfim");
         
-        /*
         try{//encontrando a tela certa para abrir
             Funcionarios f =funcionarioDao.buscarFuncionario(funcionario.getRa(),funcionario.getSenha());
-            
+                      
             if(f.getFuncao().getCod_funcoes() == 1){               
-                return "adminIni";               
+                return "adminIni"; 
             }else if(f.getFuncao().getCod_funcoes() == 2){           
                 return "professorIni";               
             }else if(f.getFuncao().getCod_funcoes() == 3){              
                 return "portariaIni";                
             }        
-        }catch(Exception e){*/
+        }catch(Exception e){
             model.addAttribute("menssagem", 
-    			"Erro ao conctar, verifique sua senha ou usuario!");
-          
-        //}
-        return "logar";
+    			"Erro ao conectar, verifique sua senha ou usuario!");
+                 }
+     
+              return "logar";
     }
     
     ////////////////////////////////////////
