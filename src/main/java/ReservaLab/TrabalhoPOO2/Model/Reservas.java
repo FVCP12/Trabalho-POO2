@@ -20,18 +20,9 @@ public class Reservas {
     @ManyToOne
     Laboratorio laboratorio;
     
-    @ManyToOne
-    Funcionarios funcionario;
-    
-    @ManyToOne
-    Turno turno;
-    
-    @ManyToOne
-    Status status;
-    
-    @ManyToOne
-    Horario horario;
-    
+    @OneToOne
+    Status statusHoraLabs;
+ 
     @OneToOne
     Chaves descricaoChave;
     

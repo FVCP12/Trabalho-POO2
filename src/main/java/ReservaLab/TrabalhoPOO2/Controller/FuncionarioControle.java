@@ -39,13 +39,14 @@ public class FuncionarioControle {
         
         try{//encontrando a tela certa para abrir
             Funcionarios f =funcionarioDao.buscarFuncionario(funcionario.getRa(),funcionario.getSenha());
-                      
-            if(f.getFuncao().getCod_funcoes() == 1){               
-                return "adminIni"; 
+            model.addAttribute("user", f);  
+            
+            if(f.getFuncao().getCod_funcoes() == 1){    
+                return "Administrador/adminIni"; 
             }else if(f.getFuncao().getCod_funcoes() == 2){           
-                return "professorIni";               
+                return "Professor/professorIni";               
             }else if(f.getFuncao().getCod_funcoes() == 3){              
-                return "portariaIni";                
+                return "Portaria/portariaIni";                
             }        
         }catch(Exception e){
             model.addAttribute("funcio", new Funcionarios());
@@ -58,22 +59,28 @@ public class FuncionarioControle {
     
     ////////////////////////////////////////
     
-     @GetMapping("/adminIni")
-    public String adminLogin( Model model){
+     @GetMapping("/Administrador/adminIni")
+    public String adminLogin( @ModelAttribute Funcionarios funcionario,Model model){
         
-        return "adminIni";
+        model.addAttribute("user", funcionario);
+        
+        return "Administrador/adminIni";
     }
     
     @GetMapping("/portariaIni")
-    public String portariaLogin( Model model){
+    public String portariaLogin( @ModelAttribute Funcionarios funcionario,Model model){
+        
+        model.addAttribute("user", funcionario);
         
         return "portariaIni";
     }
     
-    @GetMapping("/professorIni")
-    public String professorLogin( Model model){
+    @GetMapping("/Professor/professorIni")
+    public String professorLogin( @ModelAttribute Funcionarios funcionario,Model model){
         
-        return "professorIni";
+        model.addAttribute("user", funcionario);
+        
+        return "Professor/professorIni";
     }
     
 }

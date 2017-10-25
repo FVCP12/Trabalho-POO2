@@ -16,8 +16,6 @@ public class Laboratorio {
     @Column
     String andar;
     
-    @OneToOne
-    TipoLab tipoLab;
     
        
 }
