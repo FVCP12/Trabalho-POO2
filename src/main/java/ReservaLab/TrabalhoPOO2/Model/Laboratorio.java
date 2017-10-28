@@ -8,13 +8,55 @@ public class Laboratorio {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long cod_labor;
+    private long cod_labor;
     
     @Column
-    String nomeLab;
+    private String nomeLab;
     
     @Column
-    String andar;
+    private String andar;
+
+    /**
+     * @return the cod_labor
+     */
+    public long getCod_labor() {
+        return cod_labor;
+    }
+
+    /**
+     * @param cod_labor the cod_labor to set
+     */
+    public void setCod_labor(long cod_labor) {
+        this.cod_labor = cod_labor;
+    }
+
+    /**
+     * @return the nomeLab
+     */
+    public String getNomeLab() {
+        return nomeLab;
+    }
+
+    /**
+     * @param nomeLab the nomeLab to set
+     */
+    public void setNomeLab(String nomeLab) {
+        this.nomeLab = nomeLab;
+    }
+
+    /**
+     * @return the andar
+     */
+    public String getAndar() {
+        return andar;
+    }
+
+    /**
+     * @param andar the andar to set
+     */
+    public void setAndar(String andar) {
+        this.andar = andar;
+    }
     
     
        

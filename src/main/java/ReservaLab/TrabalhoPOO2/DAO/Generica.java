@@ -42,4 +42,14 @@ public class Generica<T> {
         public List<T> PegarTodos(Class<T> obj){
             return getSession().createQuery(" from " + obj.getName()).list();
         }
+        
+        @SuppressWarnings("unchecked")
+        public T buscaId(Class<T> obj,long id){
+            
+            List<T> listaDeUm = getSession().createQuery("from "+obj.getName()+" where id= :id")
+                    .setParameter("id", id).list();
+            
+            return listaDeUm.get(0);
+            
+        }
 }

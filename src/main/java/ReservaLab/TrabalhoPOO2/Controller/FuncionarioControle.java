@@ -41,7 +41,9 @@ public class FuncionarioControle {
             Funcionarios f =funcionarioDao.buscarFuncionario(funcionario.getRa(),funcionario.getSenha());
             model.addAttribute("user", f);  
             
-            if(f.getFuncao().getCod_funcoes() == 1){    
+            
+            if(f.getFuncao().getCod_funcoes() == 1){
+                model.addAttribute("menssagem","<<Escolha uma opção ao lado!");
                 return "Administrador/adminIni"; 
             }else if(f.getFuncao().getCod_funcoes() == 2){           
                 return "Professor/professorIni";               
@@ -64,17 +66,18 @@ public class FuncionarioControle {
         
         model.addAttribute("user", funcionario);
         
+        
         return "Administrador/adminIni";
     }
-    
-    @GetMapping("/portariaIni")
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////  
+    @GetMapping("/Portaria/portariaIni")
     public String portariaLogin( @ModelAttribute Funcionarios funcionario,Model model){
         
         model.addAttribute("user", funcionario);
         
-        return "portariaIni";
+        return "Portaria/portariaIni";
     }
-    
+    ///////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/Professor/professorIni")
     public String professorLogin( @ModelAttribute Funcionarios funcionario,Model model){
         
