@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>PROFESSOR</title>
+        <meta http-equiv="Content-Type" 
+              content="text/html; charset=UTF-8" />
+    </head>
+    <body style="background-color: #d7d6d4">
+ 
+        <h3>Listar salas Disponiveis</h3>
+    		<table>
+			<thead>
+				<tr>
+					<th>Codigo</th>
+					<th>Laboratorio</th>
+					<th>Andar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="lab : ${labs}">
+					<td th:text="${lab.cod_labor}"></td>
+					<td th:text="${lab.nomeLab}"></td>
+					<td th:text="${lab.andar}"></td>
+					
+				</tr>
+			</tbody>
+		</table>
+    </body>
+</html>

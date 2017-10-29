@@ -1,27 +1,49 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Login</title>
-        <meta http-equiv="Content-Type" 
-    	content="text/html; charset=UTF-8" />
+        <meta charset="UTF-8"/>
+        <title>.::Meu Site::.</title>
+        <style type="text/css">
+            #cx1{
+                
+                position: relative;
+                top: 320px; /**/
+                left: 525px;
+            }
+            #cx2{
+            position: relative;
+            top: 20px;
+            left:85px;
+            }
+      
+            #cx3{
+            position: relative;
+            top: 280px;
+            left:600px;
+            }
+        </style>
     </head>
-    <body>
-        <p>Digite seu login e senha</p>
+    <body style="background:url(https://fisicaempratica.files.wordpress.com/2010/09/logomarca_pitagoras.png) no-repeat;background-size: 43%; background-position-x:375px; background-position-y: 480">
         
+        <div id="cx3">
+            <h3>Bem vindo!</h3>
+        </div>
+        
+        <div id="cx1">
         <form action="#" th:action="@{/logando}"
               th:object="${funcio}" method="post">
             
             <label>Login:</label>
-            <input type="text" th:field="*{ra}"/>
+            <input type="text" th:field="*{ra}"/><br/><br/>
             <label>Senha:</label>
-            <input type="text" th:field="*{senha}"/>
-          
-                <button name="logar" type="submit">Logar</button>       
+            <input type="password" th:field="*{senha}"/><br/>
             
+            <div id="cx2">
+            <button name="logar" type="submit">Logar</button>       
+            </div>
         </form>
-        
+        </div>
           <label th:text="${menssagem}"></label>
-         
-          
+        
     </body>
 </html>

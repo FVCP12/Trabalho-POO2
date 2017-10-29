@@ -63,7 +63,7 @@ public class AdminController {
          return "Administrador/adminIni";
      }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////    
-    @GetMapping("/Administrador/admin_lista_lab")
+   @GetMapping("/Administrador/admin_lista_lab")
     public String ListLab(
         @RequestParam(value = "fun") long idFun,    
             Model model
