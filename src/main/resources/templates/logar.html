@@ -5,45 +5,49 @@
         <title>.::Meu Site::.</title>
         <style type="text/css">
             #cx1{
-                
+
                 position: relative;
                 top: 320px; /**/
                 left: 525px;
             }
             #cx2{
-            position: relative;
-            top: 20px;
-            left:85px;
+                position: relative;
+                top: 20px;
+                left:85px;
             }
-      
+
             #cx3{
-            position: relative;
-            top: 280px;
-            left:600px;
+                position: relative;
+                top: 280px;
+                left:600px;
             }
         </style>
     </head>
     <body style="background:url(https://fisicaempratica.files.wordpress.com/2010/09/logomarca_pitagoras.png) no-repeat;background-size: 43%; background-position-x:375px; background-position-y: 480">
-        
+
         <div id="cx3">
             <h3>Bem vindo!</h3>
         </div>
-        
+
         <div id="cx1">
-        <form action="#" th:action="@{/logando}"
-              th:object="${funcio}" method="post">
-            
-            <label>Login:</label>
-            <input type="text" th:field="*{ra}"/><br/><br/>
-            <label>Senha:</label>
-            <input type="password" th:field="*{senha}"/><br/>
-            
-            <div id="cx2">
-            <button name="logar" type="submit">Logar</button>       
-            </div>
-        </form>
+            <form action="#" th:action="@{/logando}"
+                  th:object="${funcio}" method="post">
+
+                <label>Login:</label>
+                <input type="text" th:field="*{ra}"/><br/><br/>
+                <label>Senha:</label>
+                <input type="password" th:field="*{senha}"/><br/>
+
+                <div id="cx2">
+                    <button name="logar" type="submit">Logar</button>   
+                    <br></br>
+                    <br></br>
+                    <br></br>
+                    <label th:text="${menssagem}"><center></center></label>
+                </div>
+            </form>
         </div>
-          <label th:text="${menssagem}"></label>
-        
+
+
     </body>
 </html>
