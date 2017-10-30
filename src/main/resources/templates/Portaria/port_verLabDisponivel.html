@@ -6,33 +6,63 @@ and open the template in the editor.
 -->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Porteiro</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/> 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
+
+
+        <title>Portaria</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
     </head>
 
+    <!--<body style="background-color: #d7d6d4">
+
+        <h3>Listar salas Disponiveisttttt</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Codigo</th>
+                    <th>Laboratorio</th>
+                    <th>Andar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="lab : ${labs}">
+                    <td th:text="${lab.cod_labor}"></td>
+                    <td th:text="${lab.nomeLab}"></td>
+                    <td th:text="${lab.andar}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </body>-->
+
     <body style="background-color: #d7d6d4">
+        <div class="container" style="float:left;position: relative;
+             margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+            <label th:text="${menssagem}"></label>
 
-       <h3>Listar salas Disponiveisttttt</h3>
-    		<table>
-			<thead>
-				<tr>
-					<th>Codigo</th>
-					<th>Laboratorio</th>
-					<th>Andar</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="lab : ${labs}">
-					<td th:text="${lab.cod_labor}"></td>
-					<td th:text="${lab.nomeLab}"></td>
-					<td th:text="${lab.andar}"></td>
-					
-				</tr>
-                                
-                                
-			</tbody>
-		</table>
+            <span><h3>Lista de Laboratórios</h3></span>
+            <table style="border: 2px solid black">
+                <thead style="border: 2px solid black">
+                    <tr style="border: 2px solid black">
+                        <th style="border: 2px solid black">Nome do Laboratorio</th>
+                        <th style="border: 2px solid black">Andar</th>
+                    </tr>
+                </thead>
+                <tbody style="border: 2px solid black">
+                    <tr style="border: 2px solid black" th:each="lab : ${labs}">
+                        <td style="border: 2px solid black" th:text = "${lab.nomeLab}"></td>
+                        <td style="border: 2px solid black" th:text = "${lab.andar}"></td>
+                        <td><button> <a href="" >Disponível</a></button></td>
+                        <td><button><a href="">Emprestada</a></button></td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </body>
-
 </html>
