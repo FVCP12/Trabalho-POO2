@@ -1,43 +1,95 @@
 package ReservaLab.TrabalhoPOO2.Model;
 
+import java.util.Date;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "StatusLab")
 public class Status {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long Cod_status;
-    
-    boolean manhaPrimeiro;//0 para disponivel 1 para reservado
+    private long Cod_status;
 
     @OneToOne
-    Funcionarios funcionarioManhaP;//quem reserveou manha primeiro horario        
-    
-    boolean manhaSegundo;
+    private Funcionarios professor;
 
     @OneToOne
-    Funcionarios funcionarioManhaS;
-    
-    boolean tardePrimeiro;
-    
-    @OneToOne
-    Funcionarios funcionarioTardeP;
+    private Chaves descricaoChave;
 
-    boolean tardeSegundo;
-    
-    @OneToOne
-    Funcionarios funcionarioTardeS;
+    @Temporal(TemporalType.DATE)
+    private Date dataOperacao;//a data em que foi feita a reserva (data + hora)
 
-    boolean noitePrimeiro;
-    
-    @OneToOne
-    Funcionarios funcionarioNoiteP;
+    @Column
+    private String horario;
 
-    boolean noiteSegundo;
-    
-    @OneToOne
-    Funcionarios funcionarioNoiteS;
-    
+    /**
+     * @return the Cod_status
+     */
+    public long getCod_status() {
+        return Cod_status;
+    }
+
+    /**
+     * @param Cod_status the Cod_status to set
+     */
+    public void setCod_status(long Cod_status) {
+        this.Cod_status = Cod_status;
+    }
+
+    /**
+     * @return the professor
+     */
+    public Funcionarios getProfessor() {
+        return professor;
+    }
+
+    /**
+     * @param professor the professor to set
+     */
+    public void setProfessor(Funcionarios professor) {
+        this.professor = professor;
+    }
+
+    /**
+     * @return the descricaoChave
+     */
+    public Chaves getDescricaoChave() {
+        return descricaoChave;
+    }
+
+    /**
+     * @param descricaoChave the descricaoChave to set
+     */
+    public void setDescricaoChave(Chaves descricaoChave) {
+        this.descricaoChave = descricaoChave;
+    }
+
+    /**
+     * @return the dataOperacao
+     */
+    public Date getDataOperacao() {
+        return dataOperacao;
+    }
+
+    /**
+     * @param dataOperacao the dataOperacao to set
+     */
+    public void setDataOperacao(Date dataOperacao) {
+        this.dataOperacao = dataOperacao;
+    }
+
+    /**
+     * @return the horario
+     */
+    public String getHorario() {
+        return horario;
+    }
+
+    /**
+     * @param horario the horario to set
+     */
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 }

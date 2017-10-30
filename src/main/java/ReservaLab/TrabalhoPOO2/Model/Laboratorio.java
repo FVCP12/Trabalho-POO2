@@ -15,6 +15,9 @@ public class Laboratorio {
     
     @Column
     private String andar;
+    
+    @Column
+    private String descricao;
 
     /**
      * @return the cod_labor
@@ -56,6 +59,20 @@ public class Laboratorio {
      */
     public void setAndar(String andar) {
         this.andar = andar;
+    }
+
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
+    }
+
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
     
     

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ReservaLab.TrabalhoPOO2.DAO.FuncionariosDao;
 import ReservaLab.TrabalhoPOO2.DAO.LaboratorioDao;
-import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
-import ReservaLab.TrabalhoPOO2.Model.Laboratorio;
+import ReservaLab.TrabalhoPOO2.Model.*;
 
 @Controller
 public class AdminController {
@@ -103,6 +102,76 @@ public class AdminController {
              model.addAttribute("menssagem","Não foi possivel apagar o laboratorio!");
         }
         
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+         
+        model.addAttribute("labs", labs);
+        
+        
         return "/Administrador/admin_lista_lab";
     }
+/////////////////////////////////////////////////////////////////////////////////////////
+      @GetMapping("/Administrador/admin_disponibilizar_escolhaAno")
+    public String Admin_escolha_ano(
+        @RequestParam(value = "fun") long idFun,
+        Model model
+    ){
+        
+        Funcionarios f=funcionariosDao.buscaId(Funcionarios.class, idFun);
+   
+        
+        model.addAttribute("user", f);
+        model.addAttribute("aux", new Funcionarios());
+     
+        
+        return "/Administrador/admin_disponibilizar_escolhaAno";
+    }
+ /////////////////////////////////////////////////////////////////////////////////////////////////
+    @PostMapping("/escolhendoAno")
+    public String escolhendoAno(
+        @RequestParam(value = "fun") long idFun, 
+        @ModelAttribute Funcionarios fun,
+       Model model        
+     ){
+         
+         model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
+         model.addAttribute("aux",fun);
+         
+        
+         
+         return "/Administrador/admin_disponibilizar_escolhaSemestre";
+     }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Administrador/admin_disponibilizar_escolhaSemestre")
+    public String Admin_escolha_semestre(
+        @ModelAttribute Funcionarios f,
+        @ModelAttribute Funcionarios aux,
+        Model model
+    ){
+        
+        
+        model.addAttribute("user", f);
+        model.addAttribute("aux", aux);
+     
+        
+        return "/Administrador/admin_disponibilizar_escolhaSemestre";
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+   @PostMapping("/escolhendoSemestre")
+    public String escolhendoSemestre(
+        @RequestParam(value = "fun") long idFun, 
+        @ModelAttribute Funcionarios fun,
+       Model model        
+     ){
+         
+         model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
+         model.addAttribute("aux",fun);
+         
+         System.out.println("Ano: "+fun.getRa());
+         System.out.println("semestre: "+fun.getSenha());
+        
+         
+         return "Administrador/adminIni";
+     }
+    
+    
 }

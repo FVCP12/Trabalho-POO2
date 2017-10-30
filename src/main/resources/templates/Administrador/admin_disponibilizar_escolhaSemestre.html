@@ -14,7 +14,7 @@
     <body style="background-color: #d7d6d4">
 
         <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
-             background-color: #ffffff">
+              background-color: #ffffff">
 
             <div class="row">
                 <div class="col-11">
@@ -69,39 +69,53 @@
                         <p style="margin: 1px;margin-left: 5px;text-align: center">Exibir </p>
                     </div>
                     <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">Disponibilizar </p>
-                    </div>                 
+                        <p style="margin: 1px;margin-left: 5px;text-align: center">
+                            <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">    
+                                Disponibilizar 
+                            </a>
+                        </p>
+                    </div>                
                 </div>
 
             </div>
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
-                
-                <span><h3>Lista de Laboratorios</h3></span>
-                <table style="border: 2px solid black">
-                    <thead style="border: 2px solid black">
-                        <tr style="border: 2px solid black">
-                            <th style="border: 2px solid black">Nome do Laboratorio</th>
-                            <th style="border: 2px solid black">Andar</th>
-                        </tr>
-                    </thead>
-                    <tbody style="border: 2px solid black">
-                        <tr style="border: 2px solid black" th:each="lab : ${labs}">
-                            <td style="border: 2px solid black" th:text = "${lab.nomeLab}"></td>
-                            <td style="border: 2px solid black" th:text = "${lab.andar}"></td>
-                            <td><button>
-                                    <a th:href="@{'/Administrador/admin_lab_apargar'
-                                       (fun=${user.Cod_funcio},lab=${lab.cod_labor})}">
-                                        Deletar
-                                    </a>
-                                </button></td>
-                            <td><button><a href="#">Alterar</a></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                
-                <label th:text="${menssagem}"></label>
+
+
+                <div>
+                    <form action="#" th:action="@{'/escolhendoSemestre?fun='+${user.Cod_funcio}}"
+                          th:object="${aux}" method="post">
+
+                        <label><h4>Escolha o semestre para disponibiliar as reservas:</h4></label>
+                        <div style="margin-left: 10%">
+                            <p>
+                                <label>Ano escolhido:</label>
+                                <input type="number"  readonly="readonly" th:field="*{ra}"/>
+                            </p> 
+                            <p>
+                                <label>Semestre:</label>
+                                <select th:field="*{senha}">
+                                    <option value="1">  
+                                        Primerio semestre
+                                    </option>
+                                    <option value="2">
+                                        Segundo semestre
+                                    </option >
+                                    
+                                </select>
+                                        
+                            </p>
+                            
+                            <div style="margin: 2px;margin-left: 23%">      
+                                <button name="escolher" type="submit">OK</button> 
+                                <button name="apagar" type="reset">Apagar</button>
+                            </div>
+                        </div>
+                    </form>      
+                </div>
+
+
+
             </div>
         </div>
     </body>
