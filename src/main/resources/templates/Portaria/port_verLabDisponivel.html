@@ -19,27 +19,6 @@ and open the template in the editor.
               content="text/html; charset=UTF-8" />
     </head>
 
-    <!--<body style="background-color: #d7d6d4">
-
-        <h3>Listar salas Disponiveisttttt</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Codigo</th>
-                    <th>Laboratorio</th>
-                    <th>Andar</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="lab : ${labs}">
-                    <td th:text="${lab.cod_labor}"></td>
-                    <td th:text="${lab.nomeLab}"></td>
-                    <td th:text="${lab.andar}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </body>-->
-
     <body style="background-color: #d7d6d4">
 
         <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
@@ -74,9 +53,9 @@ and open the template in the editor.
 
                 <div style= "background-color: #f7ba5e;">
                     <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        
-                           <a th:href="@{'/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio}}">Dospo</a></p>
-                       <!-- <a href="/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio">Disponíveis</a></p>-->
+
+                        <a th:href="@{'/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio}}">Dospo</a></p>
+                    <!-- <a href="/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio">Disponíveis</a></p>-->
                 </div>
 
                 <div style= "background-color: #f7ba5e;">
@@ -106,7 +85,7 @@ and open the template in the editor.
                         </tr>
                     </tbody>
                 </table>
-                
+
                 <label th:text="${menssagem}"></label>
             </div>
         </div>
