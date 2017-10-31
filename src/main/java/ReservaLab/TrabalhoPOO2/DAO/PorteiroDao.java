@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class PorteiroDao extends Generica<Object>{
+public class PorteiroDao extends Generica<Funcionarios>{
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -33,6 +33,8 @@ public class PorteiroDao extends Generica<Object>{
 
 
    
+    
+    
     @SuppressWarnings("unchecked")
         public Laboratorio PegarTodos(){
            List<Laboratorio> func = getSession().createQuery("from Laboratorio" ).list();

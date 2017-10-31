@@ -1,6 +1,5 @@
 package ReservaLab.TrabalhoPOO2.Controller;
 
-import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import ReservaLab.TrabalhoPOO2.DAO.FuncionariosDao;
 import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
@@ -47,7 +45,8 @@ public class FuncionarioControle {
                 return "Administrador/adminIni"; 
             }else if(f.getFuncao().getCod_funcoes() == 2){           
                 return "Professor/professorIni";               
-            }else if(f.getFuncao().getCod_funcoes() == 3){              
+            }else if(f.getFuncao().getCod_funcoes() == 3){
+                 model.addAttribute("menssagem","<<Escolha uma opção ao lado!");
                 return "Portaria/portariaIni";                
             }        
         }catch(Exception e){
