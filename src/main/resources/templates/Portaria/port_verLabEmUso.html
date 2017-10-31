@@ -1,37 +1,89 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Laboratórios Disponíveis</title>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/> 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
+
+        <title>Portaria</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
     </head>
 
+
     <body style="background-color: #d7d6d4">
 
-        <h3>Laboratórios Disponíveis</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Número</th>
-                    <th>Laboratorio</th>
-                    <th>Andar</th>
+        <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
+              background-color: #ffffff">
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="lab : ${labs}">
-                    <td th:text="${lab.cod_labor}"></td>
-                    <td th:text="${lab.nomeLab}"></td>
-                    <td th:text="${lab.andar}"></td>
+            <div class="row">
+                <div class="col-11">
+                    <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
+                    <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
+                </div>
+                <div class="col-1">
+                    <a href="/logar" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"
+                       style="top: 1%;position: relative">Sair</a>
+                </div>
+            </div>
+        </div>
 
-                </tr>
-            </tbody>
-        </table>
+        <div style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
+            <div style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
+                 border-top-right-radius: 4px
+                 ;text-align: center">
+
+                <p style="text-align: left"><h3>Laboratórios</h3></p>
+
+                <div style= "background-color: #f7ba5e;">
+                    <p style="margin: 1px;margin-left: 5px;text-align: center">
+                        <a th:href="@{'/Portaria/port_vertTodos?fun='+${user.Cod_funcio}}">Todos</a></p>
+                </div>
+
+                <div style= "background-color: #f7ba5e;">
+                    <p style="margin: 1px;margin-left: 5px;text-align: center">
+                        <a th:href="@{'/Portaria/port_verLabEmUso?fun='+${user.Cod_funcio}}">Em uso</a></p>
+                </div>
+
+                <div style= "background-color: #f7ba5e;">
+                    <p style="margin: 1px;margin-left: 5px;text-align: center">
+                        <a th:href="@{'/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio}}">Disponíveis</a></p>
+                </div>
+
+                <div style= "background-color: #f7ba5e;">
+                    <p style="margin: 1px;margin-left: 5px;text-align: center">
+                        <a th:href="@{'/Portaria/port_verLabAgendado?fun='+${user.Cod_funcio}}">Reservados</a></p>
+                </div>
+            </div>
+
+            <div class="container" style="float:left;position: relative;
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+                <label th:text="${menssagem}"></label>
+
+                <span><h3>Laboratórios em Uso</h3></span>
+                <table style="border: 2px solid black">
+                    <thead style="border: 2px solid black">
+                        <tr style="border: 2px solid black">
+                            <th style="border: 2px solid black">Nome do Laboratorio</th>
+                            <th style="border: 2px solid black">Andar</th>
+                        </tr>
+                    </thead>
+                    <tbody style="border: 2px solid black">
+                        <tr style="border: 2px solid black" th:each="lab : ${labs}">
+                            <td style="border: 2px solid black" th:text = "${lab.nomeLab}"></td>
+                            <td style="border: 2px solid black" th:text = "${lab.andar}"></td>
+                            <td><button> <a href="" >Disponível</a></button></td>
+                            <td><button><a href="">Emprestada</a></button></td>
+
+                        </tr>
+                    </tbody>
+                </table>
+
+                <label th:text="${menssagem}"></label>
+            </div>
+        </div>
     </body>
-
 </html>

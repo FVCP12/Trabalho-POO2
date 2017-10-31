@@ -21,37 +21,67 @@ public class PorteiroController {
 
     @Autowired
     LaboratorioDao laboratorioDao;
-    
+
     @Autowired
     FuncionariosDao funcionariosDao;
 
-    /*@GetMapping("Portaria/port_verLabDisponivel")
-    public String ListarLab(Model model) {
-
-        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
-
-        model.addAttribute("labs", labs);
-
-        if (labs.isEmpty()) {
-            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
-        }
-
-        return "Portaria/port_verLabDisponivel";
-    }*/
-    
     @GetMapping("Portaria/port_verLabDisponivel")
     public String ListLab(
-        @RequestParam(value = "fun") long idFun,    
+            @RequestParam(value = "fun") long idFun,
             Model model
-    ){
+    ) {
         Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idFun);
         model.addAttribute("user", f);
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
         model.addAttribute("labs", labs);
-        if(labs.isEmpty()){
-            model.addAttribute("menssagem","Não existe nenhum laboratorio!");
+        if (labs.isEmpty()) {
+            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
         }
-        return "Portaria/port_verLabDisponivel";
+        return "/Portaria/port_verLabDisponivel";
     }
 
+    @GetMapping("Portaria/port_verLabAgendado")
+    public String ListLabAgendado(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+        Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idFun);
+        model.addAttribute("user", f);
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+        model.addAttribute("labs", labs);
+        if (labs.isEmpty()) {
+            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
+        }
+        return "/Portaria/port_verLabAgendado";
+    }
+
+    @GetMapping("Portaria/port_verLabEmUso")
+    public String ListLabEmUso(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+        Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idFun);
+        model.addAttribute("user", f);
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+        model.addAttribute("labs", labs);
+        if (labs.isEmpty()) {
+            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
+        }
+        return "Portaria/port_verLabEmUso";
+    }
+
+    @GetMapping("Portaria/port_vertTodos")
+    public String ListTodosLab(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+        Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idFun);
+        model.addAttribute("user", f);
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+        model.addAttribute("labs", labs);
+        if (labs.isEmpty()) {
+            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
+        }
+        return "Portaria/port_vertTodos";
+    }
 }
