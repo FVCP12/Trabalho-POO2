@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "Chaves")
-public class Chaves {
+public class Chaves {//deve ser preenchida antes de tudo com 1 para chave na portaria e 2 para chave com o professor
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -10,11 +10,14 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long Cod_status;
+    
+    @Column
+    private boolean situação; //0 para disponivel \ 1 para reservado
 
-    @OneToOne
+    @ManyToOne
     private Funcionarios professor;
 
-    @OneToOne
+    @ManyToOne
     private Chaves descricaoChave;
 
     @Temporal(TemporalType.DATE)
@@ -91,5 +94,19 @@ public class Status {
      */
     public void setHorario(String horario) {
         this.horario = horario;
+    }
+
+    /**
+     * @return the situação
+     */
+    public boolean isSituação() {
+        return situação;
+    }
+
+    /**
+     * @param situação the situação to set
+     */
+    public void setSituação(boolean situação) {
+        this.situação = situação;
     }
 }

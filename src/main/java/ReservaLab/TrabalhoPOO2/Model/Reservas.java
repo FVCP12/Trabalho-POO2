@@ -17,6 +17,7 @@ public class Reservas {
     @ManyToOne
     private Laboratorio laboratorio;
 
+    @ManyToMany
     @OrderColumn
     private Status[] status = new Status[6];//em ordem manha primeiro horario 1
 
