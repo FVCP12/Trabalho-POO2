@@ -22,7 +22,7 @@
                     <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
                 </div>
                 <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"
+                    <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
                        style="top: 1%;position: relative">Sair</a>
                 </div>
             </div>
@@ -88,11 +88,14 @@
                           th:object="${lab}" method="post">
 
 
-                        <label>Nome do Laboratorio:</label>
+                        <label>Nome do Laboratorio:</label><br/>
                         <input type="text" th:field="*{nomeLab}"/>
                         <br/>
                         <label>Andar:</label><br/>
                         <input type="text" th:field="*{andar}"/>
+                        <br/>
+                        <label>Descrição:</label><br/>
+                        <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
                         <br/><br/>
                         <div style="margin-bottom: 1%">
                             <button name="criar" type="submit">Criar</button> 

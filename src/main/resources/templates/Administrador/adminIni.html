@@ -22,8 +22,8 @@
                     <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
                 </div>
                 <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"
-                       style="top: 1%;position: relative">Sair</a>
+                    <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
+                       style="margin: 10%;position: relative">Sair</a>
                 </div>
             </div>
 
@@ -80,7 +80,8 @@
             </div>
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
-                <label th:text="${menssagem}"></label>
+                <textarea cols="100" rows="15" th:text="${menssagem}" readonly="readonly">         
+                </textarea>
             </div>
         </div>
     </body>

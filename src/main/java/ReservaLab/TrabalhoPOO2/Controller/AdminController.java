@@ -256,16 +256,18 @@ public class AdminController {
                             d = c.getTime();
 
                         } while (d.getMonth() + 1 != 7);
+                        
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " foi criada com sucesso; ";
 
                     } else {
-                        fraseRetorno += "A data " + d + " ja foi criada\n";
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " ja foi criada; ";
 
-                        break;
+                        
                     }
 
                 }
 
-                fraseRetorno += "A data " + d + " foi criada com sucesso\n";
+                
 
             } else {
 
@@ -326,11 +328,11 @@ public class AdminController {
 
                         } while (d.getMonth() + 1 != 1);
 
-                        fraseRetorno += "A data " + d + " foi criada com sucesso\n";
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " foi criada com sucesso; ";
 
                     } else {
-                        fraseRetorno += "A data " + d + " ja foi criada\n";
-                        break;
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " ja foi criada; ";
+                        
                     }
 
                 }

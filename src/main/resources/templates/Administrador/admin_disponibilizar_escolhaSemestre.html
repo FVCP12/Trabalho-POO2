@@ -21,17 +21,17 @@
                     <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
                     <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
                 </div>
-                <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"
+                <div class="col-1" >
+                    <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
                        style="top: 1%;position: relative">Sair</a>
                 </div>
             </div>
 
         </div>
-        <div style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
-            <div style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
+        <div  style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
+            <div id="op" style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
                  border-top-right-radius: 4px
-                 ;text-align: center">
+                 ;text-align: center;display: block">
 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
@@ -101,15 +101,21 @@
                                     <option value="2">
                                         Segundo semestre
                                     </option >
-                                    
+
                                 </select>
-                                        
+
                             </p>
-                            
+
                             <div style="margin: 2px;margin-left: 23%">      
-                                <button name="escolher" type="submit">OK</button> 
-                                <button name="apagar" type="reset">Apagar</button>
+                                <button onclick="mostrar('Teste','op')" name="escolher" type="submit">OK</button> 
+                                
                             </div>
+
+                            <div id="Teste" style="margin: 2px;margin-left: 23%;display: none">      
+                                <progress></progress>
+                                <label>Isso pode demorar um pouco, aguarde....</label>
+                            </div>
+
                         </div>
                     </form>      
                 </div>
@@ -118,5 +124,30 @@
 
             </div>
         </div>
+
+
+        <script type="text/javascript">
+
+            var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+            
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>     
+
     </body>
 </html>
