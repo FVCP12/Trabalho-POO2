@@ -200,11 +200,11 @@ public class AdminController {
 
             if (semestre.equals("1")) {
 
-                Date d = new Date(ano + "/01/01");
-                Calendar c = Calendar.getInstance();
-
                 for (Laboratorio l : labs) {
 
+                Date d = new Date(ano + "/01/01");
+                Calendar c = Calendar.getInstance();
+                    
                     if (reservasDao.verificarExiste(l, d)) {//quando nao existe no banco e pode inserir
 
                         do {
@@ -213,7 +213,7 @@ public class AdminController {
                             for (int i = 0; i < 6; i++) {
                                 s[i] = new Status();
                                 s[i].setDescricaoChave(cha);
-                                s[i].setSituação(false);
+                                s[i].setSituacao(false);
 
                                 switch (i) {
                                     case 0:
@@ -229,10 +229,10 @@ public class AdminController {
                                         s[i].setHorario("2º horario tarde");
                                         break;
                                     case 4:
-                                        s[i].setHorario("1º horario tarde");
+                                        s[i].setHorario("1º horario noite");
                                         break;
                                     case 5:
-                                        s[i].setHorario("2º horario tarde");
+                                        s[i].setHorario("2º horario noite");
                                         break;
                                     default:
                                         System.out.println("erro");
@@ -271,11 +271,11 @@ public class AdminController {
 
             } else {
 
-                Date d = new Date(ano + "/07/01");
-                Calendar c = Calendar.getInstance();
-
                 for (Laboratorio l : labs) {
 
+                    Date d = new Date(ano + "/07/01");
+                    Calendar c = Calendar.getInstance();
+                    
                     if (reservasDao.verificarExiste(l, d)) {//quando nao existe no banco e pode inserir
 
                         do {
@@ -284,7 +284,7 @@ public class AdminController {
                             for (int i = 0; i < 6; i++) {
                                 s[i] = new Status();
                                 s[i].setDescricaoChave(cha);
-                                s[i].setSituação(false);
+                                s[i].setSituacao(false);
 
                                 switch (i) {
                                     case 0:
@@ -300,10 +300,10 @@ public class AdminController {
                                         s[i].setHorario("2º horario tarde");
                                         break;
                                     case 4:
-                                        s[i].setHorario("1º horario tarde");
+                                        s[i].setHorario("1º horario noite");
                                         break;
                                     case 5:
-                                        s[i].setHorario("2º horario tarde");
+                                        s[i].setHorario("2º horario noite");
                                         break;
                                     default:
                                         System.out.println("erro");
@@ -345,5 +345,74 @@ public class AdminController {
 
         return "Administrador/adminIni";
     }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Administrador/admin_exibirReservas_solicitar")
+    public String ExibirReservasSolicitar(
+           @RequestParam(value = "fun") long idFun,
+            Model model
+    ){
+    
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", new Funcionarios());
+        
+        
+        return "/Administrador/admin_exibirReservas_solicitar";
+    }
+    
+    @PostMapping("/BuscaReservas")
+    public String buscando(
+          @RequestParam(value = "fun") long idFun,
+          @ModelAttribute Funcionarios aux,
+          Model model  
+    ){
+ 
+         model.addAttribute("aux", aux);
+         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        
+         String dataInicio = aux.getNomeFuncionario()+"-01";
+         dataInicio = dataInicio.replaceAll("-","/");
+         
+         Date d1 = new Date(dataInicio);//inicio
+         Calendar c = Calendar.getInstance();
+         c.setTime(d1);
+         c.add(Calendar.MONTH, 1);
+         Date d2 = c.getTime();//fim
+          
+        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
+        
+        model.addAttribute("reservas",reservas);
+        //apagar abaixo
+        model.addAttribute("d",d1);
+        
+        if(reservas.isEmpty()){
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+        
+        
+        
+        return "/Administrador/admin_exibirReservas_exibindo";
+    }
+    
+    
+    @GetMapping("/Administrador/admin_exibirReservas_exibindo")
+    public String exibindoReservas(
+       //@ModelAttribute Funcionarios aux,
+       @ModelAttribute Funcionarios user,
+       @ModelAttribute List<Reservas> reservas,
+       @ModelAttribute Date d,
+       Model model
+    ){
+      
+        
+        
+       
+        model.addAttribute("d",d);
+        //model.addAttribute("aux", aux);
+        model.addAttribute("aux", new Funcionarios());
+        model.addAttribute("user", user);
+        model.addAttribute("reservas",reservas);
+        
+        return "/Administrador/admin_exibirReservas_exibindo";
+    }
+    
 }

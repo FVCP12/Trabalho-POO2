@@ -12,7 +12,7 @@ public class Status {
     private long Cod_status;
     
     @Column
-    private boolean situação; //0 para disponivel \ 1 para reservado
+    private boolean situacao; //0 para disponivel \ 1 para reservado
 
     @ManyToOne
     private Funcionarios professor;
@@ -99,14 +99,14 @@ public class Status {
     /**
      * @return the situação
      */
-    public boolean isSituação() {
-        return situação;
+    public boolean isSituacao() {
+        return situacao;
     }
 
     /**
      * @param situação the situação to set
      */
-    public void setSituação(boolean situação) {
-        this.situação = situação;
+    public void setSituacao(boolean situação) {
+        this.situacao = situação;
     }
 }

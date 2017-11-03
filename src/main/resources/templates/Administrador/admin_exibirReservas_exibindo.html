@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-1">
                     <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
-                       style="top: 1%;position: relative">Sair</a>
+                       style="margin: 10%;position: relative">Sair</a>
                 </div>
             </div>
 
@@ -67,48 +67,83 @@
                     <p style="text-align: left"><h3>Reservas:</h3></p>
                     <div style= "background-color: #f7ba5e;">
                         <p style="margin: 1px;margin-left: 5px;text-align: center">
-                         <a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}">    
-                            Exibir 
-                         </a>   
+                            <a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}">    
+                                Exibir 
+                            </a>   
                         </p>
                     </div>
                     <div style= "background-color: #f7ba5e;">
                         <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">    
-                            Disponibilizar 
-                        </a>                            
+                            <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">    
+                                Disponibilizar 
+                            </a>                            
                         </p>
                     </div>                
                 </div>
 
             </div>
-            <div  class="container" style="float:left;
-                  position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
-                <div style="margin-left: 2%">
-                    <span><h3>Criando Novo Laboratorio:</h3></span>
-                    <br/>
-                    <br/>
-                    <form action="#" th:action="@{'/AdicionandoLab?fun='+${user.Cod_funcio}}"
-                          th:object="${lab}" method="post">
+            <div class="container" style="float:left;position: relative;
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+
+                <form action="#" th:action="@{'/BuscaReservas?fun='+${user.Cod_funcio}}" 
+                      th:object="${aux}" method="post" >
+                    <p><h3>Busca de Reservas</h3></p>
+                    <p>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
+                        <input type="month" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
+                    </div>
+                    </p> 
+                    <p>  
+                        <button type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
+                    </p>
+
+                </form>  
+
+                <table class="table table-bordered table-dark">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">Dia</th>
+                            <th scope="col">1º horario manha</th>
+                            <th scope="col">2º horario manha</th>
+                            <th scope="col">1º horario tarde</th>
+                            <th scope="col">2º horario tarde</th>
+                            <th scope="col">1º horario noite</th>
+                            <th scope="col">2º horario noite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva : ${reservas}" >
+                  
+
+                        <td th:if="${reserva.dataReserva.getDate()} == ${d.getDate()}" colspan="7" th:text="${reserva.laboratorio.nomeLab}"></td>
+
+                        <tr>
+                            <td th:text="${reserva.dataReserva}"></td>
+                            <td class="text-success" th:if="${reserva.status[0].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
+                            <td class="text-success" th:if="${reserva.status[1].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
+                            <td class="text-success" th:if="${reserva.status[2].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
+                            <td class="text-success" th:if="${reserva.status[3].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
+                            <td class="text-success" th:if="${reserva.status[4].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
+                            <td class="text-success" th:if="${reserva.status[5].situacao == false}">disponivel</td>
+                            <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
+                        </tr>
+
+                   
+                    
+                    </tr>
+                    </tbody>
+                </table>
 
 
-                        <label>Nome do Laboratorio:</label><br/>
-                        <input type="text" th:field="*{nomeLab}"/>
-                        <br/>
-                        <label>Andar:</label><br/>
-                        <input type="text" th:field="*{andar}"/>
-                        <br/>
-                        <label>Descrição:</label><br/>
-                        <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
-                        <br/><br/>
-                        <div style="margin-bottom: 1%">
-                            <button name="criar" type="submit">Criar</button> 
-                            <button name="apagar" type="reset">Apagar</button> 
-                        </div>
-
-                    </form>
-
-                </div>
+                <p th:text="${messagem}"></p>
 
             </div>
         </div>
