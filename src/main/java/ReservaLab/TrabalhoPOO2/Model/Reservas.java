@@ -19,7 +19,7 @@ public class Reservas {
 
     @ManyToMany
     @OrderColumn
-    private Status[] status = new Status[6];//em ordem manha primeiro horario 1
+    private StatusLab[] status = new StatusLab[6];//em ordem manha primeiro horario 1
 
     /**
      * @return the Cod_reservas
@@ -66,14 +66,14 @@ public class Reservas {
     /**
      * @return the status
      */
-    public Status[] getStatus() {
+    public StatusLab[] getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(Status[] status) {
+    public void setStatus(StatusLab[] status) {
         this.status = status;
     }
 

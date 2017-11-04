@@ -209,9 +209,9 @@ public class AdminController {
 
                         do {
 
-                            Status[] s = new Status[6];
+                            StatusLab[] s = new StatusLab[6];
                             for (int i = 0; i < 6; i++) {
-                                s[i] = new Status();
+                                s[i] = new StatusLab();
                                 s[i].setDescricaoChave(cha);
                                 s[i].setSituacao(false);
 
@@ -280,9 +280,9 @@ public class AdminController {
 
                         do {
 
-                            Status[] s = new Status[6];
+                            StatusLab[] s = new StatusLab[6];
                             for (int i = 0; i < 6; i++) {
-                                s[i] = new Status();
+                                s[i] = new StatusLab();
                                 s[i].setDescricaoChave(cha);
                                 s[i].setSituacao(false);
 

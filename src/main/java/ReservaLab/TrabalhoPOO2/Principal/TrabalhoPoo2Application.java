@@ -1,6 +1,8 @@
 package ReservaLab.TrabalhoPOO2.Principal;
-
+import ReservaLab.TrabalhoPOO2.DAO.LaboratorioDao;
 import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
+import ReservaLab.TrabalhoPOO2.Model.Laboratorio;
+import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -15,4 +17,5 @@ public class TrabalhoPoo2Application {
         ConfigurableApplicationContext context
                 = SpringApplication.run(TrabalhoPoo2Application.class);
     }
+    
 }

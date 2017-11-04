@@ -1,5 +1,6 @@
 package ReservaLab.TrabalhoPOO2.DAO;
 
+import ReservaLab.TrabalhoPOO2.Model.StatusLab;
 import java.util.*;
 import ReservaLab.TrabalhoPOO2.Model.*;
 import org.hibernate.Session;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 @Transactional
-public class StatusDao extends Generica<Status> {
+public class StatusDao extends Generica<StatusLab> {
     
     @Autowired
     private SessionFactory sessionFactory;

@@ -18,4 +18,11 @@ public class LaboratorioDao extends Generica<Laboratorio>{
     protected Session getSession() {
         return sessionFactory.getCurrentSession();
     }
+    
+    @SuppressWarnings("unchecked")
+        public Laboratorio pegarpordata(Date data){
+        List<Laboratorio> Pegarpordata=getSession().createQuery(" from Laboratorio a Reservas b where not existis( select b.laboratorio where b.datareserva =:data)").setParameter("data",data).list();
+        return Pegarpordata.get(0);
+        }
+        
 }
