@@ -10,82 +10,159 @@
         <title>Admin</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" href="favicon.ico"/>
+        
+        <style>
+            
+        * {
+        margin:0;
+        padding:0;
+        }
+      
+    header{
+        width: 100%;
+        height: 50px;
+        top:0;
+        left:0;
+        background-color: darkorange;
+        position: fixed;
+        }
+        
+        .menu-icon{
+            
+        position: fixed;
+        font-size: 25px;
+        font-weight: bold;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        text-align:center;
+        background-color:#5b859a;
+        color: #fff;
+        cursor: pointer;
+        transition: all .4s;
+        left: 200px;
+        top:0;
+        
+        }
+        
+        .menu-icon:houver{
+            background-color: #fff;
+            color:#5b859a;
+        }
+        
+            
+        
+    #chk{
+        position: absolute;
+        
+    }
+
+    .menu{
+        height: 100%;
+        position: fixed;
+        background-color: darkorange;
+        top:0;
+        overflow: hidden;
+        transition: all .2s;
+        
+    }
+    #principal{
+        width: 300px;
+    }
+    
+     
+    ul{
+        list-style: none;
+    }
+        
+    ul li a{
+        display: block;
+        font-size: 18px;
+        font-family: 'Arial';
+        padding: 10px;
+        border-bottom: solid 1px #fff;
+        color: #ccc;
+        text-decoration: none;
+        transition: all .2s;
+    
+    }
+    
+    ul li a:houver{
+        background-color: #ff6600;
+    }
+    
+    .icone{
+        margin-top: 60px;
+        background-color: darkorange;
+    }
+    
+    .bg{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: fixed;
+        background-color: rgba(0,0,0,.6);
+        display: none;
+    }
+    
+    
+    #chk:checked ~.bg{
+        display: block;
+    }
+    
+    #chk:checked ~ #principal{
+        transform: translateX(300px);
+    }
+    
+    
+    .container{
+        position: relative;
+        top: 80px; /**/
+        left: 350px;
+        width: 290px;
+        height: 550px
+    }
+    
+    .btn{
+        font-family: arial;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+    .btn-primary{
+        background: #ccc;
+        color:#fff;
+        box-shadow: 0 5px 0 gray;        
+    }
+    
+    .btn-primary:houver{
+        background: gray;
+        color:#fff;
+        box-shadow: 0 5px 0 darkgray;        
+    }
+    
+    .btn-primary:active{
+        position:relative;
+        top: 5px;
+        box-shadow: 0 5px 0 darkgray;        
+    }
+    
+        </style>      
+    
     </head>
-    <body style="background-color: #d7d6d4">
-
-        <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
-              background-color: #ffffff">
-
-            <div class="row">
-                <div class="col-11">
-                    <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
-                    <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
-                </div>
-                <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
-                       style="top: 1%;position: relative">Sair</a>
-                </div>
-            </div>
-
-        </div>
-        <div style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
-            <div id="op" style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
-                 border-top-right-radius: 4px
-                 ;text-align: center;display: block">
-
-                <div style="border-bottom: solid 2px black;margin: 1px">
-                    <p style="text-align: left"><h3>Pesquisar:</h3></p>
-
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}">
-                                Laboratorios
-                            </a>
-                        </p>
-                    </div>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
-                    </div>
-                </div>
-
-                <div style="border-bottom: solid 2px black;">
-                    <p style="text-align: left"><h3>Adicionar:</h3></p>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Administrador/admin_add_lab?fun='+${user.Cod_funcio}}">
-                                Laboratorios
-                            </a></p>
-                    </div>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
-                    </div>
-
-                </div>
-
-
-                <div style="border-bottom: solid 2px black;">
-                    <p style="text-align: left"><h3>Reservas:</h3></p>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                         <a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}">    
-                            Exibir 
-                         </a>   
-                        </p>
-                    </div>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">    
-                                Disponibilizar 
-                            </a>                            
-                        </p>
-                    </div>                
-                </div>
-
-            </div>
-            <div class="container" style="float:left;position: relative;
+    
+    <body style="background-color: #ffffff">
+        <header><center><p><h3 th:text="${user.funcao.nomeFuncao}+ ' ' +${user.nomeFuncionario}" /></p></center></header>
+                    
+<div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                <span><h3>Lista de Laboratorios</h3></span>
+                <span><h3><center>Lista de Laboratórios Cadastrados</center></h3></span>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -105,18 +182,13 @@
                                 </textarea>
                             </td>
 
-                            <td>
-                                <a onclick="mostrar('Teste','op')" th:href="@{'/Administrador/admin_lab_apargar'
-                                       (fun=${user.Cod_funcio},lab=${lab.cod_labor})}"
-                                       class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                            <td><button>
+                                    <a onclick="mostrar('Teste','op')" th:href="@{'/Administrador/admin_lab_apargar'
+                                       (fun=${user.Cod_funcio},lab=${lab.cod_labor})}">
                                         Deletar
                                     </a>
-                               </td>
-                            <td><a th:href="@{'/Administrador/admin_altera_lab'
-                                       (fun=${user.Cod_funcio},ilab=${lab.cod_labor})}"
-                                class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                    Alterar
-                                </a></td>
+                                </button></td>
+                            <td><button><a href="#">Alterar</a></button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -130,8 +202,6 @@
 
                 <label th:text="${menssagem}"></label>
             </div>
-        </div>
-
 
         <script type="text/javascript">
 
@@ -156,5 +226,18 @@
 
         </script>
 
+    <nav class="menu" id="principal">
+            <ul>
+                <li><img width="300" height="50" src="../logo.jpg" /></li>       
+                <li><a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}" class="pesquisar">Pesquisar Laboratórios</a></li>
+                <li><a th:href="@{'/Administrador/admin_add_lab?fun='+${user.Cod_funcio}}">Adicionar Laboratórios</a></li>
+                <li><a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">Disponibilizar por Ano</a></li>
+                <li><a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}">Buscar e Exibir Reservas</a></li>
+                                
+                <a href="/logar" class="btn btn-primary" role="button" aria-pressed="true"
+                       style="position: relative; top: 30px; left:110px; background-color: darkgray">Sair</a>
+                
+            </ul>
+        </nav>        
     </body>
 </html>
