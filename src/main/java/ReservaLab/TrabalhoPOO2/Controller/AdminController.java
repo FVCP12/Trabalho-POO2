@@ -393,7 +393,7 @@ public class AdminController {
         return "/Administrador/admin_exibirReservas_exibindo";
     }
     
-    
+//////////////////////////////////////////////////////////////////////////////////////////////    
     @GetMapping("/Administrador/admin_exibirReservas_exibindo")
     public String exibindoReservas(
        //@ModelAttribute Funcionarios aux,
@@ -414,5 +414,47 @@ public class AdminController {
         
         return "/Administrador/admin_exibirReservas_exibindo";
     }
+ ////////////////////////////////////////////////////////////////////////////////
     
+ @GetMapping("/Administrador/admin_altera_lab")
+ public String alteraLab(
+         @RequestParam(value = "fun") long idFun,
+         @RequestParam(value = "ilab") long ilab,
+         Model model
+ ){
+ 
+     model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+     model.addAttribute("lab", laboratorioDao.buscaId(Laboratorio.class, ilab));
+     
+     
+     return "/Administrador/admin_altera_lab";
+ }
+ //////////////////////////////////////////////////////////////////////////////////////////
+   @PostMapping("/AlterandoLab")
+    public String AlterandoLab(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Laboratorio laboratorio,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("lab", laboratorio);
+
+        try {
+            laboratorioDao.atualizar(laboratorio);
+
+            model.addAttribute("menssagem", "Laboratorio alterado com sucesso");
+
+        } catch (Exception e) {
+            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel alterar o laboratorio !!!!!");
+        }
+
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        
+        
+        return "Administrador/admin_lista_lab";
+    }
+ 
 }
