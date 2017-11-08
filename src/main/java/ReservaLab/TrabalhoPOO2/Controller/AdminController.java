@@ -456,5 +456,34 @@ public class AdminController {
         
         return "Administrador/admin_lista_lab";
     }
- 
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Administrador/admin_lista_funcionario")
+    public String listaProfessor(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ){
+        
+        List<Funcionarios> funcionarios = new ArrayList<Funcionarios>();
+        
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        
+       
+        try{
+        
+            funcionarios = funcionariosDao.PegarTodos(Funcionarios.class);
+            
+            if(funcionarios.isEmpty()){                
+                model.addAttribute("menssagem","Não existem funcionarios cadastrados!");
+            }
+            
+        }catch(Exception e){
+            
+            model.addAttribute("menssagem","Erro ao buscar os dados do servidor!!!");
+        }
+        
+        model.addAttribute("funs", funcionarios);
+        
+        
+        return "/Administrador/admin_lista_funcionario";
+    }
 }

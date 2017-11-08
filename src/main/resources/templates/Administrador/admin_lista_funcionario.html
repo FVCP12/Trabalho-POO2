@@ -33,7 +33,7 @@
         <div class="row" >
 
             <div style="float:left;
-                 text-align: center;">
+                 text-align: center;" id="op">
 
 
 
@@ -178,35 +178,74 @@
 
 
             </div>
-            <div  class="container" style="float:left;
-                  position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
-                <div style="margin-left: 2%">
-                    <span><h3>Criando Novo Laboratorio:</h3></span>
-                    <br/>
-                    <br/>
-                    <form action="#" th:action="@{'/AdicionandoLab?fun='+${user.Cod_funcio}}"
-                          th:object="${lab}" method="post">
+
+            <div class="container" style="float:left;position: relative;
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+
+                <span><h3>Lista de Funcionarios</h3></span>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome do Funcionario</th>
+                            <th scope="col">Registro Academico</th>
+                            <th scope="col">Função</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="fun : ${funs}">
+
+                            <td th:text="${fun.nomeFuncionario}"></td>
+                            <td th:text="${fun.ra}"></td>
+                            <td th:text="${fun.funcao.nomeFuncao}"></td>
+
+                            <td>
+                                <a onclick="mostrar('Teste','op')" href="#"
+                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                                    Deletar
+                                </a>
+                            </td>
+                            <td><a href="#"
+                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                                    Alterar
+                                </a></td>
+                        </tr>
+                    </tbody>
+                </table>
 
 
-                        <label>Nome do Laboratorio:</label><br/>
-                        <input type="text" th:field="*{nomeLab}"/>
-                        <br/>
-                        <label>Andar:</label><br/>
-                        <input type="text" th:field="*{andar}"/>
-                        <br/>
-                        <label>Descrição:</label><br/>
-                        <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
-                        <br/><br/>
-                        <div style="margin-bottom: 1%">
-                            <button class="btn btn-warning btn-sm" name="criar" type="submit">Criar</button> 
-                            <button class="btn btn-warning btn-sm" name="apagar" type="reset">Apagar</button> 
-                        </div>
-
-                    </form>
-
+                <div id="Teste" style="margin: 2px;margin-left: 23%;display: none">      
+                    <p>Apagando reservas relacionadas</p>
+                    <progress></progress> 
+                    <label>Isso pode demorar um pouco, aguarde....</label>
                 </div>
 
+                <label th:text="${menssagem}"></label>
             </div>
         </div>
+
+
+        <script type="text/javascript">
+
+            var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>
+
     </body>
 </html>
