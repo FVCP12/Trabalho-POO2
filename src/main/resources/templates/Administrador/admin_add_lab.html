@@ -7,167 +7,184 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"/>
+
         <title>Admin</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
-        <link rel="shortcut icon" href="favicon.ico"/>
-        
-        <style>
-            
-        * {
-        margin:0;
-        padding:0;
-        }
-      
-    header{
-        width: 100%;
-        height: 50px;
-        top:0;
-        left:0;
-        background-color: darkorange;
-        position: fixed;
-        }
-        
-        .menu-icon{
-            
-        position: fixed;
-        font-size: 25px;
-        font-weight: bold;
-        padding: 5px;
-        width: 40px;
-        height: 40px;
-        text-align:center;
-        background-color:#5b859a;
-        color: #fff;
-        cursor: pointer;
-        transition: all .4s;
-        left: 200px;
-        top:0;
-        
-        }
-        
-        .menu-icon:houver{
-            background-color: #fff;
-            color:#5b859a;
-        }
-        
-            
-        
-    #chk{
-        position: absolute;
-        
-    }
-
-    .menu{
-        height: 100%;
-        position: fixed;
-        background-color: darkorange;
-        top:0;
-        overflow: hidden;
-        transition: all .2s;
-        
-    }
-    #principal{
-        width: 300px;
-    }
-    
-     
-    ul{
-        list-style: none;
-    }
-        
-    ul li a{
-        display: block;
-        font-size: 18px;
-        font-family: 'Arial';
-        padding: 10px;
-        border-bottom: solid 1px #fff;
-        color: #ccc;
-        text-decoration: none;
-        transition: all .2s;
-    
-    }
-    
-    ul li a:houver{
-        background-color: #ff6600;
-    }
-    
-    .icone{
-        margin-top: 60px;
-        background-color: darkorange;
-    }
-    
-    .bg{
-        width: 100%;
-        height: 100%;
-        left: 0;
-        top: 0;
-        position: fixed;
-        background-color: rgba(0,0,0,.6);
-        display: none;
-    }
-    
-    
-    #chk:checked ~.bg{
-        display: block;
-    }
-    
-    #chk:checked ~ #principal{
-        transform: translateX(300px);
-    }
-    
-    
-    .container{
-        position: relative;
-        top: 80px; /**/
-        left: 350px;
-        width: 290px;
-        height: 550px
-    }
-    
-    .btn{
-        font-family: arial;
-        font-size: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-    }
-    .btn-primary{
-        background: #ccc;
-        color:#fff;
-        box-shadow: 0 5px 0 gray;        
-    }
-    
-    .btn-primary:houver{
-        background: gray;
-        color:#fff;
-        box-shadow: 0 5px 0 darkgray;        
-    }
-    
-    .btn-primary:active{
-        position:relative;
-        top: 5px;
-        box-shadow: 0 5px 0 darkgray;        
-    }
-    
-        </style>      
-    
     </head>
-    
     <body style="background-color: #ffffff">
-        <header><center><p><h3 th:text="${user.funcao.nomeFuncao}+ ' ' +${user.nomeFuncionario}" /></p></center></header>
-                    
-<div  class="container" style="float:left;
+
+        <div  style="background-color: #ff6600" id="list-item-1">
+
+            <div class="row">
+                <div class="col-3">
+                    <img style="width: 172px;height: 120px"   src="/logoPitagoras.jpg"/> 
+                </div>
+                <div class="col-9">
+                    <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
+                    <p><h4>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h4></p> 
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row" >
+
+            <div style="float:left;
+                 text-align: center;">
+
+
+
+                <div id="accordion" role="tablist">
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Listar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Laboratorios
+
+                                    </a>
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne1">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Pesquisar&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    Laboratorios
+ 
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Adicionar&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_add_lab?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Laboratorios
+                                    </a></p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingThree">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Reservas &nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Exibir 
+                                    </a>   
+                                </p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Disponibilizar 
+                                    </a>                            
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 2%">                
+                    <a href="/logar" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative">Sair</a>
+
+                    <a href="" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative">?</a>
+
+                </div>  
+
+
+                <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
+
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo</p></a>
+
+                </div>
+
+
+            </div>
+            <div  class="container" style="float:left;
                   position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
                 <div style="margin-left: 2%">
-                    <span><center><h3>Criando Novo Laboratorio:</h3></center></span>
+                    <span><h3>Criando Novo Laboratorio:</h3></span>
+                    <br/>
                     <br/>
                     <form action="#" th:action="@{'/AdicionandoLab?fun='+${user.Cod_funcio}}"
                           th:object="${lab}" method="post">
 
-                        <label>Nome do Laboratório:</label><br/>
+
+                        <label>Nome do Laboratorio:</label><br/>
                         <input type="text" th:field="*{nomeLab}"/>
                         <br/>
                         <label>Andar:</label><br/>
@@ -177,8 +194,8 @@
                         <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
                         <br/><br/>
                         <div style="margin-bottom: 1%">
-                            <button class="btn btn-primary" name="criar" type="submit">Criar</button> 
-                            <button class="btn btn-primary" name="apagar" type="reset">Apagar</button> 
+                            <button class="btn btn-warning btn-sm" name="criar" type="submit">Criar</button> 
+                            <button class="btn btn-warning btn-sm" name="apagar" type="reset">Apagar</button> 
                         </div>
 
                     </form>
@@ -186,18 +203,6 @@
                 </div>
 
             </div>
-    <nav class="menu" id="principal">
-            <ul>
-                <li><img width="300" height="50" src="../logo.jpg" /></li>       
-                <li><a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}" class="pesquisar">Pesquisar Laboratórios</a></li>
-                <li><a th:href="@{'/Administrador/admin_add_lab?fun='+${user.Cod_funcio}}">Adicionar Laboratórios</a></li>
-                <li><a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}">Disponibilizar por Ano</a></li>
-                <li><a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}">Buscar e Exibir Reservas</a></li>
-                
-                <a href="/logar" class="btn btn-primary" role="button" aria-pressed="true"
-                       style="position: relative; top: 30px; left:110px; background-color: darkgray">Sair</a>
-                
-            </ul>
-        </nav>        
+        </div>
     </body>
 </html>
