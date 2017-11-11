@@ -440,14 +440,7 @@ public class AdminController {
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("lab", laboratorio);
 
-        try {
-            laboratorioDao.atualizar(laboratorio);
-
-            model.addAttribute("menssagem", "Laboratorio alterado com sucesso");
-
-        } catch (Exception e) {
-            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel alterar o laboratorio !!!!!");
-        }
+       
 
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
 

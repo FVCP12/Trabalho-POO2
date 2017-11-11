@@ -112,41 +112,50 @@
                 <tbody>
                     <tr th:each="reserva : ${reservas}" >
 
-
                         <td th:if="${reserva.dataReserva.getDate()} == ${d.getDate()}" colspan="7" th:text="${reserva.laboratorio.nomeLab}"></td>
 
                     <tr>
-                <form action="#" th:action="@{'/AdicionandoReserva?fun='+${user.Cod_funcio}}" 
-                      th:object="${status}" method="post">
-                    <td th:text="${reserva.dataReserva}"></td>
-                    <td class="text-success" th:if="${reserva.status[0].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
-                    <td class="text-success" th:if="${reserva.status[1].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
-                    <td class="text-success" th:if="${reserva.status[2].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
-                    <td class="text-success" th:if="${reserva.status[3].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
-                    <td class="text-success" th:if="${reserva.status[4].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
-                    <td class="text-success" th:if="${reserva.status[5].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                    <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
+                        <td th:text="${reserva.dataReserva}"></td>
+                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
 
 
-                </form>
-                </tr>
+                        <!--
+                        <td th:text="${reserva.dataReserva}"></td>
+                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
+                        <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
+                        <td><button name="salvar" type="submit">Salvar</button></td>
 
+                        -->
+                    </tr>
+                    </tr>
 
-
-                </tr>
                 </tbody>
             </table>
-            <button name="salvar" type="submit">Salvar</button>
 
             <p th:text="${messagem}"></p>
 
         </div>
-
 
     </body>
 </html>

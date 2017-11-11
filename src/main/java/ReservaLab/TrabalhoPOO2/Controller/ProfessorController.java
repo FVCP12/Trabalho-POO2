@@ -38,7 +38,6 @@ public class ProfessorController {
 
     @Autowired
     StatusDao statusDao;
-
 ////////////////////////////////////////////////////////////////////////////////////
 
     
@@ -64,6 +63,8 @@ public class ProfessorController {
         return "/Professor/prof_reserva";
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
      @GetMapping("/Professor/solicitarlab")
     public String ExibirReservasSolicitar(
            @RequestParam(value = "fun") long idFun,
@@ -77,6 +78,7 @@ public class ProfessorController {
         return "/Professor/exibirlabteste";
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @PostMapping("/BuscaReservas1")
     public String buscando(
           @RequestParam(value = "fun") long idFun,
@@ -105,12 +107,10 @@ public class ProfessorController {
         if(reservas.isEmpty()){
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
         }
-        
-        
-        
+   
         return "/Professor/exibirlabteste";
     }
-    
+    ////////////////////////////////////////////////////////////////////////////////////////////////
     
     @GetMapping("/Professor/exibirlabteste")
     public String exibindoReservas(
@@ -118,42 +118,85 @@ public class ProfessorController {
        @ModelAttribute Funcionarios user,
        @ModelAttribute List<Reservas> reservas,
        @ModelAttribute Date d,
+       @ModelAttribute StatusLab status,
        Model model
     ){
-      
-        
-        
        
         model.addAttribute("d",d);
-        //model.addAttribute("aux", aux);
+        model.addAttribute("status",status);
         model.addAttribute("aux", new Funcionarios());
         model.addAttribute("user", user);
         model.addAttribute("reservas",reservas);
+       
         
         return "/Professor/exibirlabteste";
     }
     
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
-    @PostMapping("/AdicionandoReserva")
+    @GetMapping("/Professor/paginademerda")
     public String AdicionandoReserva(
             @RequestParam(value = "fun") long idFun,
-            @ModelAttribute Laboratorio laboratorio,
+            @RequestParam(value = "stat") long idstatus,
+            @RequestParam(value = "cod") long codigo,
+            @RequestParam(value = "codlab") long codlab,
+            @ModelAttribute Laboratorio lab,
+            @ModelAttribute Reservas reserva,
+            Model model
+    ) {     
+          
+        
+            model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+            model.addAttribute("status",statusDao.buscaId(StatusLab.class, idstatus));
+            lab=laboratorioDao.buscaId(Laboratorio.class, codlab);
+            reserva=reservasDao.buscaId(Reservas.class, codigo);
+            model.addAttribute("lab",lab);
+            model.addAttribute("codigo",codigo);
+            model.addAttribute("reserva",reserva);
+            
+
+        return "/Professor/paginademerda";
+    }
+    
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    @GetMapping("/Professor/reservaadicionada")
+    public String Reservaadicionada(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "stat") long idstatus,
+            @RequestParam(value = "cod") long codigo,
+            @ModelAttribute Reservas reserva,
             @ModelAttribute StatusLab status,
+            @ModelAttribute Funcionarios user,
+            
             Model model
     ) {
             model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-            model.addAttribute("status", status);
-        try {
+            model.addAttribute("status",statusDao.buscaId(StatusLab.class, idstatus));
+            model.addAttribute("codigo",codigo);
+            
+            Date data = new Date(System.currentTimeMillis());
+            
+            reserva=reservasDao.buscaId(Reservas.class, codigo);
+            status=statusDao.buscaId(StatusLab.class, idstatus);
+            user= funcionariosDao.buscaId(Funcionarios.class, idFun);
+            status.setSituacao(true);                    
+            status.setProfessor(user);
+            status.setDataOperacao(data);
+            reserva.enabled= true;
+            
+         try {
+            reservasDao.atualizar(reserva);
             
             statusDao.atualizar(status);
-
-            model.addAttribute("menssagem", "Reserva efetuada com sucesso");
+            
+            model.addAttribute("menssagem", "Laboratorio reservado com sucesso");
 
         } catch (Exception e) {
-            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel reservar !!!!!");
+            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel alterar o laboratorio !!!!!");
         }
-
-        return "Administrador/adminIni";
+            
+        return "/Professor/reservaadicionada";
     }
     
 }
