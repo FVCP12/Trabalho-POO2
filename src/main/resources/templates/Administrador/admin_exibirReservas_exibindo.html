@@ -217,7 +217,15 @@
                             <td th:if="${reserva.dataReserva.getDate()} == ${d.getDate()}" colspan="7" th:text="${reserva.laboratorio.nomeLab}"></td>
 
                         <tr>
-                            <td th:text="${reserva.dataReserva}"></td>
+
+                            <td th:if="${reserva.dataReserva.getDay() == 1}" data-toggle="tooltip" data-placement="right" title="Segunda-feira" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+                            <td th:if="${reserva.dataReserva.getDay() == 2}" data-toggle="tooltip" data-placement="right" title="Terça-feira" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+                            <td th:if="${reserva.dataReserva.getDay() == 3}" data-toggle="tooltip" data-placement="right" title="Quarta-feira" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+                            <td th:if="${reserva.dataReserva.getDay() == 4}" data-toggle="tooltip" data-placement="right" title="Quinta-feira" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+                            <td th:if="${reserva.dataReserva.getDay() == 5}" data-toggle="tooltip" data-placement="right" title="Sexta-feira" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+                            <td th:if="${reserva.dataReserva.getDay() == 6}" data-toggle="tooltip" data-placement="right" title="Sabado" th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}"></td>
+
+
                             <td class="text-success" th:if="${reserva.status[0].situacao == false}">disponivel</td>
                             <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
                             <td class="text-success" th:if="${reserva.status[1].situacao == false}">disponivel</td>
@@ -242,6 +250,14 @@
                 <p th:text="${messagem}"></p>
 
             </div>
+
         </div>
+
+        <script>
+            $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            })
+        </script>
+
     </body>
 </html>
