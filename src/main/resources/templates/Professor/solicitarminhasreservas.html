@@ -49,33 +49,33 @@
                         </p>
                     </div>
                 </div>
-        
+
 
             </div>
 
         </div>
-        
-                    <div class="container" style="float:left;position: relative;
-                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                <form action="#" th:action="@{'/BuscaReservas1?fun='+${user.Cod_funcio}}" 
-                      th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
-                    <p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                        <input type="month" class="form-control" placeholder="Username" 
+        <div class="container" style="float:left;position: relative;
+             margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+
+            <form action="#" th:action="@{'/BuscaminhasReservas?fun='+${user.Cod_funcio}}" 
+                  th:object="${aux}" method="post" >
+                <p><h3>Busca de Reservas</h3></p>
+                <p>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
+                    <input type="month" class="form-control" placeholder="Username" 
                            aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
-                    </div>
-                    </p> 
-                    <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
-                    </p>
+ 
+                </div>
+                </p> 
+                <p>  
+                    <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                </p>
 
-                </form>   
+            </form>   
 
-            </div>
-        
+        </div>
         
     </body>
 </html>

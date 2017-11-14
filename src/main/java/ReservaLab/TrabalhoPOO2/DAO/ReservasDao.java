@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ReservasDao extends Generica<Reservas> {
 
+    
     @Autowired
     private SessionFactory sessionFactory;
 
@@ -56,5 +57,33 @@ public class ReservasDao extends Generica<Reservas> {
         //left join fetch r.status s
       return reservas;
     }
+    
+        @SuppressWarnings("unchecked")
+    public List<Reservas> buscaPorDia(Date dia){
+    
+        List<Reservas> reservas = getSession().createQuery("from Reservas r "
+                + " where "
+                + "r.dataReserva =:dia order by r.laboratorio,r.dataReserva").
+                setParameter("dia",dia).list();
+        
+        //left join fetch r.status s
+      return reservas;
+    }
+    
+    
+   /* @SuppressWarnings("unchecked")
+    public List<Reservas> buscaPorMeseprof(Date inicio,Date fim, Funcionarios user){
+    
+        Funcionarios usuario = new Funcionarios();
+        usuario=user;
+        
+        List<Reservas> reservas = getSession().createQuery("from Reservas r "
+                + " where "
+                + "r.dataReserva >= :inicio and r.dataReserva < :fim and r. order by r.laboratorio,r.dataReserva").
+                setParameter("inicio",inicio).setParameter("fim", fim).list();
+        
+        //left join fetch r.status s
+      return reservas;
+    }*/
     
 }
