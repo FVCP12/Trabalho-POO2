@@ -121,7 +121,11 @@
                                         Laboratorios
                                     </a></p>
                                 <hr/>
-                                <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                   <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
+                                    Usuarios 
+                                   </a> 
+                                </p>
                             </div>
                         </div>
                     </div>

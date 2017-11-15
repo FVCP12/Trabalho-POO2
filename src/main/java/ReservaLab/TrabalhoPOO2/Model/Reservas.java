@@ -13,9 +13,9 @@ public class Reservas {
 
     @Temporal(TemporalType.DATE)
     private Date dataReserva;
-    
-    public Boolean enabled;
 
+   
+    
     @ManyToOne
     private Laboratorio laboratorio;
 
@@ -23,12 +23,9 @@ public class Reservas {
     @OrderColumn
     private StatusLab[] status = new StatusLab[6];//em ordem manha primeiro horario 1
 
-    public Reservas(){
-        for(int i = 0; i < this.status.length; i++){
-            this.status[i] = new StatusLab();
-        }
-    }
-    
+    /**
+     * @return the Cod_reservas
+     */
     public long getCod_reservas() {
         return Cod_reservas;
     }

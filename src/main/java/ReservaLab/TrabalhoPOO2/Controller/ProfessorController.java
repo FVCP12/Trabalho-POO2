@@ -5,6 +5,7 @@ import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
 import ReservaLab.TrabalhoPOO2.Model.Laboratorio;
 import ReservaLab.TrabalhoPOO2.Model.Reservas;
 import ReservaLab.TrabalhoPOO2.Model.StatusLab;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -74,7 +75,7 @@ public class ProfessorController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @PostMapping("/BuscaReservas1")
+   @PostMapping("/BuscaReservas1")
     public String buscando(
             @RequestParam(value = "fun") long idFun,
             @ModelAttribute Funcionarios aux,
@@ -105,6 +106,7 @@ public class ProfessorController {
 
         return "/Professor/exibirlabteste";
     }
+
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/Professor/exibirlabteste")
@@ -160,6 +162,7 @@ public class ProfessorController {
             @ModelAttribute Funcionarios user,
             Model model
     ) {
+
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("status", statusDao.buscaId(StatusLab.class, idstatus));
         model.addAttribute("codigo", codigo);
@@ -172,9 +175,8 @@ public class ProfessorController {
         status.setSituacao(true);
         status.setProfessor(user);
         status.setDataOperacao(data);
-        reserva.enabled = true;
-
-        try {
+        
+         try {
             reservasDao.atualizar(reserva);
 
             statusDao.atualizar(status);

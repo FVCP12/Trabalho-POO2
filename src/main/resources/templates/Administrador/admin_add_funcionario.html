@@ -124,7 +124,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                    <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
                                     Usuarios 
-                                   </a>
+                                   </a> 
                                 </p>
                             </div>
                         </div>
@@ -185,21 +185,31 @@
             <div  class="container" style="float:left;
                   position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
                 <div style="margin-left: 2%">
-                    <span><h3>Criando Novo Laboratorio:</h3></span>
+                    <span><h3>Criando Novo Usuario:</h3></span>
                     <br/>
                     <br/>
-                    <form action="#" th:action="@{'/AdicionandoLab?fun='+${user.Cod_funcio}}"
-                          th:object="${lab}" method="post">
+                    <form action="#" th:action="@{'/AdicionandoFunc?fun='+${user.Cod_funcio}}"
+                          th:object="${funcio}" method="post">
 
 
-                        <label>Nome do Laboratorio:</label><br/>
-                        <input type="text" th:field="*{nomeLab}"/>
+                        <label>Nome do Usuario:</label><br/>
+                        <input type="text" th:field="*{nomeFuncionario}"/>
                         <br/>
-                        <label>Andar:</label><br/>
-                        <input type="text" th:field="*{andar}"/>
+                        <label>Registro acadêmico:</label><br/>
+                        <input type="text" th:field="*{ra}"/>
                         <br/>
-                        <label>Descrição:</label><br/>
-                        <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
+                        <label>Senha:</label><br/>
+                        <input type="text" th:field="*{senha}"/>
+                        <br/>
+                        <label>Função:</label><br/>
+                        <select th:field="*{funcao.Cod_funcoes}">
+                            
+                            <option th:each="fun : ${funcoes}"
+                                    th:value="${fun.Cod_funcoes}"
+                                    th:text="${fun.nomeFuncao}"></option>
+                            
+                        </select> 
+                        
                         <br/><br/>
                         <div style="margin-bottom: 1%">
                             <button class="btn btn-warning btn-sm" name="criar" type="submit">Criar</button> 
