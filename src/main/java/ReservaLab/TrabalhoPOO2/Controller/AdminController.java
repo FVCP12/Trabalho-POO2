@@ -30,6 +30,9 @@ public class AdminController {
 
     @Autowired
     StatusDao statusDao;
+    
+    @Autowired
+    FuncaoDao funcaoDao;
 
 ////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/Administrador/admin_add_lab")
@@ -509,4 +512,59 @@ public class AdminController {
 
         return "/Administrador/admin_lista_funcionario";
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Administrador/admin_add_funcionario")
+    public String adicFuncio(
+       @RequestParam(value = "fun") long idFun,
+        Model model     
+    ){
+        
+        Funcionarios funcio = new Funcionarios();
+        Funcoes funcao = new Funcoes();
+        
+        funcio.setFuncao(funcao);
+        
+        List<Funcoes> funcoes = funcaoDao.PegarTodos(Funcoes.class);
+        
+        model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
+        
+        model.addAttribute("funcio", funcio);
+        
+        model.addAttribute("funcoes",funcoes);
+        
+        return "/Administrador/admin_add_funcionario";
+    }
+///////////////////////////////////////////////////////////////////////////////////    
+    @PostMapping("/AdicionandoFunc")
+    public String adicionadoFuncio(
+        @RequestParam(value = "fun") long idFun,
+        @ModelAttribute  Funcionarios funcio,
+        Model model 
+    ){
+        
+        model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
+        
+        model.addAttribute("funcio", funcio);
+        
+       
+        Funcoes f = funcaoDao.buscaId(Funcoes.class, funcio.getFuncao().getCod_funcoes());
+        
+        funcio.setFuncao(f);
+        
+        try{
+            
+            funcionariosDao.criar(funcio);
+            
+            model.addAttribute("menssagem", "Usuario criado com sucesso!!");
+            
+        }catch(Exception e){
+         
+            model.addAttribute("menssagem", "Erro ao criar o novo usuario!!");
+        }
+        
+  
+        
+        return "/Administrador/adminIni";
+    }
+    
 }
