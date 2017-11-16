@@ -28,4 +28,14 @@ public class FuncionariosDao extends Generica<Funcionarios> {
         return func.get(0);
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Funcionarios> podeReservarLab(){
+        
+        List<Funcionarios> funcio = getSession().createQuery("from Funcionarios a "+
+                " left join fetch a.funcao f where f.Cod_funcoes = 1 or f.Cod_funcoes = 2").list();
+        
+        return funcio;
+        
+    }
+    
 }

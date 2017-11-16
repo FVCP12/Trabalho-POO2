@@ -203,12 +203,12 @@
                             <td th:text="${fun.funcao.nomeFuncao}"></td>
 
                             <td>
-                                <a onclick="mostrar('Teste','op')" href="#"
+                                <a onclick="mostrar('Teste','op')" th:href="@{'/apagandoFuncionario'(fun=${user.Cod_funcio},excluir=${fun.Cod_funcio})}"
                                    class="btn btn-warning btn-sm " role="button" aria-disabled="true">
                                     Deletar
                                 </a>
                             </td>
-                            <td><a href="#"
+                            <td><a th:href="@{'/Administrador/admin_altera_funcionario'(fun=${user.Cod_funcio},idfunAlterar=${fun.Cod_funcio})}"
                                    class="btn btn-warning btn-sm " role="button" aria-disabled="true">
                                     Alterar
                                 </a></td>

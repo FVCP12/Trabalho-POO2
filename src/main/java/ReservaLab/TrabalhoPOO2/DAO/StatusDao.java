@@ -20,4 +20,14 @@ public class StatusDao extends Generica<StatusLab> {
         return sessionFactory.getCurrentSession();
     }
     
+    @SuppressWarnings("unchecked")
+    public List<StatusLab> StatusPorFuncionario(Funcionarios f ){
+        
+        List<StatusLab> status = getSession().createQuery(" from StatusLab where professor = :professor").
+                setParameter("professor", f).list();
+        
+                
+        return status;        
+    }
+    
 }

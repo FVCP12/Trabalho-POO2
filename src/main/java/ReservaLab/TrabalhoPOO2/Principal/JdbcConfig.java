@@ -19,7 +19,7 @@ public class JdbcConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5434/reservalab");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/reservalab");
         dataSource.setUsername("postgres");
         dataSource.setPassword("123456");
         return dataSource;
@@ -34,7 +34,7 @@ public class JdbcConfig {
         hibernateProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
         hibernateProperties.put("hibernate.show_sql", true);
         hibernateProperties.put("hibernate.hbm2ddl.auto", "update");
-        hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
+      //  hibernateProperties.put("hibernate.hbm2ddl.auto", "create");
         sessionFactoryBean.setHibernateProperties(hibernateProperties);
 
         return sessionFactoryBean;

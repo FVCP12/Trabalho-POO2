@@ -188,13 +188,14 @@
                     <span><h3>Criando Novo Usuario:</h3></span>
                     <br/>
                     <br/>
-                    <form action="#" th:action="@{'/AdicionandoFunc?fun='+${user.Cod_funcio}}"
-                          th:object="${funcio}" method="post">
+                    <form action="#" th:action="@{'/alterandoFuncionario?fun='+${user.Cod_funcio}}"
+                          th:object="${funcionario}" method="post">
 
                         <div class="row">
 
                             <div class="col-sm">
-
+                                <label>Id do Funcionario:</label> 
+                                <br/><br/>
                                 <label>Nome do Usuario:</label>
                                 <br/><br/>
                                 <label>Registro acadêmico:</label>
@@ -204,7 +205,8 @@
                                 <label>Função:</label>
                             </div>    
                             <div class="col-sm">
-
+                                <input type="text" th:field="*{Cod_funcio}" readonly="readonly"/>
+                                <br/><br/>
                                 <input type="text" th:field="*{nomeFuncionario}"/>
                                 <br/><br/>
                                 <input type="text" th:field="*{ra}"/>
@@ -221,11 +223,9 @@
                             </div> 
 
                         </div>
-
                         <br/><br/>
                         <div style="margin-bottom: 1%">
-                            <button class="btn btn-warning btn-sm" name="criar" type="submit">Criar</button> 
-                            <button class="btn btn-warning btn-sm" name="apagar" type="reset">Apagar</button> 
+                            <button class="btn btn-warning btn-sm" name="alterar" type="submit">Alterar</button>  
                         </div>
 
                     </form>
