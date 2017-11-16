@@ -46,17 +46,48 @@
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
 
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">
-                                Laboratorios
-                            </a>
-                        </p>
+
+                    <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
+
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
+                        </div>
                     </div>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                           <a th:href="@{'/Professor/minhasreservas?fun='+${user.Cod_funcio}}">Minhas reservas</a> 
-                        </p>
+                    
+                     <div class="dropdown show" > 
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Laboratiorios:
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
+                            </div>
+                        </div>        
+                    
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Novas Reservas:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
+                            <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
+                        </div>
+                    </div>
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Minhas Reservas:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}">Por Mês</a>
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}">Por Dia</a>
+                        </div>
                     </div>
                 </div>
 
@@ -130,28 +161,8 @@
                         <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
                         <td class="text-success" th:if="${reserva.status[5].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
-
-
-                        <!--
-                        <td th:text="${reserva.dataReserva}"></td>
-                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><input type="checkbox"   value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><input type="checkbox"  value="true" th:text="Disponivel"/></td>
-                        <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
-                        <td><button name="salvar" type="submit">Salvar</button></td>
-
-                        -->
                     </tr>
                     </tr>
-
                 </tbody>
             </table>
 

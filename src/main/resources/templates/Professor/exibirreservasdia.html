@@ -7,7 +7,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
-        <title>Professor</title>
+        <title>Admin</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
 
@@ -45,7 +45,7 @@
 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
-                
+
                        <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
                         <div class="dropdown show" > 
@@ -57,7 +57,7 @@
                                 <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
                             </div>
                         </div>                     
-
+                
                         <div class="dropdown show" > 
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Laboratiorios:
@@ -77,7 +77,9 @@
                             <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
                             <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
                         </div>
-                    </div> 
+                    </div>
+
+
                     <div class="dropdown show" > 
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Minhas Reservas:
@@ -95,11 +97,79 @@
 
         </div>
 
-        <div>
+        <div class="container" style="float:left;position: relative;
+             margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-            <h3>Reserva efetuada</h3>
+            <form action="#" th:action="@{'/novareservadia?fun='+${user.Cod_funcio}}" 
+                  th:object="${aux}" method="post" >
+                <p><h3>Busca de Reservas</h3></p>
+                <p>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon1">Escolha o dia:</span>
+                    <input type="date" class="form-control" placeholder="Username" 
+                           aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
+                </div>
+                </p> 
+                <p>  
+                    <button type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
+                </p>
+
+            </form>  
+
+            <div class="topo"><table class="table table-bordered table-dark">
+                    <thead>
+                        <tr>
+
+                            <th scope="col">----Dia----</th>
+                            <th scope="col">1º horario manha</th>
+                            <th scope="col">2º horario manha</th>
+                            <th scope="col">1º horario tarde</th>
+                            <th scope="col">2º horario tarde</th>
+                            <th scope="col">1º horario noite</th>
+                            <th scope="col">2º horario noite</th>
+                        </tr>
+                    </thead>
+                </table></div>
+
+            <table class="table table-bordered table-gray">
+                <thead>
+                    <tr>
+                        <th scope="col">Dia</th>
+                        <th scope="col">1º horario manha</th>
+                        <th scope="col">2º horario manha</th>
+                        <th scope="col">1º horario tarde</th>
+                        <th scope="col">2º horario tarde</th>
+                        <th scope="col">1º horario noite</th>
+                        <th scope="col">2º horario noite</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="reserva : ${reservas}" >
+
+                        <td colspan="7" th:text="${reserva.laboratorio.nomeLab}"></td>
+
+                    <tr>
+                        <td th:text="${reserva.dataReserva}"></td>
+                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
+                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
+                    </tr>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p th:text="${messagem}"></p>
+
         </div>
-
 
     </body>
 </html>

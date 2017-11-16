@@ -10,16 +10,6 @@
         <title>Professor</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
-
-
-        <style type="text/css">
-            .topo {
-
-                position: fixed;
-
-            }
-        </style>
-
     </head>
     <body style="background-color: #d7d6d4">
 
@@ -45,7 +35,7 @@
 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
-                
+                    <div style= "background-color: #f7ba5e;">  
                        <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
                         <div class="dropdown show" > 
@@ -56,7 +46,10 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
                             </div>
-                        </div>                     
+                        </div>      
+                
+                    
+
 
                         <div class="dropdown show" > 
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,40 +59,57 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
                             </div>
-                        </div>                               
-                       
-                    <div class="dropdown show" > 
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Novas Reservas:
-                        </a>
+                        </div>                        
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
-                            <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
-                        </div>
-                    </div> 
-                    <div class="dropdown show" > 
-                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Minhas Reservas:
-                        </a>
 
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}">Por Mês</a>
-                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}">Por Dia</a>
+                        <div class="dropdown show" > 
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Novas Reservas:
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
+                                <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
+                            </div>
+                        </div>                        
+
+                        <div class="dropdown show" > 
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Minhas Reservas:
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}">Por Mês</a>
+                                <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}">Por Dia</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
-
         </div>
-
+        <form action="#" th:action="@{'/atualizandosenha?fun='+${user.Cod_funcio}}" 
+              th:object="${usuario1}" method="post" >
+            <p><h3>Digite a nova senha:</h3></p>
+        <p>
+            <input type="password" th:field="*{senha}"/><br/>
+        </p> 
+        <p><h3>Confirme a nova senha:</h3></p>
+    <p>
+        <input type="password" th:field="*{ra}"/><br/>
+    </p>
+    <div >
+        <button class="btn btn-primary" type="submit">Alterar</button> 
         <div>
+            <font color ="red"><label th:text="${menssagem}" ></label></font>
+        </div>  
 
-            <h3>Reserva efetuada</h3>
-        </div>
+        <br/><br/>
 
 
-    </body>
+
+
+    </div>
+</form>   
+
+</body>
 </html>

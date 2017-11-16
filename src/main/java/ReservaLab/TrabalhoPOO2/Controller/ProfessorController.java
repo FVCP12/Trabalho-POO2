@@ -75,7 +75,7 @@ public class ProfessorController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-   @PostMapping("/BuscaReservas1")
+    @PostMapping("/BuscaReservas1")
     public String buscando(
             @RequestParam(value = "fun") long idFun,
             @ModelAttribute Funcionarios aux,
@@ -108,7 +108,6 @@ public class ProfessorController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////
-
     @GetMapping("/Professor/exibirlabteste")
     public String exibindoReservas(
             //@ModelAttribute Funcionarios aux,
@@ -175,8 +174,8 @@ public class ProfessorController {
         status.setSituacao(true);
         status.setProfessor(user);
         status.setDataOperacao(data);
-        
-         try {
+
+        try {
             reservasDao.atualizar(reserva);
 
             statusDao.atualizar(status);
@@ -191,7 +190,7 @@ public class ProfessorController {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
- /*   @GetMapping("/Professor/minhasreservas")
+    /*   @GetMapping("/Professor/minhasreservas")
     public String Exibirminhasreservas(
             @RequestParam(value = "fun") long idFun,
             Model model
@@ -202,14 +201,12 @@ public class ProfessorController {
 
         return "/Professor/minhasreservas";
     }
-*/
+     */
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
     @PostMapping("/BuscaminhasReservas")
     public String buscandominhasreservas(
             @RequestParam(value = "fun") long idFun,
             @ModelAttribute Funcionarios aux,
-          
             Model model
     ) {
 
@@ -228,8 +225,6 @@ public class ProfessorController {
         List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
 
         model.addAttribute("reservas", reservas);
-        //apagar abaixo
-        model.addAttribute("d", d1);
 
         if (reservas.isEmpty()) {
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
@@ -238,7 +233,7 @@ public class ProfessorController {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
-     @GetMapping("/Professor/minhasreservas")
+    @GetMapping("/Professor/minhasreservas")
     public String exibindominhasReservas(
             //@ModelAttribute Funcionarios aux,
             @ModelAttribute Funcionarios user,
@@ -256,7 +251,7 @@ public class ProfessorController {
 
         return "/Professor/minhasreservas";
     }
- 
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     @GetMapping("/Professor/solicitarminhasreservas")
     public String ExibirminhasReservasSolicitar(
@@ -271,5 +266,193 @@ public class ProfessorController {
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Professor/solicitarminhasreservaspordia")
+    public String ExibirminhasReservaspordiaSolicitar(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", new Funcionarios());
+
+        return "/Professor/solicitarminhasreservaspordia";
+    }
+
+    @PostMapping("/BuscaminhasReservaspordia")
+    public String buscandominhasreservaspordia(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios aux,
+            Model model
+    ) {
+
+        model.addAttribute("aux", aux);
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        String data = aux.getNomeFuncionario();
+        data = data.replaceAll("-", "/");
+
+        Date d1 = new Date(data);//inicio
+
+        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
+
+        model.addAttribute("reservas", reservas);
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+        return "/Professor/minhasreservaspordia";
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Professor/minhasreservaspordia")
+    public String exibindominhasReservaspordia(
+            //@ModelAttribute Funcionarios aux,
+            @ModelAttribute Funcionarios user,
+            @ModelAttribute List<Reservas> reservas,
+            @ModelAttribute Date d,
+            @ModelAttribute StatusLab status,
+            Model model
+    ) {
+
+        model.addAttribute("d", d);
+        model.addAttribute("status", status);
+        model.addAttribute("aux", new Funcionarios());
+        model.addAttribute("user", user);
+        model.addAttribute("reservas", reservas);
+
+        return "/Professor/minhasreservaspordia";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Professor/novareservadia")
+    public String NovaReservaDiaSolicitar(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", new Funcionarios());
+
+        return "/Professor/novareservadia";
+    }
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @PostMapping("/novareservadia")
+    public String buscandoreservaspordia(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios aux,
+            Model model
+    ) {
+
+        model.addAttribute("aux", aux);
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        String data = aux.getNomeFuncionario();
+        data = data.replaceAll("-", "/");
+
+        Date d1 = new Date(data);//inicio
+
+        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
+
+        model.addAttribute("reservas", reservas);
+        //apagar abaixo
+        // model.addAttribute("d", d1);
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+        return "/Professor/exibirreservasdia";
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @PostMapping("/alterarsenha")
+    public String trocandosenha(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcionario,
+            Model model) {
+
+            Funcionarios prof = new Funcionarios();
+            prof = funcionariosDao.buscaId(Funcionarios.class, idFun);
+            model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+            if (funcionario.getSenha().equals(prof.getSenha())) {
+                model.addAttribute("usuario1", new Funcionarios());
+                return "/Professor/novasenha";
+            }
+        
+        model.addAttribute("usuario", new Funcionarios());
+        model.addAttribute("menssagem","Senha inválida!");
+        return "Professor/AlterarSenha";
+    }
+
+    @GetMapping("/Professor/AlterarSenha")
+    public String trocarsenha(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios aux,
+            Model model
+    ) {
+        model.addAttribute("usuario", new Funcionarios());
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", aux);
+
+        return "/Professor/AlterarSenha";
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Professor/novasenha")
+    public String novasenha(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios aux,
+            Model model
+    ) {
+        model.addAttribute("usuario1", new Funcionarios());
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", aux);
+        return "/Professor/novasenha";
+    }
+    
+     @PostMapping("/atualizandosenha")
+    public String atualizandosenha(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcionario1,
+            Model model) {
+        
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        
+        if(funcionario1.getSenha().equals(funcionario1.getRa())){
+        String senha = funcionario1.getSenha();
+        Funcionarios atualizarsenha = new Funcionarios();
+        atualizarsenha= funcionariosDao.buscaId(Funcionarios.class, idFun);
+        atualizarsenha.setSenha(senha);
+        funcionariosDao.atualizar(atualizarsenha);
+        return "Professor/senhaalterada";
+        }
+        
+        model.addAttribute("usuario1", new Funcionarios());
+        model.addAttribute("menssagem","As senhas nao coincidem!");
+        return "Professor/novasenha";
+    }
+    
+    @GetMapping("/Professor/senhaalterada")
+    public String senhaalterada(
+            @RequestParam(value = "fun") long idFun,
+            
+            Model model
+    ) {
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+     
+        return "/Professor/senhaalterada";
+    }
+    /////////////////////////////////////////////////////////////////////////////////////
+        @GetMapping("/voltarinicio")
+    public String inicio(
+            @RequestParam(value = "fun") long idFun,
+            
+            Model model
+    ) {
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+     
+        return "/Professor/professorIni";
+    }
     
 }

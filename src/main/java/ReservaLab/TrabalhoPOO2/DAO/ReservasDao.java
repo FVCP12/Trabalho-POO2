@@ -66,24 +66,21 @@ public class ReservasDao extends Generica<Reservas> {
                 + "r.dataReserva =:dia order by r.laboratorio,r.dataReserva").
                 setParameter("dia",dia).list();
         
-        //left join fetch r.status s
       return reservas;
     }
     
     
    /* @SuppressWarnings("unchecked")
-    public List<Reservas> buscaPorMeseprof(Date inicio,Date fim, Funcionarios user){
+    public List<Reservas> buscaPorMeseprof(Date inicio,Date fim, Funcionarios prof){
     
-        Funcionarios usuario = new Funcionarios();
-        usuario=user;
-        
+       
         List<Reservas> reservas = getSession().createQuery("from Reservas r "
                 + " where "
-                + "r.dataReserva >= :inicio and r.dataReserva < :fim and r. order by r.laboratorio,r.dataReserva").
-                setParameter("inicio",inicio).setParameter("fim", fim).list();
+                + "r.dataReserva >= :inicio and r.dataReserva < :fim and (r.status[0].professor=:prof or r.status[1].professor=:prof or r.status[2].professor=:prof or r.status[3].professor=:prof or r.status[4].professor=:prof or r.status[5].professor=:prof) order by r.laboratorio,r.dataReserva)").setParameter("inicio",inicio).setParameter("fim", fim).setParameter("prof", prof).list();
         
         //left join fetch r.status s
       return reservas;
     }*/
+ 
     
 }

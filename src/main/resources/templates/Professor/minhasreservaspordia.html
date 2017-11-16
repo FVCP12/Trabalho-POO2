@@ -7,7 +7,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
-        <title>Admin</title>
+        <title>Professor</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
 
@@ -35,10 +35,11 @@
                  border-top-right-radius: 4px
                  ;text-align: center">
 
+ 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
                 
-                       <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
+                      <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
                         <div class="dropdown show" > 
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -49,7 +50,7 @@
                                 <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
                             </div>
                         </div>                     
-
+                
                         <div class="dropdown show" > 
                             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Laboratiorios:
@@ -58,8 +59,8 @@
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                                 <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
                             </div>
-                        </div>                               
-                       
+                        </div>                              
+                      
                     <div class="dropdown show" > 
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Novas Reservas:
@@ -90,13 +91,13 @@
         <div class="container" style="float:left;position: relative;
              margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-            <form action="#" th:action="@{'/BuscaminhasReservas?fun='+${user.Cod_funcio}}" 
+            <form action="#" th:action="@{'/BuscaminhasReservaspordia?fun='+${user.Cod_funcio}}" 
                   th:object="${aux}" method="post" >
                 <p><h3>Buscar minhas Reservas</h3></p>
                 <p>
                 <div class="input-group input-group-sm">
-                    <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                    <input type="month" class="form-control" placeholder="Username" 
+                    <span class="input-group-addon" id="sizing-addon1">Escolha o dia:</span>
+                    <input type="date" class="form-control" placeholder="Username" 
                            aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
                 </div>
                 </p> 
@@ -122,7 +123,7 @@
                         </tr>
                     </thead>
                     <tbody> 
-                        
+                        <!--<tr th:if="${reserva.status[0].professor.Cod_Funcio == user.Cod_Funcio}">-->
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[0].situacao == true} and ${reserva.status[0].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>1º horario manha</td>
@@ -133,7 +134,7 @@
                                 </textarea>
                             </td>                               
                         </tr>
-                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[1].situacao == true} and ${reserva.status[1].professor.Cod_funcio == user.Cod_funcio}"> 
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[1].situacao == true}and ${reserva.status[1].professor.Cod_funcio == user.Cod_funcio}"> 
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>2º horario manha</td>                           
                             <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
@@ -143,7 +144,7 @@
                                 </textarea>
                             </td>
                         </tr>
-                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[2].situacao == true} and ${reserva.status[2].professor.Cod_funcio == user.Cod_funcio}">
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[2].situacao == true}and ${reserva.status[2].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>                                
                             <td>1º horario tarde</td>                               
                             <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
@@ -153,7 +154,7 @@
                                 </textarea>
                             </td>
                         </tr>
-                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[3].situacao == true} and ${reserva.status[3].professor.Cod_funcio == user.Cod_funcio}">
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[3].situacao == true}and ${reserva.status[3].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>2º horario tarde</td>    
                             <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
@@ -174,7 +175,7 @@
                                 </textarea>
                             </td>
                         </tr>
-                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[5].situacao == true}and ${reserva.status[5].professor.Cod_funcio == user.Cod_funcio}">
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[5].situacao == true} and ${reserva.status[5].professor.Cod_funcio == user.Cod_funcio}">
 
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>2º horario noite</td>                                

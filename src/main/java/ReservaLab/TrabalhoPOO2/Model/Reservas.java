@@ -13,8 +13,6 @@ public class Reservas {
 
     @Temporal(TemporalType.DATE)
     private Date dataReserva;
-
-   
     
     @ManyToOne
     private Laboratorio laboratorio;

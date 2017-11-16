@@ -35,47 +35,77 @@
 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
+                
+                       <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">
-                                Laboratorios
+                        <div class="dropdown show" > 
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Usuario:
                             </a>
-                        </p>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
+                            </div>
+                        </div>                     
+
+                         <div class="dropdown show" > 
+                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Laboratiorios:
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
+                            </div>
+                        </div>                              
+                       
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Novas Reservas:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
+                            <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
+                        </div>
                     </div>
-                    <div style= "background-color: #f7ba5e;">
-                        <p style="margin: 1px;margin-left: 5px;text-align: center">
-                            <a th:href="@{'/Professor/minhasreservas?fun='+${user.Cod_funcio}}">Minhas reservas</a>
-                        </p>
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Minhas Reservas:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}">Por Mês</a>
+                            <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}">Por Dia</a>
+                        </div>
                     </div>
                 </div>
-        
+
 
             </div>
 
         </div>
-        
-                    <div class="container" style="float:left;position: relative;
-                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                <form action="#" th:action="@{'/BuscaReservas1?fun='+${user.Cod_funcio}}" 
-                      th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
-                    <p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                        <input type="month" class="form-control" placeholder="Username" 
+        <div class="container" style="float:left;position: relative;
+             margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+
+            <form action="#" th:action="@{'/BuscaReservas1?fun='+${user.Cod_funcio}}" 
+                  th:object="${aux}" method="post" >
+                <p><h3>Busca de Reservas</h3></p>
+                <p>
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
+                    <input type="month" class="form-control" placeholder="Username" 
                            aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
-                    </div>
-                    </p> 
-                    <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
-                    </p>
+                </div>
+                </p> 
+                <p>  
+                    <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                </p>
 
-                </form>   
+            </form>   
 
-            </div>
-        
-        
+        </div>
+
+
     </body>
 </html>
