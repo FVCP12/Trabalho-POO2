@@ -487,12 +487,62 @@ public class AdminController {
         
         statusDao.atualizar(atualizar);
         
-        System.out.println(dataMes);
-        
-        
-        
-       ///teste
+     
+        String dataInicio =  dataMes.substring(0, dataMes.length()-2) + "01";
        
+       
+        dataInicio = dataInicio.replaceAll("-", "/");
+
+        Date d1 = new Date(dataInicio);//inicio
+        Calendar c = Calendar.getInstance();
+        c.setTime(d1);
+        c.add(Calendar.MONTH, 1);
+        Date d2 = c.getTime();//fim
+
+        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
+
+        List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
+        
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("funcionarios", podeReservar);
+        
+        model.addAttribute("d", d1);
+        
+        
+        model.addAttribute("status", new StatusLab());
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+  
+        return "/Administrador/admin_exibirReservas_exibindo";
+    
+   }
+  /////////////////////////////////////////////////////////////////////////////////
+   
+   @GetMapping("/Excluir")
+   public String excluindoReservaLab(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "sta") long idStat,
+            @RequestParam(value = "data") String dataMes,
+            @ModelAttribute Funcionarios aux,
+            @ModelAttribute StatusLab status,
+            Model model
+   ){
+       
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("status", status);
+        model.addAttribute("aux", aux);
+       
+       
+        StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
+                
+        atualizar.setProfessor(null);
+        atualizar.setDataOperacao(null);
+        atualizar.setSituacao(false);
+        
+        statusDao.atualizar(atualizar);
+        
          
         String dataInicio =  dataMes.substring(0, dataMes.length()-2) + "01";
        
@@ -520,17 +570,11 @@ public class AdminController {
         if (reservas.isEmpty()) {
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
         }
-        
-        
-        
-        //teste
-        
-        
-           
+  
         return "/Administrador/admin_exibirReservas_exibindo";
     
    }
-  
+   
     ///////////////////////////////////////////////////////////////////////////////
     @GetMapping("/Administrador/admin_altera_lab")
     public String alteraLab(
