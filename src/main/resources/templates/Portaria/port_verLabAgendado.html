@@ -13,77 +13,197 @@
               content="text/html; charset=UTF-8" />
     </head>
 
+    <body style="background-color: #ffffff">
 
-    <body style="background-color: #d7d6d4">
-
-        <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
-              background-color: #ffffff">
+        <div  style="background-color: #ff6600" id="list-item-1">
 
             <div class="row">
-                <div class="col-11">
+                <div class="col-3">
+                    <img style="width: 172px;height: 120px"   src="/logoPitagoras.jpg"/> 
+                </div>
+                <div class="col-9">
                     <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
-                    <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
+                    <p><h4>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h4></p> 
                 </div>
-                <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true"
-                       style="top: 1%;position: relative">Sair</a>
-                </div>
+
             </div>
+
         </div>
+        <div class="row" >
 
-        <div style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
-            <div style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
-                 border-top-right-radius: 4px
-                 ;text-align: center">
+            <div style="float:left;
+                 text-align: center;">
 
-                <p style="text-align: left"><h3>Laboratórios</h3></p>
+                <div id="accordion" role="tablist">
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Laboratórios &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">></i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
 
-                <div style= "background-color: #f7ba5e;">
-                    <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        <a th:href="@{'/Portaria/port_vertTodos?fun='+${user.Cod_funcio}}">Todos</a></p>
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Disponíveis
+
+                                    </a>
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Portaria/port_verLabAgendado?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Reservados
+                                    </a>
+                                </p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Portaria/port_verLabEmUso?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Em uso
+
+                                    </a>
+                                </p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Portaria/port_vertTodos?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Todos
+
+                                    </a>
+                                </p>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne1">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Chaves&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">></i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    Disponíveis
+
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Emprestadas </p>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
-                <div style= "background-color: #f7ba5e;">
-                    <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        <a th:href="@{'/Portaria/port_verLabEmUso?fun='+${user.Cod_funcio}}">Em uso</a></p>
-                </div>
 
-                <div style= "background-color: #f7ba5e;">
-                    <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        <a th:href="@{'/Portaria/port_verLabDisponivel?fun='+${user.Cod_funcio}}">Disponíveis</a></p>
-                </div>
+                <div style="margin-top: 2%">                
+                    <a href="/logar" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative">Sair</a>
 
-                <div style= "background-color: #f7ba5e;">
-                    <p style="margin: 1px;margin-left: 5px;text-align: center">
-                        <a th:href="@{'/Portaria/port_verLabAgendado?fun='+${user.Cod_funcio}}">Reservados</a></p>
-                </div>
+                    <a href="" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative">?</a>
+
+                </div>  
             </div>
 
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
-                <label th:text="${menssagem}"></label>
-
+         
                 <span><h3>Laboratórios Reservados</h3></span>
-                <table style="border: 2px solid black">
-                    <thead style="border: 2px solid black">
-                        <tr style="border: 2px solid black">
-                            <th style="border: 2px solid black">Nome do Laboratorio</th>
-                            <th style="border: 2px solid black">Andar</th>
-                        </tr>
-                    </thead>
-                    <tbody style="border: 2px solid black">
-                        <tr style="border: 2px solid black" th:each="lab : ${labs}">
-                            <td style="border: 2px solid black" th:text = "${lab.nomeLab}"></td>
-                            <td style="border: 2px solid black" th:text = "${lab.andar}"></td>
-                            <td><button> <a href="" >Disponível</a></button></td>
-                            <td><button><a href="">Emprestada</a></button></td>
 
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">Data</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Nome do Laboratorio</th>
+                            <th scope="col">Andar</th>
+                            <th scope="col">Professor</th>
+                            <th scope="col">Chave</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody> <tr th:each="reserva : ${reservas}" th:if="${reserva.status[0].situacao == true}">
+                            <td th:text ="${reserva.dataReserva}"></td>
+                            <td>1º horario manha</td>
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[0].professor.nomeFuncionario}" ></td> 
+                            <td th:text ="${reserva.status[0].descricaoChave.descriChave}" ></td>
+
+                        </tr>
+
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[1].situacao == true}"> 
+                            <td th:text ="${reserva.dataReserva}"></td>
+                            <td>2º horario manha</td>                           
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[1].professor.nomeFuncionario}"></td>
+                            <td th:text ="${reserva.status[1].descricaoChave.descriChave}" ></td>
+                        </tr>
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[2].situacao == true}">
+                            <td th:text ="${reserva.dataReserva}"></td>                                
+                            <td>1º horario tarde</td>                               
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[2].professor.nomeFuncionario}"  ></td>   
+                            <td th:text ="${reserva.status[2].descricaoChave.descriChave}" ></td> 
+
+                        </tr>
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[3].situacao == true}">
+                            <td th:text ="${reserva.dataReserva}"></td>
+                            <td>2º horario tarde</td>    
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[3].professor.nomeFuncionario}" ></td> 
+                            <td th:text ="${reserva.status[3].descricaoChave.descriChave}" ></td> 
+                        </tr>
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[4].situacao == true}">
+
+                            <td th:text ="${reserva.dataReserva}"></td>
+                            <td>1º horario noite</td>                            
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[4].professor.nomeFuncionario}"   ></td>  
+                            <td th:text ="${reserva.status[4].descricaoChave.descriChave}" ></td>
+
+                        </tr>
+                        <tr th:each="reserva : ${reservas}" th:if="${reserva.status[5].situacao == true}">
+
+                            <td th:text ="${reserva.dataReserva}"></td>
+                            <td>2º horario noite</td>                                
+                            <td  th:text = "${reserva.laboratorio.nomeLab}"></td>
+                            <td  th:text = "${reserva.laboratorio.andar}"></td>
+                            <td th:text ="${reserva.status[5].professor.nomeFuncionario}"     ></td>
+                            <td th:text ="${reserva.status[5].descricaoChave.descriChave}" ></td> 
                         </tr>
                     </tbody>
                 </table>
-
-                <label th:text="${menssagem}"></label>
+                
             </div>
+
+
         </div>
     </body>
 </html>
