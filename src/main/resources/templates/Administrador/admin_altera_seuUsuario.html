@@ -190,26 +190,61 @@
 
 
             </div>
-            <div class="container" style="float:left;position: relative;
-                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+            <div  class="container" style="float:left;
+                  position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
+                <div style="margin-left: 2%">
+                    <span><h3>Alterando seu Usuario:</h3></span>
+                    <br/>
+                    <br/>
+                    <form action="#" th:action="@{'/alterandoSeuUser?fun='+${user.Cod_funcio}}"
+                          th:object="${funcionario}" method="post">
 
-                <form action="#" th:action="@{'/BuscaReservas?fun='+${user.Cod_funcio}}" 
-                      th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
-                    <p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                        <input type="month" class="form-control" placeholder="Username" 
-                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
-                    </div>
-                    </p> 
-                    <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
-                    </p>
+                        <div class="row">
 
-                </form>   
+                            <div class="col-sm">
+                                <label>Seu Id :</label> 
+                                <br/><br/>
+                                <label>Seu Nome:</label>
+                                <br/><br/>
+                                <label>Seu Registro acadêmico:</label>
+                                <br/><br/>
+                                <label>Sua Senha:</label>
+                                <br/><br/>
+                                <label>Sua Função:</label>
+                            </div>    
+                            <div class="col-sm">
+                                <input type="text" th:field="*{Cod_funcio}" readonly="readonly"/>
+                                <br/><br/>
+                                <input type="text" th:field="*{nomeFuncionario}"/>
+                                <br/><br/>
+                                <input type="text" th:field="*{ra}"/>
+                                <br/><br/>
+                                <input type="password" th:field="*{senha}"/>
+                                <br/><br/>
+                                <select th:field="*{funcao.Cod_funcoes}">
 
-                <label th:text="${messagem}"></label>
+                                    <option th:each="fun : ${funcoes}"
+                                            th:value="${fun.Cod_funcoes}"
+                                            th:text="${fun.nomeFuncao}"></option>
+
+                                </select> 
+                            </div> 
+
+                        </div>
+                        <br/><br/>
+                        <div style="margin-bottom: 1%">
+                            <button class="btn btn-warning btn-sm" name="alterar" type="submit">Alterar</button>
+                            <a th:href="@{'CancelarPadrao'(fun=${user.Cod_funcio})}"
+                               class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                                Cancelar
+                            </a>
+                        </div>
+
+
+                    </form>
+
+                </div>
+
             </div>
         </div>
     </body>

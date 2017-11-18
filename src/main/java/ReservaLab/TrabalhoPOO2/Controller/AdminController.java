@@ -30,7 +30,7 @@ public class AdminController {
 
     @Autowired
     StatusDao statusDao;
-    
+
     @Autowired
     FuncaoDao funcaoDao;
 
@@ -207,15 +207,14 @@ public class AdminController {
 
                     Date d = new Date(ano + "/01/01");
                     Calendar c = Calendar.getInstance();
-                    
-                     if (d.getDay() == 0) {
-                                c.setTime(d);
 
-                                c.add(Calendar.DATE, +1);
+                    if (d.getDay() == 0) {
+                        c.setTime(d);
 
-                                d = c.getTime();
+                        c.add(Calendar.DATE, +1);
+
+                        d = c.getTime();
                     }
-                    
 
                     if (reservasDao.verificarExiste(l, d)) {//quando nao existe no banco e pode inserir
 
@@ -292,13 +291,13 @@ public class AdminController {
 
                     Date d = new Date(ano + "/07/01");
                     Calendar c = Calendar.getInstance();
-                    
-                     if (d.getDay() == 0) {
-                                c.setTime(d);
 
-                                c.add(Calendar.DATE, +1);
+                    if (d.getDay() == 0) {
+                        c.setTime(d);
 
-                                d = c.getTime();
+                        c.add(Calendar.DATE, +1);
+
+                        d = c.getTime();
                     }
 
                     if (reservasDao.verificarExiste(l, d)) {//quando nao existe no banco e pode inserir
@@ -350,7 +349,7 @@ public class AdminController {
                             c.add(Calendar.DATE, +1);
 
                             d = c.getTime();
-                            
+
                             if (d.getDay() == 0) {
                                 c.setTime(d);
 
@@ -358,7 +357,7 @@ public class AdminController {
 
                                 d = c.getTime();
                             }
-                            
+
                         } while (d.getMonth() + 1 != 1);
 
                         fraseRetorno += "A data para o " + l.getNomeLab() + " foi criada com sucesso; ";
@@ -402,46 +401,43 @@ public class AdminController {
         model.addAttribute("aux", aux);
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
-        if(!aux.getNomeFuncionario().equals("")){
-        String dataInicio = aux.getNomeFuncionario() + "-01";
-        dataInicio = dataInicio.replaceAll("-", "/");
+        if (!aux.getNomeFuncionario().equals("")) {
+            String dataInicio = aux.getNomeFuncionario() + "-01";
+            dataInicio = dataInicio.replaceAll("-", "/");
 
-        Date d1 = new Date(dataInicio);//inicio
-        Calendar c = Calendar.getInstance();
-        c.setTime(d1);
-        c.add(Calendar.MONTH, 1);
-        Date d2 = c.getTime();//fim
+            Date d1 = new Date(dataInicio);//inicio
+            Calendar c = Calendar.getInstance();
+            c.setTime(d1);
+            c.add(Calendar.MONTH, 1);
+            Date d2 = c.getTime();//fim
 
-        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
+            List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
 
-        List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
-        
-        model.addAttribute("reservas", reservas);
-        model.addAttribute("funcionarios", podeReservar);
-        
-        model.addAttribute("d", d1);
-        
-        
-        model.addAttribute("status", new StatusLab());
+            List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
 
-        if (reservas.isEmpty()) {
-            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
-        }
-        return "/Administrador/admin_exibirReservas_exibindo";
-        }else{
-            
+            model.addAttribute("reservas", reservas);
+            model.addAttribute("funcionarios", podeReservar);
+
+            model.addAttribute("d", reservas.get(0).getDataReserva());
+
+            model.addAttribute("status", new StatusLab());
+
+            if (reservas.isEmpty()) {
+                model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+            }
+            return "/Administrador/admin_exibirReservas_exibindo";
+        } else {
+
             model.addAttribute("messagem", "Selecione uma data primeiro!!");
-            
-        return "/Administrador/admin_exibirReservas_solicitar";
+
+            return "/Administrador/admin_exibirReservas_solicitar";
         }
 
-        
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////    
     @GetMapping("/Administrador/admin_exibirReservas_exibindo")
     public String exibindoReservas(
-            
             @ModelAttribute Funcionarios user,
             @ModelAttribute List<Reservas> reservas,
             @ModelAttribute Date d,
@@ -450,47 +446,41 @@ public class AdminController {
             Model model
     ) {
 
-        
-   
         model.addAttribute("d", d);
         model.addAttribute("aux", aux);
         model.addAttribute("user", user);
         model.addAttribute("reservas", reservas);
         model.addAttribute("funcionarios", podeReservar);
-        
-       
-        
+
         return "/Administrador/admin_exibirReservas_exibindo";
     }
+
     ////////////////////////////////////////////////////////////////////////////////
-   @PostMapping("/Reservando")
-   public String reservandoLab(
+    @PostMapping("/Reservando")
+    public String reservandoLab(
             @RequestParam(value = "fun") long idFun,
             @RequestParam(value = "sta") long idStat,
             @RequestParam(value = "data") String dataMes,
             @ModelAttribute Funcionarios aux,
             @ModelAttribute StatusLab status,
             Model model
-   ){
-       
+    ) {
+
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("status", status);
         model.addAttribute("aux", aux);
-       
-       
+
         StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
         Funcionarios funReserva = funcionariosDao.buscaId(Funcionarios.class, status.getProfessor().getCod_funcio());
-                
+
         atualizar.setProfessor(funReserva);
         atualizar.setDataOperacao(new Date());
         atualizar.setSituacao(true);
-        
+
         statusDao.atualizar(atualizar);
-        
-     
-        String dataInicio =  dataMes.substring(0, dataMes.length()-2) + "01";
-       
-       
+
+        String dataInicio = dataMes.substring(0, dataMes.length() - 2) + "01";
+
         dataInicio = dataInicio.replaceAll("-", "/");
 
         Date d1 = new Date(dataInicio);//inicio
@@ -502,51 +492,47 @@ public class AdminController {
         List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
 
         List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
-        
+
         model.addAttribute("reservas", reservas);
         model.addAttribute("funcionarios", podeReservar);
-        
-        model.addAttribute("d", d1);
-        
-        
+
+        model.addAttribute("d", reservas.get(0).getDataReserva());
+
         model.addAttribute("status", new StatusLab());
 
         if (reservas.isEmpty()) {
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
         }
-  
+
         return "/Administrador/admin_exibirReservas_exibindo";
-    
-   }
-  /////////////////////////////////////////////////////////////////////////////////
-   
-   @GetMapping("/Excluir")
-   public String excluindoReservaLab(
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Excluir")
+    public String excluindoReservaLab(
             @RequestParam(value = "fun") long idFun,
             @RequestParam(value = "sta") long idStat,
             @RequestParam(value = "data") String dataMes,
             @ModelAttribute Funcionarios aux,
             @ModelAttribute StatusLab status,
             Model model
-   ){
-       
+    ) {
+
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("status", status);
         model.addAttribute("aux", aux);
-       
-       
+
         StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
-                
+
         atualizar.setProfessor(null);
         atualizar.setDataOperacao(null);
         atualizar.setSituacao(false);
-        
+
         statusDao.atualizar(atualizar);
-        
-         
-        String dataInicio =  dataMes.substring(0, dataMes.length()-2) + "01";
-       
-       
+
+        String dataInicio = dataMes.substring(0, dataMes.length() - 2) + "01";
+
         dataInicio = dataInicio.replaceAll("-", "/");
 
         Date d1 = new Date(dataInicio);//inicio
@@ -558,23 +544,22 @@ public class AdminController {
         List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
 
         List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
-        
+
         model.addAttribute("reservas", reservas);
         model.addAttribute("funcionarios", podeReservar);
-        
-        model.addAttribute("d", d1);
-        
-        
+
+        model.addAttribute("d", reservas.get(0).getDataReserva());
+
         model.addAttribute("status", new StatusLab());
 
         if (reservas.isEmpty()) {
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
         }
-  
+
         return "/Administrador/admin_exibirReservas_exibindo";
-    
-   }
-   
+
+    }
+
     ///////////////////////////////////////////////////////////////////////////////
     @GetMapping("/Administrador/admin_altera_lab")
     public String alteraLab(
@@ -645,85 +630,83 @@ public class AdminController {
         return "/Administrador/admin_lista_funcionario";
     }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/Administrador/admin_add_funcionario")
     public String adicFuncio(
-       @RequestParam(value = "fun") long idFun,
-        Model model     
-    ){
-        
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
         Funcionarios funcio = new Funcionarios();
         Funcoes funcao = new Funcoes();
-        
+
         funcio.setFuncao(funcao);
-        
+
         List<Funcoes> funcoes = funcaoDao.PegarTodos(Funcoes.class);
-        
-        model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
-        
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
         model.addAttribute("funcio", funcio);
-        
-        model.addAttribute("funcoes",funcoes);
-        
+
+        model.addAttribute("funcoes", funcoes);
+
         return "/Administrador/admin_add_funcionario";
     }
 ///////////////////////////////////////////////////////////////////////////////////    
+
     @PostMapping("/AdicionandoFunc")
     public String adicionadoFuncio(
-        @RequestParam(value = "fun") long idFun,
-        @ModelAttribute  Funcionarios funcio,
-        Model model 
-    ){
-        
-        model.addAttribute("user",funcionariosDao.buscaId(Funcionarios.class, idFun));
-        
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcio,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
         model.addAttribute("funcio", funcio);
-        
-       
+
         Funcoes f = funcaoDao.buscaId(Funcoes.class, funcio.getFuncao().getCod_funcoes());
-        
+
         funcio.setFuncao(f);
-        
-        try{
-            
+
+        try {
+
             funcionariosDao.criar(funcio);
-            
+
             model.addAttribute("menssagem", "Usuario criado com sucesso!!");
-            
-        }catch(Exception e){
-         
+
+        } catch (Exception e) {
+
             model.addAttribute("menssagem", "Erro ao criar o novo usuario!!");
         }
-        
-  
-        
+
         return "/Administrador/adminIni";
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
-  @GetMapping("/Administrador/admin_altera_funcionario")
-  public String altarFuncionario(
-     @RequestParam(value = "fun") long idFun,
-     @RequestParam(value = "idfunAlterar") long idAltera,
-     Model model
-          
-  ){
-      
-      model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-      model.addAttribute("funcionario", funcionariosDao.buscaId(Funcionarios.class, idAltera));
-      List<Funcoes> funcoes = funcaoDao.PegarTodos(Funcoes.class);
-       model.addAttribute("funcoes",funcoes);
-       
-       
-      return "/Administrador/admin_altera_funcionario";
-  } 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  @PostMapping("/alterandoFuncionario")
-  public String alterandoFuncio(
-    @RequestParam(value = "fun") long idFun,
-    @ModelAttribute Funcionarios funcionario,            
-    Model model
-  ){
-      
-      
+
+    @GetMapping("/Administrador/admin_altera_funcionario")
+    public String altarFuncionario(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "idfunAlterar") long idAltera,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("funcionario", funcionariosDao.buscaId(Funcionarios.class, idAltera));
+        List<Funcoes> funcoes = funcaoDao.PegarTodos(Funcoes.class);
+        model.addAttribute("funcoes", funcoes);
+
+        return "/Administrador/admin_altera_funcionario";
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping("/alterandoFuncionario")
+    public String alterandoFuncio(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcionario,
+            Model model
+    ) {
+
         List<Funcionarios> funcionarios = new ArrayList<Funcionarios>();
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
@@ -734,7 +717,7 @@ public class AdminController {
 
             if (funcionarios.isEmpty()) {
                 model.addAttribute("menssagem", "Não existem funcionarios cadastrados!");
-            }else{
+            } else {
                 funcionariosDao.atualizar(funcionario);
                 model.addAttribute("menssagem", "Funcionario alterado com sucesso!");
             }
@@ -747,50 +730,44 @@ public class AdminController {
         model.addAttribute("funs", funcionarios);
 
         return "/Administrador/admin_lista_funcionario";
-  }
- //////////////////////////////////////////////////////////////////////////////////////////////////
- @GetMapping("/apagandoFuncionario")
-  public String apagandoFuncio(
-    @RequestParam(value = "fun") long idFun,
-    @RequestParam(value = "excluir") long idExcluir,            
-    Model model
-  ){
-      
-      
+    }
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/apagandoFuncionario")
+    public String apagandoFuncio(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "excluir") long idExcluir,
+            Model model
+    ) {
+
         List<Funcionarios> funcionarios = new ArrayList<Funcionarios>();
         List<StatusLab> status = new ArrayList<StatusLab>();
 
         Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idExcluir);
-        
+
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
-        
         try {
 
-            
-            
             status = statusDao.StatusPorFuncionario(f);
-            
-            for(StatusLab s : status){
-                
+
+            for (StatusLab s : status) {
+
                 s.setDataOperacao(null);
                 s.setSituacao(false);
                 s.setProfessor(null);
                 statusDao.atualizar(s);
             }
-            
+
             funcionariosDao.deletar(f);
-            
-            
+
             model.addAttribute("menssagem", "Funcionario excluido com sucesso!");
-            
-            
+
             funcionarios = funcionariosDao.PegarTodos(Funcionarios.class);
 
             if (funcionarios.isEmpty()) {
                 model.addAttribute("menssagem", "Não existem funcionarios cadastrados!");
             }
-                
 
         } catch (Exception e) {
 
@@ -800,9 +777,101 @@ public class AdminController {
         model.addAttribute("funs", funcionarios);
 
         return "/Administrador/admin_lista_funcionario";
-  } 
+    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////  
 
-  
-  
+    @GetMapping("/Administrador/admin_pesquisar_lab_solicitarNome")
+    public String solicitarNomePesquisa(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        model.addAttribute("lab", new Laboratorio());
+
+        return "/Administrador/admin_pesquisar_lab_solicitarNome";
+    }
+
+    @PostMapping("/PesquisarNomeLAb")
+    public String pesquisandoLabNome(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Laboratorio lab,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        model.addAttribute("lab", lab);
+
+        List<Laboratorio> labs = laboratorioDao.LabPorNome(lab.getNomeLab());
+
+        model.addAttribute("labs", labs);
+
+        if (!labs.isEmpty()) {
+
+            return "/Administrador/admin_pesquisar_lab_exibir";
+        } else {
+            model.addAttribute("menssagem", "Não foi encontrado nenhum laboratorio com este nome!");
+
+            return "/Administrador/admin_pesquisar_lab_solicitarNome";
+        }
+
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Administrador/admin_altera_seuUsuario")
+    public String altarSeuUser(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "idfunAlterar") long idAltera,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("funcionario", funcionariosDao.buscaId(Funcionarios.class, idAltera));
+        List<Funcoes> funcoes = funcaoDao.PegarTodos(Funcoes.class);
+        model.addAttribute("funcoes", funcoes);
+
+        return "/Administrador/admin_altera_seuUsuario";
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping("/alterandoSeuUser")
+    public String alterandoUsuario(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcionario,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        try {
+
+            funcionariosDao.atualizar(funcionario);
+            model.addAttribute("menssagem", "Funcionario alterado com sucesso!");
+
+        } catch (Exception e) {
+
+            model.addAttribute("menssagem", "Erro ao buscar alterar seus dados!!!");
+        }
+
+        return "/Administrador/adminIni";
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+    @GetMapping("/Administrador/CancelarPadrao")
+    public String cancelarPadrao(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios funcionario,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        
+        model.addAttribute("menssagem","<<Escolha uma opção ao lado!");
+
+       
+
+        return "/Administrador/adminIni";
+    }
 }

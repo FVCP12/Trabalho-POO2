@@ -90,12 +90,16 @@
                         <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
                             <div class="card-body" style="background-color: #f7ba5e;">
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
-                                    Laboratorios
-
+                                    <a th:href="@{'/Administrador/admin_pesquisar_lab_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
+                                        Laboratorios
+                                    </a>
                                 </p>
                                 <hr/>
 
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Reservas </p>
                             </div>
                         </div>
                     </div>
@@ -165,11 +169,15 @@
 
 
                 <div style="margin-top: 2%">                
+                    <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
+                       type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
+
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
                        style="position: relative">Sair</a>
 
                     <a href="" type="button" class="btn btn-warning btn-sm"
-                       style="position: relative">?</a>
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">help</i></a>
 
                 </div>  
 
@@ -250,8 +258,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[0].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[0].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -268,13 +276,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[0].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -306,17 +314,17 @@
                                                     <label th:text="${reserva.status[0].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[0].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[0].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[0].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -330,7 +338,7 @@
 
                             </td>
                             <td class="text-success" th:if="${reserva.status[1].situacao == false}">
-                                 <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[1].Cod_status}" data-whatever="coisa" style="text-decoration: none">
+                                <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[1].Cod_status}" data-whatever="coisa" style="text-decoration: none">
                                     disponivel</a>
 
                                 <div class="modal fade" th:id="${reserva.status[1].Cod_status}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -347,8 +355,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[1].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[1].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -365,13 +373,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[1].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -401,17 +409,17 @@
                                                     <label th:text="${reserva.status[1].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[1].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[1].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[1].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -424,7 +432,7 @@
                                 </div>
                             </td>
                             <td class="text-success" th:if="${reserva.status[2].situacao == false}">
-                                 <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[2].Cod_status}" data-whatever="coisa" style="text-decoration: none">
+                                <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[2].Cod_status}" data-whatever="coisa" style="text-decoration: none">
                                     disponivel</a>
 
                                 <div class="modal fade" th:id="${reserva.status[2].Cod_status}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -441,8 +449,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[2].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[2].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -459,13 +467,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[2].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -495,17 +503,17 @@
                                                     <label th:text="${reserva.status[2].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[2].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[2].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[2].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -518,7 +526,7 @@
                                 </div>
                             </td>
                             <td class="text-success" th:if="${reserva.status[3].situacao == false}">
-                                 <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[3].Cod_status}" data-whatever="coisa" style="text-decoration: none">
+                                <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[3].Cod_status}" data-whatever="coisa" style="text-decoration: none">
                                     disponivel</a>
 
                                 <div class="modal fade" th:id="${reserva.status[3].Cod_status}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -535,8 +543,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[3].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[3].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -553,13 +561,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[3].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -589,17 +597,17 @@
                                                     <label th:text="${reserva.status[3].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[3].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[3].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[3].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -612,7 +620,7 @@
                                 </div>
                             </td>
                             <td class="text-success" th:if="${reserva.status[4].situacao == false}">
-                                 <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[4].Cod_status}" data-whatever="coisa" style="text-decoration: none">
+                                <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[4].Cod_status}" data-whatever="coisa" style="text-decoration: none">
                                     disponivel</a>
 
                                 <div class="modal fade" th:id="${reserva.status[4].Cod_status}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -629,8 +637,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[4].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[4].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -647,13 +655,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[4].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -683,17 +691,17 @@
                                                     <label th:text="${reserva.status[4].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[4].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[4].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[4].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 
@@ -706,7 +714,7 @@
                                 </div>
                             </td>
                             <td class="text-success" th:if="${reserva.status[5].situacao == false}">
-                                 <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[5].Cod_status}" data-whatever="coisa" style="text-decoration: none">
+                                <a class="text-success" data-toggle="modal"  th:href="'#'+${reserva.status[5].Cod_status}" data-whatever="coisa" style="text-decoration: none">
                                     disponivel</a>
 
                                 <div class="modal fade" th:id="${reserva.status[5].Cod_status}" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -723,8 +731,8 @@
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
-                                                       <label th:text="${reserva.status[5].Cod_status}"></label> 
-                                                       
+                                                        <label th:text="${reserva.status[5].Cod_status}"></label> 
+
                                                     </p>
 
                                                     <p><label>Reservar em nome de :&nbsp;</label>
@@ -741,13 +749,13 @@
                                                     <p><label>Horario da reserva:&nbsp;</label>
                                                         <label th:text="${reserva.status[5].horario}"></label> 
                                                     </p>
-                                                    
+
                                                     <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
-                                                    
+
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-          
+
                                                 <label th:text="${reserva.laboratorio.nomeLab}">&nbsp;</label>
                                                 <label th:text="${reserva.dataReserva.toLocaleString().replaceAll('00:00:00', '')}">&nbsp;</label>
 
@@ -777,17 +785,17 @@
                                                     <label th:text="${reserva.status[5].professor.nomeFuncionario}"></label> 
                                                 </p>
                                                 <p><label>Reservado em:&nbsp;</label>
-                                                    <label th:text="${reserva.status[5].dataOperacao.toLocaleString()}"></label> 
+                                                    <label th:text="${reserva.status[5].dataOperacao.toLocaleString().replaceAll('00:00:00', '')}"></label> 
                                                 </p>
                                                 <p><label>Horario reservado:&nbsp;</label>
                                                     <label th:text="${reserva.status[5].horario}"></label> 
                                                 </p>
-                                                
-                                                 <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},data=${reserva.dataReserva})}"
+
+                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},data=${reserva.dataReserva})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
-                                                
+
                                             </div>
                                             <div class="modal-footer">
 

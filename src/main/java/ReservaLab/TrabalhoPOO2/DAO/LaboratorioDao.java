@@ -25,4 +25,13 @@ public class LaboratorioDao extends Generica<Laboratorio>{
         return Pegarpordata.get(0);
         }
     
+    @SuppressWarnings("unchecked")
+        public List<Laboratorio> LabPorNome(String nome){
+            
+            List<Laboratorio> labs = getSession().createQuery(" from Laboratorio a"
+                    + " where a.nomeLab like :nome").setParameter("nome","%"+nome+"%").list();
+            
+            
+            return labs;
+        }
 }

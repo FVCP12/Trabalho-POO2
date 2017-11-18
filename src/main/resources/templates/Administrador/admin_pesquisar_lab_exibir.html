@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
+              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/> 
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
+
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"/>
+
+        <title>Admin</title>
+        <meta http-equiv="Content-Type" 
+              content="text/html; charset=UTF-8" />
+    </head>
+    <body style="background-color: #ffffff">
+
+        <div  style="background-color: #ff6600" id="list-item-1">
+
+            <div class="row">
+                <div class="col-3">
+                    <img style="width: 172px;height: 120px"   src="/logoPitagoras.jpg"/> 
+                </div>
+                <div class="col-9">
+                    <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
+                    <p><h4>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h4></p> 
+                </div>
+
+            </div>
+
+        </div>
+        <div class="row" >
+
+            <div style="float:left;
+                 text-align: center;" id="op">
+
+
+
+                <div id="accordion" role="tablist">
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Listar &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Laboratorios
+
+                                    </a>
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_lista_funcionario'(fun=${user.Cod_funcio})}" style="text-decoration: none">
+                                        Usuarios
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingOne1">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseOne1" aria-expanded="false" aria-controls="collapseOne1" 
+                                   style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Pesquisar&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_pesquisar_lab_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
+                                        Laboratorios
+                                    </a>
+                                </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Reservas </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingTwo">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Adicionar&nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_add_lab?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Laboratorios
+                                    </a></p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
+                                        Usuarios 
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card" style=" background-color: #ff6600">
+                        <div class="card-header" role="tab" id="headingThree">
+                            <h5 class="mb-0">
+                                <a class="collapsed" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree" style="color: white; text-decoration: none">
+                                    <div style="float: left;"> 
+                                        Reservas &nbsp;
+                                    </div>
+                                    <div style="float: left;">
+                                        <i class="material-icons">menu</i>
+                                    </div>
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_exibirReservas_solicitar?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Exibir 
+                                    </a>   
+                                </p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Administrador/admin_disponibilizar_escolhaAno?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Disponibilizar 
+                                    </a>                            
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div style="margin-top: 2%">                
+                    <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
+                       type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
+
+                    <a href="/logar" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative">Sair</a>
+
+                    <a href="" type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">help</i></a>
+
+                </div>  
+
+
+                <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
+
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo</p></a>
+
+                </div>
+
+
+            </div>
+            <div class="container" style="float:left;position: relative;
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+
+                <div style="margin-left: 2%">
+                    <span><h3>
+                            <p>Pesquisar</p>
+                            <p>Laboratorio por nome:</p>
+                        </h3></span>
+
+                    <form action="#" th:action="@{'/PesquisarNomeLAb'(fun=${user.Cod_funcio})}"
+                          th:object="${lab}" method="post">
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning" type="submit">Pesquisar</button>
+                            </span>
+                            <input type="text"  th:field="*{nomeLab}" class="form-control" placeholder="Digite o nome..." aria-label="Digite o nome..."/>
+                        </div>
+
+                    </form>
+
+                    <p th:text="${menssagem}"></p>
+
+
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nome do Laboratorio</th>
+                                <th scope="col">Andar</th>
+                                <th scope="col">Descrição</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="lab : ${labs}">
+
+                                <td  th:text = "${lab.nomeLab}"></td>
+                                <td  th:text = "${lab.andar}"></td>
+                                <td>
+                                    <textarea cols="40" th:text="${lab.descricao}" readonly="readonly">
+                                    
+                                    </textarea>
+                                </td>
+
+                                <td>
+                                    <a onclick="mostrar('Teste','op')" th:href="@{'/Administrador/admin_lab_apargar'
+                                       (fun=${user.Cod_funcio},lab=${lab.cod_labor})}"
+                                       class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                                        Deletar
+                                    </a>
+                                </td>
+                                <td><a th:href="@{'/Administrador/admin_altera_lab'
+                                       (fun=${user.Cod_funcio},ilab=${lab.cod_labor})}"
+                                       class="btn btn-warning btn-sm " role="button" aria-disabled="true">
+                                        Alterar
+                                    </a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <div id="Teste" style="margin: 2px;margin-left: 23%;display: none">      
+                    <p>Apagando reservas relacionadas</p>
+                    <progress></progress> 
+                    <label>Isso pode demorar um pouco, aguarde....</label>
+                </div>
+
+
+            </div>
+        </div>
+
+
+        <script type="text/javascript">
+
+            var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>
+
+    </body>
+</html>

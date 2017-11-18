@@ -128,7 +128,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
                                         Usuarios 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -168,7 +168,7 @@
                 </div>
 
 
-                <div style="margin-top: 2%">                
+                <div style="margin-top: 2%">    
                     <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
                        type="button" class="btn btn-warning btn-sm"
                        style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
@@ -184,32 +184,39 @@
 
                 <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
 
-                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo</p></a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>topo!</p></a>
 
                 </div>
 
 
             </div>
             <div class="container" style="float:left;position: relative;
-                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto"> 
 
-                <form action="#" th:action="@{'/BuscaReservas?fun='+${user.Cod_funcio}}" 
-                      th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
-                    <p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                        <input type="month" class="form-control" placeholder="Username" 
-                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
-                    </div>
-                    </p> 
-                    <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                <div style="margin-left: 2%">
+                    <span><h3>
+                            <p>Pesquisar</p>
+                            <p>Laboratorio por nome:</p>
+                        </h3></span>
+
+                    <form action="#" th:action="@{'/PesquisarNomeLAb'(fun=${user.Cod_funcio})}"
+                          th:object="${lab}" method="post">
+
+                        <div class="input-group">
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning" type="submit">Pesquisar</button>
+                            </span>
+                            <input type="text"  th:field="*{nomeLab}" class="form-control" placeholder="Digite o nome..." aria-label="Digite o nome..."/>
+                        </div>
+
+                    </form>
+
+                    <p th:text="${menssagem}">
+
                     </p>
 
-                </form>   
+                </div>
 
-                <label th:text="${messagem}"></label>
             </div>
         </div>
     </body>

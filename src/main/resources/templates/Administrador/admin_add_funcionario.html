@@ -90,12 +90,16 @@
                         <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
                             <div class="card-body" style="background-color: #f7ba5e;">
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
-                                    Laboratorios
-
+                                    <a th:href="@{'/Administrador/admin_pesquisar_lab_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
+                                        Laboratorios
+                                    </a>
                                 </p>
                                 <hr/>
 
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">Usuarios </p>
+                                <hr/>
+
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">Reservas </p>
                             </div>
                         </div>
                     </div>
@@ -165,11 +169,15 @@
 
 
                 <div style="margin-top: 2%">                
+                    <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
+                       type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
+
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
                        style="position: relative">Sair</a>
 
                     <a href="" type="button" class="btn btn-warning btn-sm"
-                       style="position: relative">?</a>
+                       style="position: relative"><i class="material-icons" style="font-size: 15px">help</i></a>
 
                 </div>  
 
@@ -209,7 +217,7 @@
                                 <br/><br/>
                                 <input type="text" th:field="*{ra}"/>
                                 <br/><br/>
-                                <input type="text" th:field="*{senha}"/>
+                                <input type="password" th:field="*{senha}"/>
                                 <br/><br/>
                                 <select th:field="*{funcao.Cod_funcoes}">
 
