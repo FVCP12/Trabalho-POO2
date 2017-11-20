@@ -200,17 +200,18 @@
                 <div style="margin-left: 2%">
                     <span><h3>
                             <p>Pesquisar</p>
-                            <p>Laboratorio por nome:</p>
+                            <p>Funcionario por nome:</p>
                         </h3></span>
 
-                    <form action="#" th:action="@{'/PesquisarNomeLAb'(fun=${user.Cod_funcio})}"
-                          th:object="${lab}" method="post">
+                    <form action="#" th:action="@{'/PesquisarNomeFuncio'(fun=${user.Cod_funcio})}"
+                          th:object="${func}" method="post">
 
                         <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-warning" type="submit">Pesquisar</button>
                             </span>
-                            <input type="text"  th:field="*{nomeLab}" class="form-control" placeholder="Digite o nome..." aria-label="Digite o nome..."/>
+                            <input type="text"  th:field="*{nomeFuncionario}" class="form-control" placeholder="Digite o nome..." aria-label="Digite o nome..."/>
+
                         </div>
 
                     </form>

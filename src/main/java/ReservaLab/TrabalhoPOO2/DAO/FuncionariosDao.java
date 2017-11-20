@@ -38,4 +38,14 @@ public class FuncionariosDao extends Generica<Funcionarios> {
         
     }
     
+    @SuppressWarnings("unchecked")
+        public List<Funcionarios> FuncionarioPorNome(String nome){
+            
+            List<Funcionarios> funcios = getSession().createQuery(" from Funcionarios a"
+                    + " where a.nomeFuncionario like :nome").setParameter("nome","%"+nome+"%").list();
+            
+            
+            return funcios;
+        }
+    
 }

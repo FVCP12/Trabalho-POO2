@@ -874,4 +874,43 @@ public class AdminController {
 
         return "/Administrador/adminIni";
     }
+////////////////////////////////////////////////////////////////////////////////////////////////
+ @GetMapping("/Administrador/admin_pesquisar_funcio_solicitarNome")
+    public String solicitarNomeFuncionario(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        model.addAttribute("func", new Funcionarios());
+
+        return "/Administrador/admin_pesquisar_funcio_solicitarNome";
+    }
+
+    @PostMapping("/PesquisarNomeFuncio")
+    public String pesquisandoFuncioNome(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios func,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        model.addAttribute("func", func);
+
+        List<Funcionarios> funcionarios = funcionariosDao.FuncionarioPorNome(func.getNomeFuncionario());
+
+        model.addAttribute("funcionarios", funcionarios);
+
+       if (!funcionarios.isEmpty()) {
+
+            return "/Administrador/admin_pesquisar_funcio_exibir";
+        } else {
+            model.addAttribute("menssagem", "Não foi encontrado nenhum funcionario com este nome!");
+
+            return "/Administrador/admin_pesquisar_funcio_solicitarNome";
+        }
+
+    }    
 }
