@@ -130,10 +130,9 @@
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-
-                <form action="#" th:action="@{'/Portaria/port_vertTodos}" 
+                <form action="#" th:action="@{'/Portaria/port_verTodosDia?fun='+${user.Cod_funcio}}" 
                       th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
+                    <p><h3>Todos Laboratórios</h3></p>
                     <p>
                     <div class="input-group input-group-sm">
                         <span class="input-group-addon" id="sizing-addon1">Escolha o dia:</span>
@@ -142,10 +141,51 @@
                     </div>
                     </p> 
                     <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                        <button type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
                     </p>
-                </form>   
+
+                </form>  
+
+                <table class="table table-bordered table-gray">
+                    <thead>
+                        <tr>
+                            <th scope="col">Laboratório</th>
+                            <th scope="col">1º Manhã</th>
+                            <th scope="col">2º Manhã</th>   
+                            <th scope="col">1º Tarde</th>
+                            <th scope="col">2º Tarde</th>
+                            <th scope="col">1º Noite</th>
+                            <th scope="col">2º Noite</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="reserva : ${reservas}" >
+                        <tr>
+                            <td th:text="${reserva.laboratorio.nomeLab}"></td>
+                            <td class="text-success" th:if="${reserva.status[0].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[0].situacao == true}">Reservado</td>
+                            <td class="text-success" th:if="${reserva.status[1].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[1].situacao == true}">Reservado</td>
+                            <td class="text-success" th:if="${reserva.status[2].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[2].situacao == true}">Reservado</td>
+                            <td class="text-success" th:if="${reserva.status[3].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[3].situacao == true}">Reservado</td>
+                            <td class="text-success" th:if="${reserva.status[4].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[4].situacao == true}">Reservado</td>
+                            <td class="text-success" th:if="${reserva.status[5].situacao == false}">Disponível</td>
+                            <td class="text-danger" th:if="${reserva.status[5].situacao == true}">Reservado</td>
+                        </tr>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+                <p th:text="${messagem}"></p>
+
             </div>
+
         </div>
 
     </body>

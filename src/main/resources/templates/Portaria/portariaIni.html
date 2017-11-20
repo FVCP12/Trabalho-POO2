@@ -105,12 +105,16 @@
                         <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
                             <div class="card-body" style="background-color: #f7ba5e;">
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
-                                    Disponíveis
+                                    <a th:href="@{'/Portaria/port_chavesDisponiveis?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Disponíveis</a>
 
                                 </p>
                                 <hr/>
 
-                                <p style="margin: 1px;margin-left: 5px;text-align: center">Emprestadas </p>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Portaria/port_chavesEmprestada?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Emprestadas </a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -129,9 +133,7 @@
 
 
                 <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
-
                     <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>topo!</p></a>
-
                 </div>
 
 

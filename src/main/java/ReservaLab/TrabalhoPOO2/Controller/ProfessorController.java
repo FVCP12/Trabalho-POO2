@@ -195,10 +195,10 @@ public class ProfessorController {
             @RequestParam(value = "fun") long idFun,
             Model model
     ) {
-
+    
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("aux", new Funcionarios());
-
+    
         return "/Professor/minhasreservas";
     }
      */
