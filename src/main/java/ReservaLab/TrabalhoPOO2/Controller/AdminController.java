@@ -858,6 +858,7 @@ public class AdminController {
         return "/Administrador/adminIni";
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
+
     @GetMapping("/Administrador/CancelarPadrao")
     public String cancelarPadrao(
             @RequestParam(value = "fun") long idFun,
@@ -867,15 +868,13 @@ public class AdminController {
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
-        
-        model.addAttribute("menssagem","<<Escolha uma opção ao lado!");
-
-       
+        model.addAttribute("menssagem", "<<Escolha uma opção ao lado!");
 
         return "/Administrador/adminIni";
     }
 ////////////////////////////////////////////////////////////////////////////////////////////////
- @GetMapping("/Administrador/admin_pesquisar_funcio_solicitarNome")
+
+    @GetMapping("/Administrador/admin_pesquisar_funcio_solicitarNome")
     public String solicitarNomeFuncionario(
             @RequestParam(value = "fun") long idFun,
             Model model
@@ -887,6 +886,7 @@ public class AdminController {
 
         return "/Administrador/admin_pesquisar_funcio_solicitarNome";
     }
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
     @PostMapping("/PesquisarNomeFuncio")
     public String pesquisandoFuncioNome(
@@ -903,7 +903,7 @@ public class AdminController {
 
         model.addAttribute("funcionarios", funcionarios);
 
-       if (!funcionarios.isEmpty()) {
+        if (!funcionarios.isEmpty()) {
 
             return "/Administrador/admin_pesquisar_funcio_exibir";
         } else {
@@ -911,6 +911,226 @@ public class AdminController {
 
             return "/Administrador/admin_pesquisar_funcio_solicitarNome";
         }
+
+    }
+/////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Administrador/admin_pesquisa_reserva_solicitar")
+    public String ReservaSolicitarPes(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        Reservas aux = new Reservas();
+
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("aux", aux);
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        return "/Administrador/admin_pesquisa_reserva_solicitar";
+    }
+/////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping("/PesquisarReserva")
+    public String pesquisarReserva(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Reservas aux,
+            Model model
+    ) {
+
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("aux", aux);
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, aux.getLaboratorio().getCod_labor());
+
+
+        if (!aux.getLaboratorio().getAndar().equals("") && !aux.getLaboratorio().getDescricao().equals("")) {
+
+            String dataInicio = aux.getLaboratorio().getAndar().replaceAll("-", "/");
+            String dataFim = aux.getLaboratorio().getDescricao().replaceAll("-", "/");
+
+            Date d1 = new Date(dataInicio);//inicio
+            Date d2 = new Date(dataFim);//fim
+
+            List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
+
+            List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
+
+            model.addAttribute("reservas", reservas);
+            model.addAttribute("funcionarios", podeReservar);
+
+            model.addAttribute("d", reservas.get(0).getDataReserva());
+
+            model.addAttribute("status", new StatusLab());
+
+            if (reservas.isEmpty()) {
+                model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+            }
+            return "/Administrador/admin_pesquisa_reserva_exibir";
+
+        } else {
+            model.addAttribute("messagem", "Preencha os dois campos de data!");
+            return "/Administrador/admin_pesquisa_reserva_solicitar";
+        }
+
+    }
+////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Administrador/admin_pesquisa_reserva_exibir")
+    public String exibindoReservasPes(
+            @ModelAttribute Funcionarios user,
+            @ModelAttribute List<Reservas> reservas,
+            @ModelAttribute Date d,
+            @ModelAttribute List<Funcionarios> podeReservar,
+            @ModelAttribute Reservas aux,
+            Model model
+    ) {
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        
+        model.addAttribute("labs", labs);
+        model.addAttribute("d", d);
+        model.addAttribute("aux", aux);
+        model.addAttribute("user", user);
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("funcionarios", podeReservar);  
+        
+
+        return "/Administrador/admin_pesquisa_reserva_exibir";
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+@PostMapping("/ReservandoP")
+    public String reservandoLabPes(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "sta") long idStat,
+            @RequestParam(value = "dataini") String dataIni,
+            @RequestParam(value = "datafim") String datafim,
+            @RequestParam(value = "codlab") long codLab,
+            @ModelAttribute Reservas aux,
+            @ModelAttribute StatusLab status,
+            
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("status", status);
+        
+        Laboratorio l = new Laboratorio();
+        aux.setLaboratorio(l);
+        aux.getLaboratorio().setCod_labor(codLab);
+        aux.getLaboratorio().setAndar(dataIni);
+        aux.getLaboratorio().setDescricao(datafim);
+        
+        
+        model.addAttribute("aux", aux);
+
+        StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
+        Funcionarios funReserva = funcionariosDao.buscaId(Funcionarios.class, status.getProfessor().getCod_funcio());
+            
+        atualizar.setProfessor(funReserva);
+        atualizar.setDataOperacao(new Date());
+        atualizar.setSituacao(true);
+
+        statusDao.atualizar(atualizar);
+
+        
+            String dataInicio = dataIni.replaceAll("-", "/");
+            String dataFim = datafim.replaceAll("-", "/");
+
+            Date d1 = new Date(dataInicio);//inicio
+            Date d2 = new Date(dataFim);//fim
+
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);    
+        List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
+
+
+        List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
+        
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("funcionarios", podeReservar);
+
+        model.addAttribute("d", reservas.get(0).getDataReserva());
+
+        model.addAttribute("status", new StatusLab());
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+
+        return "/Administrador/admin_pesquisa_reserva_exibir";
+
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/ExcluirP")
+    public String excluindoReservaLabPes(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "sta") long idStat,
+            @RequestParam(value = "dataini") String dataIni,
+            @RequestParam(value = "datafim") String datafim,
+            @RequestParam(value = "codlab") long codLab,
+            @ModelAttribute Reservas aux,
+            @ModelAttribute StatusLab status,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("status", status);
+        
+        Laboratorio l = new Laboratorio();
+        aux.setLaboratorio(l);
+        aux.getLaboratorio().setCod_labor(codLab);
+        aux.getLaboratorio().setAndar(dataIni);
+        aux.getLaboratorio().setDescricao(datafim);
+        
+        
+        model.addAttribute("aux", aux);
+
+        StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
+
+        atualizar.setProfessor(null);
+        atualizar.setDataOperacao(null);
+        atualizar.setSituacao(false);
+
+        statusDao.atualizar(atualizar);
+
+        
+        ///////////
+        String dataInicio = dataIni.replaceAll("-", "/");
+            String dataFim = datafim.replaceAll("-", "/");
+
+            Date d1 = new Date(dataInicio);//inicio
+            Date d2 = new Date(dataFim);//fim
+
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);    
+        List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
+
+
+        List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("reservas", reservas);
+        model.addAttribute("funcionarios", podeReservar);
+
+        model.addAttribute("d", reservas.get(0).getDataReserva());
+
+        model.addAttribute("status", new StatusLab());
+
+        if (reservas.isEmpty()) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+
+        return "/Administrador/admin_pesquisa_reserva_exibir";
 
     }    
 }

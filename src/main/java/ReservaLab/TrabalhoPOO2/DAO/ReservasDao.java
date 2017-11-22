@@ -69,6 +69,18 @@ public class ReservasDao extends Generica<Reservas> {
       return reservas;
     }
     
+     @SuppressWarnings("unchecked")
+    public List<Reservas> buscaPorLab_Periodo(Laboratorio lab,Date inicio,Date fim){
+    
+        List<Reservas> reservas = getSession().createQuery("from Reservas r "
+                + " where "
+                + "r.dataReserva >= :inicio and r.dataReserva <= :fim and r.laboratorio = :lab order by r.laboratorio,r.dataReserva").
+                setParameter("inicio",inicio).setParameter("fim", fim).setParameter("lab", lab).list();
+        
+        //left join fetch r.status s
+      return reservas;
+    }
+    
     
    /* @SuppressWarnings("unchecked")
     public List<Reservas> buscaPorMeseprof(Date inicio,Date fim, Funcionarios prof){

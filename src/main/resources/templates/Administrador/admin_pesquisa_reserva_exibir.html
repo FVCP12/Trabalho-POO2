@@ -106,7 +106,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_pesquisa_reserva_solicitar'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Reservas 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -201,21 +201,43 @@
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                <form action="#" th:action="@{'/BuscaReservas?fun='+${user.Cod_funcio}}" 
-                      th:object="${aux}" method="post" >
-                    <p><h3>Busca de Reservas</h3></p>
-                    <p>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
-                        <input type="month" class="form-control" placeholder="Username" 
-                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
-                    </div>
-                    </p> 
-                    <p>  
-                        <button type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
-                    </p>
+                <span><h4>
+                        <p>Pesquisar</p>
+                        <p>Reservas pelo laboratória e por um intervalo de tempo:</p>
+                    </h4></span>
 
-                </form>  
+                <form action="#" th:action="@{'/PesquisarReserva'(fun=${user.Cod_funcio})}"
+                      th:object="${aux}" method="post">
+
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1" >Escolha o laboratório:</span>
+                        <select th:field="*{laboratorio.cod_labor}" class="form-control" placeholder="Username" 
+                                aria-label="Username" aria-describedby="sizing-addon1">
+                            <option th:each="lab : ${labs}"
+                                    th:value="${lab.cod_labor}"
+                                    th:text="${lab.nomeLab}"></option>
+
+                        </select>
+                    </div> 
+
+                    <br/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data inicio:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.andar}"/>
+                    </div>    
+                    
+                    <br/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data fim:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.descricao}"/>
+                    </div>
+                    
+                    <br/>
+                    
+                    <button type="submit" class="btn btn-warning btn-sm">Pesquisar</button>
+                </form> 
 
                 <p th:text="${messagem}"></p>
 
@@ -262,7 +284,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -328,7 +350,7 @@
                                                     <label th:text="${reserva.status[0].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -359,7 +381,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -423,7 +445,7 @@
                                                     <label th:text="${reserva.status[1].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -453,7 +475,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -517,7 +539,7 @@
                                                     <label th:text="${reserva.status[2].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -547,7 +569,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -611,7 +633,7 @@
                                                     <label th:text="${reserva.status[3].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -641,7 +663,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -705,7 +727,7 @@
                                                     <label th:text="${reserva.status[4].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -735,7 +757,7 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body" >
-                                                <form action="#" th:action="@{'/Reservando'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},data=${reserva.dataReserva})}"
+                                                <form action="#" th:action="@{'/ReservandoP'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                       th:object="${status}" method="post">     
 
                                                     <p><label>Codigo da reserva:&nbsp;</label>
@@ -799,7 +821,7 @@
                                                     <label th:text="${reserva.status[5].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/Excluir'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},data=${reserva.dataReserva})}"
+                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>

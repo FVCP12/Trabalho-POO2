@@ -33,7 +33,7 @@
         <div class="row" >
 
             <div style="float:left;
-                 text-align: center;" id="op">
+                 text-align: center;">
 
 
 
@@ -106,7 +106,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_pesquisa_reserva_solicitar'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Reservas 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -136,7 +136,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
                                         Usuarios 
-                                    </a>
+                                    </a> 
                                 </p>
                             </div>
                         </div>
@@ -198,99 +198,49 @@
 
 
             </div>
-
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                <div style="margin-left: 2%">
-                    <span><h3>
-                            <p>Pesquisar</p>
-                            <p>Funcionario por nome:</p>
-                        </h3></span>
+                <span><h4>
+                        <p>Pesquisar</p>
+                        <p>Reservas pelo laboratória e por um intervalo de tempo:</p>
+                    </h4></span>
 
-                    <form action="#" th:action="@{'/PesquisarNomeFuncio'(fun=${user.Cod_funcio})}"
-                          th:object="${func}" method="post">
+                <form action="#" th:action="@{'/PesquisarReserva'(fun=${user.Cod_funcio})}"
+                      th:object="${aux}" method="post">
 
-                        <div class="input-group">
-                            <span class="input-group-btn">
-                                <button class="btn btn-warning" type="submit">Pesquisar</button>
-                            </span>
-                            <input type="text"  th:field="*{nomeFuncionario}" class="form-control" placeholder="Digite o nome..." aria-label="Digite o nome..."/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1" >Escolha o laboratório:</span>
+                        <select th:field="*{laboratorio.cod_labor}" class="form-control" placeholder="Username" 
+                                aria-label="Username" aria-describedby="sizing-addon1">
+                            <option th:each="lab : ${labs}"
+                                    th:value="${lab.cod_labor}"
+                                    th:text="${lab.nomeLab}"></option>
 
-                        </div>
+                        </select>
+                    </div> 
 
-                    </form>
+                    <br/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data inicio:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.andar}"/>
+                    </div>    
+                    
+                    <br/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data fim:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.descricao}"/>
+                    </div>
+                    
+                    <br/>
+                    
+                    <button type="submit" class="btn btn-warning btn-sm">Pesquisar</button>
+                </form>
 
-                    <p th:text="${menssagem}">
-
-                    </p>
-
-                </div>
-
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome do Funcionario</th>
-                            <th scope="col">Registro Academico</th>
-                            <th scope="col">Função</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="fun : ${funcionarios}">
-
-                            <td th:text="${fun.nomeFuncionario}"></td>
-                            <td th:text="${fun.ra}"></td>
-                            <td th:text="${fun.funcao.nomeFuncao}"></td>
-
-                            <td>
-                                <a onclick="mostrar('Teste','op')" th:href="@{'/apagandoFuncionario'(fun=${user.Cod_funcio},excluir=${fun.Cod_funcio})}"
-                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                    Deletar
-                                </a>
-                            </td>
-                            <td><a th:href="@{'/Administrador/admin_altera_funcionario'(fun=${user.Cod_funcio},idfunAlterar=${fun.Cod_funcio})}"
-                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                    Alterar
-                                </a></td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <div id="Teste" style="margin: 2px;margin-left: 23%;display: none">      
-                    <p>Apagando reservas relacionadas</p>
-                    <progress></progress> 
-                    <label>Isso pode demorar um pouco, aguarde....</label>
-                </div>
-
-                <label th:text="${menssagem}"></label>
+                <label th:text="${messagem}"></label>
             </div>
         </div>
-
-
-        <script type="text/javascript">
-
-            var mostrar = function(ok,ok1){
-
-            var display = document.getElementById(ok).style.display;
-            var display1 = document.getElementById(ok1).style.display;
-
-            if(display1 == "none")
-            document.getElementById(ok1).style.display = 'block';
-            else
-            document.getElementById(ok1).style.display = 'none';
-
-
-            if(display == "none")
-            document.getElementById(ok).style.display = 'block';
-            else
-            document.getElementById(ok).style.display = 'none';
-
-
-            }
-
-        </script>
-
     </body>
 </html>
-
