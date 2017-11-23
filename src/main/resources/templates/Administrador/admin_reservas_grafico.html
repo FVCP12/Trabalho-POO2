@@ -23,28 +23,28 @@
             var data = new google.visualization.DataTable();
             data.addColumn('string', 'Linguagem'); 
             data.addColumn('number', 'Porcentagem');
-            
+
             /*<![CDATA[*/    
             var dados =  /*[[${dados}]]*/
 
             /*]]>*/
 
 
-         for (var i = dados.length - 1; i >= 0; i--) {
-        	
-
-        data.addRows([ //Adiciona as linhas da tabela com os valores
-          
-          [dados[i].nomeFuncionario, dados[i].cod_funcio]
-               
-        	]);
+            for (var i = dados.length - 1; i >= 0; i--) {
 
 
-       }
+            data.addRows([ //Adiciona as linhas da tabela com os valores
+
+            [dados[i].nomeFuncionario, dados[i].cod_funcio]
+
+            ]);
+
+
+            }
 
 
 
-            var options = {'title':'Grafico Referente as reservas do mês','width':850, 'height':650, 'is3D':true,
+            var options = {'width':750, 'height':550, 'is3D':true,
             'legend':'left', 'fontSize':15};
 
 
@@ -254,7 +254,7 @@
             </div>
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
-                
+
                 <form action="#" th:action="@{'/GerarGrafico?fun='+${user.Cod_funcio}}" 
                       th:object="${auxil}" method="post" >
                     <p><h3>Grafico de utilização</h3></p>
@@ -273,10 +273,16 @@
 
                 <label th:text="${messagem}"></label>
 
-                
-                <div id="chart_div" ></div>
+                <div class="card border-warning mb-3" style="margin-left: 150px" >
+                    <div class="card-header" th:text="${auxil.nomeFuncionario}"></div>
+                    <div class="card-body text-warning">
+                        <h4 class="card-title">Grafico Referente as reservas do mês</h4>
+                         <div id="chart_div" ></div>
+                    </div>
+                </div>
+                   
 
+                </div>
             </div>
-        </div>
     </body>
 </html>
