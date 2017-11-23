@@ -7,6 +7,53 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
+        <script type="text/javascript" src="https://www.google.com/jsapi "></script>
+        <script type="text/javascript" th:inline="javascript">
+
+
+            google.load('visualization', '1.0', {'packages':['corechart']});
+
+
+            google.setOnLoadCallback(drawChart);
+
+
+            function drawChart() {
+
+            // Cria a tabela
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Linguagem'); 
+            data.addColumn('number', 'Porcentagem');
+            
+            /*<![CDATA[*/    
+            var dados =  /*[[${dados}]]*/
+
+            /*]]>*/
+
+
+         for (var i = dados.length - 1; i >= 0; i--) {
+        	
+
+        data.addRows([ //Adiciona as linhas da tabela com os valores
+          
+          [dados[i].nomeFuncionario, dados[i].cod_funcio]
+               
+        	]);
+
+
+       }
+
+
+
+            var options = {'title':'Grafico Referente as reservas do mês','width':850, 'height':650, 'is3D':true,
+            'legend':'left', 'fontSize':15};
+
+
+            var chart = new google.visualization.PieChart(document.getElementById
+            ('chart_div'));
+            chart.draw(data, options);
+            }
+        </script>
+
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet"/>
 
@@ -33,7 +80,7 @@
         <div class="row" >
 
             <div style="float:left;
-                 text-align: center;" id="op">
+                 text-align: center;">
 
 
 
@@ -100,6 +147,7 @@
                                     <a th:href="@{'/Administrador/admin_pesquisar_funcio_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Usuários 
                                     </a>
+
                                 </p>
                                 <hr/>
 
@@ -182,7 +230,7 @@
                 </div>
 
 
-                <div style="margin-top: 2%">                
+                <div style="margin-top: 2%">    
                     <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
                        type="button" class="btn btn-warning btn-sm"
                        style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
@@ -198,7 +246,7 @@
 
                 <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
 
-                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo</p></a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>topo!</p></a>
 
                 </div>
 
@@ -206,77 +254,29 @@
             </div>
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
+                
+                <form action="#" th:action="@{'/GerarGrafico?fun='+${user.Cod_funcio}}" 
+                      th:object="${auxil}" method="post" >
+                    <p><h3>Grafico de utilização</h3></p>
+                    <p>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Escolha o mes:</span>
+                        <input type="month" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{nomeFuncionario}"/>
+                    </div>
+                    </p> 
+                    <p>  
+                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                    </p>
 
-                <span><h3>Lista de Laboratorios</h3></span>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th scope="col">Nome do Laboratorio</th>
-                            <th scope="col">Andar</th>
-                            <th scope="col">Descrição</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="lab : ${labs}">
+                </form>   
 
-                            <td  th:text = "${lab.nomeLab}"></td>
-                            <td  th:text = "${lab.andar}"></td>
-                            <td>
-                                <textarea cols="40" th:text="${lab.descricao}" readonly="readonly">
-                                    
-                                </textarea>
-                            </td>
+                <label th:text="${messagem}"></label>
 
-                            <td>
-                                <a onclick="mostrar('Teste','op')" th:href="@{'/Administrador/admin_lab_apargar'
-                                   (fun=${user.Cod_funcio},lab=${lab.cod_labor})}"
-                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                    Deletar
-                                </a>
-                            </td>
-                            <td><a th:href="@{'/Administrador/admin_altera_lab'
-                                   (fun=${user.Cod_funcio},ilab=${lab.cod_labor})}"
-                                   class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                    Alterar
-                                </a></td>
-                        </tr>
-                    </tbody>
-                </table>
+                
+                <div id="chart_div" ></div>
 
-
-                <div id="Teste" style="margin: 2px;margin-left: 23%;display: none">      
-                    <p>Apagando reservas relacionadas</p>
-                    <progress></progress> 
-                    <label>Isso pode demorar um pouco, aguarde....</label>
-                </div>
-
-                <label th:text="${menssagem}"></label>
             </div>
         </div>
-
-
-        <script type="text/javascript">
-
-            var mostrar = function(ok,ok1){
-
-            var display = document.getElementById(ok).style.display;
-            var display1 = document.getElementById(ok1).style.display;
-
-            if(display1 == "none")
-            document.getElementById(ok1).style.display = 'block';
-            else
-            document.getElementById(ok1).style.display = 'none';
-
-
-            if(display == "none")
-            document.getElementById(ok).style.display = 'block';
-            else
-            document.getElementById(ok).style.display = 'none';
-
-
-            }
-
-        </script>
-
     </body>
 </html>

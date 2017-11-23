@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import ReservaLab.TrabalhoPOO2.DAO.*;
 import ReservaLab.TrabalhoPOO2.Model.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class AdminController {
@@ -1132,5 +1133,118 @@ public class AdminController {
 
         return "/Administrador/admin_pesquisa_reserva_exibir";
 
+    }    
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+@GetMapping("/Administrador/admin_reserva_solicitar_mesGrafico")
+    public String GraficoSolicitar(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("auxil", new Funcionarios());
+
+        return "/Administrador/admin_reserva_solicitar_mesGrafico";
+    }   
+//////////////////////////////////////////////////////////////////////////////////////////////////////
+@PostMapping("/GerarGrafico")
+    public String GerarGrafico(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Funcionarios auxil,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("auxil", auxil);
+        
+        if(auxil.getNomeFuncionario().equals("")){
+            
+            model.addAttribute("messagem", "Selecione uma data primeiro!!");
+            return "/Administrador/admin_reserva_solicitar_mesGrafico";
+        }
+        
+        //data
+            String dataInicio = auxil.getNomeFuncionario() + "-01";
+            dataInicio = dataInicio.replaceAll("-", "/");
+
+            Date d1 = new Date(dataInicio);//inicio
+            Calendar c = Calendar.getInstance();
+            c.setTime(d1);
+            c.add(Calendar.MONTH, 1);
+            Date d2 = c.getTime();//fim
+         //
+            
+          
+        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);    
+        List<Funcionarios> funcioCompleto = funcionariosDao.podeReservarLab();
+        List<Funcionarios> f = new ArrayList<Funcionarios>();
+        Funcionarios aux;
+        long contador = 0;
+        
+        List<Reservas> r1 = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r2 = reservas.stream().filter(x -> x.getStatus()[1].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r3 = reservas.stream().filter(x -> x.getStatus()[2].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r4 = reservas.stream().filter(x -> x.getStatus()[3].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r5 = reservas.stream().filter(x -> x.getStatus()[4].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r6 = reservas.stream().filter(x -> x.getStatus()[5].getProfessor() != null).collect(Collectors.toList());
+                
+        for(Funcionarios i : funcioCompleto){
+            contador = 0;
+            contador = r1.stream().filter(x -> x.getStatus()[0].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r2.stream().filter(x -> x.getStatus()[1].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r3.stream().filter(x -> x.getStatus()[2].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r4.stream().filter(x -> x.getStatus()[3].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r5.stream().filter(x -> x.getStatus()[4].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r6.stream().filter(x -> x.getStatus()[5].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            
+            aux = new Funcionarios();
+            aux.setCod_funcio(contador);
+            aux.setNomeFuncionario(i.getNomeFuncionario());
+            
+            f.add(aux);
+        }
+       
+            contador = 0;
+            contador = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() == null).count();
+            contador += reservas.stream().filter(x -> x.getStatus()[1].getProfessor() == null).count();
+            contador += reservas.stream().filter(x -> x.getStatus()[2].getProfessor() == null).count();
+            contador += reservas.stream().filter(x -> x.getStatus()[3].getProfessor() == null).count();
+            contador += reservas.stream().filter(x -> x.getStatus()[4].getProfessor() == null).count();
+            contador += reservas.stream().filter(x -> x.getStatus()[5].getProfessor() == null).count();
+            
+            aux = new Funcionarios();
+            aux.setCod_funcio(contador);
+            aux.setNomeFuncionario("Disponivel");
+            
+            f.add(aux);
+        
+        
+        model.addAttribute("dados", f);
+        
+        
+
+        return "/Administrador/admin_reservas_grafico";
+    }    
+    
+//////////////////////////////////////////////////////////////////////////////////////////////////////    
+@GetMapping("/Administrador/admin_reservas_grafico")
+    public String ReservaGrafico(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute List<Funcionarios> f,
+            Model model
+    ) {
+
+
+        model.addAttribute("dados", f);
+        
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        return "/Administrador/admin_reservas_grafico";
     }    
 }
