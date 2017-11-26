@@ -950,7 +950,6 @@ public class AdminController {
 
         Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, aux.getLaboratorio().getCod_labor());
 
-
         if (!aux.getLaboratorio().getAndar().equals("") && !aux.getLaboratorio().getDescricao().equals("")) {
 
             String dataInicio = aux.getLaboratorio().getAndar().replaceAll("-", "/");
@@ -966,16 +965,19 @@ public class AdminController {
             model.addAttribute("reservas", reservas);
             model.addAttribute("funcionarios", podeReservar);
 
-            model.addAttribute("d", reservas.get(0).getDataReserva());
-
             model.addAttribute("status", new StatusLab());
 
             if (reservas.isEmpty()) {
                 model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+                return "/Administrador/admin_pesquisa_reserva_solicitar";
+            } else {
+                
+                model.addAttribute("d", reservas.get(0).getDataReserva());
+                
+                return "/Administrador/admin_pesquisa_reserva_exibir";
             }
-            return "/Administrador/admin_pesquisa_reserva_exibir";
-
         } else {
+
             model.addAttribute("messagem", "Preencha os dois campos de data!");
             return "/Administrador/admin_pesquisa_reserva_solicitar";
         }
@@ -994,19 +996,18 @@ public class AdminController {
     ) {
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
 
-        
         model.addAttribute("labs", labs);
         model.addAttribute("d", d);
         model.addAttribute("aux", aux);
         model.addAttribute("user", user);
         model.addAttribute("reservas", reservas);
-        model.addAttribute("funcionarios", podeReservar);  
-        
+        model.addAttribute("funcionarios", podeReservar);
 
         return "/Administrador/admin_pesquisa_reserva_exibir";
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-@PostMapping("/ReservandoP")
+
+    @PostMapping("/ReservandoP")
     public String reservandoLabPes(
             @RequestParam(value = "fun") long idFun,
             @RequestParam(value = "sta") long idStat,
@@ -1015,44 +1016,40 @@ public class AdminController {
             @RequestParam(value = "codlab") long codLab,
             @ModelAttribute Reservas aux,
             @ModelAttribute StatusLab status,
-            
             Model model
     ) {
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("status", status);
-        
+
         Laboratorio l = new Laboratorio();
         aux.setLaboratorio(l);
         aux.getLaboratorio().setCod_labor(codLab);
         aux.getLaboratorio().setAndar(dataIni);
         aux.getLaboratorio().setDescricao(datafim);
-        
-        
+
         model.addAttribute("aux", aux);
 
         StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
         Funcionarios funReserva = funcionariosDao.buscaId(Funcionarios.class, status.getProfessor().getCod_funcio());
-            
+
         atualizar.setProfessor(funReserva);
         atualizar.setDataOperacao(new Date());
         atualizar.setSituacao(true);
 
         statusDao.atualizar(atualizar);
 
-        
-            String dataInicio = dataIni.replaceAll("-", "/");
-            String dataFim = datafim.replaceAll("-", "/");
+        String dataInicio = dataIni.replaceAll("-", "/");
+        String dataFim = datafim.replaceAll("-", "/");
 
-            Date d1 = new Date(dataInicio);//inicio
-            Date d2 = new Date(dataFim);//fim
+        Date d1 = new Date(dataInicio);//inicio
+        Date d2 = new Date(dataFim);//fim
 
-        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);    
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);
         List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
 
-
         List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
-        
+
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
 
         model.addAttribute("labs", labs);
@@ -1086,14 +1083,13 @@ public class AdminController {
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("status", status);
-        
+
         Laboratorio l = new Laboratorio();
         aux.setLaboratorio(l);
         aux.getLaboratorio().setCod_labor(codLab);
         aux.getLaboratorio().setAndar(dataIni);
         aux.getLaboratorio().setDescricao(datafim);
-        
-        
+
         model.addAttribute("aux", aux);
 
         StatusLab atualizar = statusDao.buscaId(StatusLab.class, idStat);
@@ -1104,17 +1100,15 @@ public class AdminController {
 
         statusDao.atualizar(atualizar);
 
-        
         ///////////
         String dataInicio = dataIni.replaceAll("-", "/");
-            String dataFim = datafim.replaceAll("-", "/");
+        String dataFim = datafim.replaceAll("-", "/");
 
-            Date d1 = new Date(dataInicio);//inicio
-            Date d2 = new Date(dataFim);//fim
+        Date d1 = new Date(dataInicio);//inicio
+        Date d2 = new Date(dataFim);//fim
 
-        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);    
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, codLab);
         List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
-
 
         List<Funcionarios> podeReservar = funcionariosDao.podeReservarLab();
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
@@ -1133,9 +1127,10 @@ public class AdminController {
 
         return "/Administrador/admin_pesquisa_reserva_exibir";
 
-    }    
+    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-@GetMapping("/Administrador/admin_reserva_solicitar_mesGrafico")
+
+    @GetMapping("/Administrador/admin_reserva_solicitar_mesGrafico")
     public String GraficoSolicitar(
             @RequestParam(value = "fun") long idFun,
             Model model
@@ -1145,9 +1140,10 @@ public class AdminController {
         model.addAttribute("auxil", new Funcionarios());
 
         return "/Administrador/admin_reserva_solicitar_mesGrafico";
-    }   
+    }
 //////////////////////////////////////////////////////////////////////////////////////////////////////
-@PostMapping("/GerarGrafico")
+
+    @PostMapping("/GerarGrafico")
     public String GerarGrafico(
             @RequestParam(value = "fun") long idFun,
             @ModelAttribute Funcionarios auxil,
@@ -1156,39 +1152,38 @@ public class AdminController {
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
         model.addAttribute("auxil", auxil);
-        
-        if(auxil.getNomeFuncionario().equals("")){
-            
+
+        if (auxil.getNomeFuncionario().equals("")) {
+
             model.addAttribute("messagem", "Selecione uma data primeiro!!");
             return "/Administrador/admin_reserva_solicitar_mesGrafico";
         }
-        
-        //data
-            String dataInicio = auxil.getNomeFuncionario() + "-01";
-            dataInicio = dataInicio.replaceAll("-", "/");
 
-            Date d1 = new Date(dataInicio);//inicio
-            Calendar c = Calendar.getInstance();
-            c.setTime(d1);
-            c.add(Calendar.MONTH, 1);
-            Date d2 = c.getTime();//fim
-         //
-            
-          
-        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);    
+        //data
+        String dataInicio = auxil.getNomeFuncionario() + "-01";
+        dataInicio = dataInicio.replaceAll("-", "/");
+
+        Date d1 = new Date(dataInicio);//inicio
+        Calendar c = Calendar.getInstance();
+        c.setTime(d1);
+        c.add(Calendar.MONTH, 1);
+        Date d2 = c.getTime();//fim
+        //
+
+        List<Reservas> reservas = reservasDao.buscaPorMes(d1, d2);
         List<Funcionarios> funcioCompleto = funcionariosDao.podeReservarLab();
         List<Funcionarios> f = new ArrayList<Funcionarios>();
         Funcionarios aux;
         long contador = 0;
-        
+
         List<Reservas> r1 = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r2 = reservas.stream().filter(x -> x.getStatus()[1].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r3 = reservas.stream().filter(x -> x.getStatus()[2].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r4 = reservas.stream().filter(x -> x.getStatus()[3].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r5 = reservas.stream().filter(x -> x.getStatus()[4].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r6 = reservas.stream().filter(x -> x.getStatus()[5].getProfessor() != null).collect(Collectors.toList());
-                
-        for(Funcionarios i : funcioCompleto){
+
+        for (Funcionarios i : funcioCompleto) {
             contador = 0;
             contador = r1.stream().filter(x -> x.getStatus()[0].getProfessor().getNomeFuncionario().
                     equals(i.getNomeFuncionario())).count();
@@ -1202,49 +1197,45 @@ public class AdminController {
                     equals(i.getNomeFuncionario())).count();
             contador += r6.stream().filter(x -> x.getStatus()[5].getProfessor().getNomeFuncionario().
                     equals(i.getNomeFuncionario())).count();
-            
+
             aux = new Funcionarios();
             aux.setCod_funcio(contador);
             aux.setNomeFuncionario(i.getNomeFuncionario());
-            
+
             f.add(aux);
         }
-       
-            contador = 0;
-            contador = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() == null).count();
-            contador += reservas.stream().filter(x -> x.getStatus()[1].getProfessor() == null).count();
-            contador += reservas.stream().filter(x -> x.getStatus()[2].getProfessor() == null).count();
-            contador += reservas.stream().filter(x -> x.getStatus()[3].getProfessor() == null).count();
-            contador += reservas.stream().filter(x -> x.getStatus()[4].getProfessor() == null).count();
-            contador += reservas.stream().filter(x -> x.getStatus()[5].getProfessor() == null).count();
-            
-            aux = new Funcionarios();
-            aux.setCod_funcio(contador);
-            aux.setNomeFuncionario("Disponivel");
-            
-            f.add(aux);
-        
-        
+
+        contador = 0;
+        contador = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[1].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[2].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[3].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[4].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[5].getProfessor() == null).count();
+
+        aux = new Funcionarios();
+        aux.setCod_funcio(contador);
+        aux.setNomeFuncionario("Disponivel");
+
+        f.add(aux);
+
         model.addAttribute("dados", f);
-        
-        
 
         return "/Administrador/admin_reservas_grafico";
-    }    
-    
+    }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////    
-@GetMapping("/Administrador/admin_reservas_grafico")
+    @GetMapping("/Administrador/admin_reservas_grafico")
     public String ReservaGrafico(
             @RequestParam(value = "fun") long idFun,
             @ModelAttribute List<Funcionarios> f,
             Model model
     ) {
 
-
         model.addAttribute("dados", f);
-        
+
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
         return "/Administrador/admin_reservas_grafico";
-    }    
+    }
 }
