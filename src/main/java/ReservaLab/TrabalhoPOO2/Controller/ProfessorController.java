@@ -32,12 +32,14 @@ public class ProfessorController {
 
     @Autowired
     ReservasDao reservasDao;
+    
+    @Autowired
+    StatusDao statusDao;
 
     @Autowired
     ChavesDao chavesDao;
 
-    @Autowired
-    StatusDao statusDao;
+  
 ////////////////////////////////////////////////////////////////////////////////////
 
     @GetMapping("/Professor/prof_reserva")
@@ -454,5 +456,55 @@ public class ProfessorController {
      
         return "/Professor/professorIni";
     }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    @GetMapping("/deletar")
+    public String deletar(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "stat") long stat,
+            Model model
+    ) {
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", new Funcionarios());
+        
+        StatusLab reserva= new StatusLab();
+        
+        reserva = statusDao.buscaId(StatusLab.class, stat);
+        reserva.setSituacao(false);
+        
+        statusDao.atualizar(reserva);
+        
+        model.addAttribute("menssagem", "Reserva excluida com sucesso");
+        
+        
+        return "/Professor/minhasreservas";
+    }
+    
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    
+    
+    @GetMapping("/deletarpordia")
+    public String deletarpordia(
+            @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "stat") long stat,
+            Model model
+    ) {
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", new Funcionarios());
+        
+        StatusLab reserva= new StatusLab();
+        
+        reserva = statusDao.buscaId(StatusLab.class, stat);
+        reserva.setSituacao(false);
+        
+        statusDao.atualizar(reserva);
+        
+        model.addAttribute("menssagem", "Reserva excluida com sucesso");
+        
+        
+        return "/Professor/minhasreservaspordia";
+    }
+    
     
 }

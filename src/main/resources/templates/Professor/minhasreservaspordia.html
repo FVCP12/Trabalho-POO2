@@ -109,7 +109,9 @@
 
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
-
+                
+                 <font color ="blue"><label th:text="${menssagem}" ></label></font>
+                
                 <span><h3>MINHAS RESERVAS:</h3></span>
                 <table class="table table-bordered">
                     <thead>
@@ -132,7 +134,12 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
-                            </td>                               
+                            </td> 
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[1].situacao == true}and ${reserva.status[1].professor.Cod_funcio == user.Cod_funcio}"> 
                             <td th:text ="${reserva.dataReserva}"></td>
@@ -143,6 +150,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>                            
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[2].situacao == true}and ${reserva.status[2].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>                                
@@ -153,6 +165,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>                            
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[3].situacao == true}and ${reserva.status[3].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>
@@ -163,6 +180,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>                            
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[4].situacao == true} and ${reserva.status[4].professor.Cod_funcio == user.Cod_funcio}">
 
@@ -174,6 +196,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>                            
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[5].situacao == true} and ${reserva.status[5].professor.Cod_funcio == user.Cod_funcio}">
 
@@ -184,7 +211,12 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
-                            </td>                          
+                            </td>     
+                            <td>
+                                <a th:href="@{'/deletarpordia'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>                            
                         </tr>                                           
                     </tbody>
                 </table>
