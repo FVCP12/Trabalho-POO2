@@ -37,29 +37,29 @@
 
                 <div style="border-bottom: solid 2px black;margin: 1px">
                     <p style="text-align: left"><h3>Pesquisar:</h3></p>
-                
-                       <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuario:
-                            </a>
+                    <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
-                            </div>
-                        </div>                     
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Usuario:
+                        </a>
 
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Laboratiorios:
-                            </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
+                        </div>
+                    </div>                     
 
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
-                            </div>
-                        </div>                               
-                       
+                    <div class="dropdown show" > 
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Laboratiorios:
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
+                        </div>
+                    </div>                               
+
                     <div class="dropdown show" > 
                         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Novas Reservas:
@@ -105,7 +105,7 @@
                 </p>
 
             </form>  
-
+            <font color ="blue"><label th:text="${menssagem}" ></label></font>
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
@@ -122,7 +122,7 @@
                         </tr>
                     </thead>
                     <tbody> 
-                        
+
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[0].situacao == true} and ${reserva.status[0].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>1º horario manha</td>
@@ -131,8 +131,14 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
-                            </td>                               
+                            </td>  
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>
                         </tr>
+
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[1].situacao == true} and ${reserva.status[1].professor.Cod_funcio == user.Cod_funcio}"> 
                             <td th:text ="${reserva.dataReserva}"></td>
                             <td>2º horario manha</td>                           
@@ -141,6 +147,11 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
+                            </td>
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status})}">
+                                    Deletar
+                                </a>
                             </td>
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[2].situacao == true} and ${reserva.status[2].professor.Cod_funcio == user.Cod_funcio}">
@@ -152,6 +163,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[3].situacao == true} and ${reserva.status[3].professor.Cod_funcio == user.Cod_funcio}">
                             <td th:text ="${reserva.dataReserva}"></td>
@@ -161,6 +177,11 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
+                            </td>
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status})}">
+                                    Deletar
+                                </a>
                             </td>
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[4].situacao == true} and ${reserva.status[4].professor.Cod_funcio == user.Cod_funcio}">
@@ -173,6 +194,11 @@
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
                             </td>
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>
                         </tr>
                         <tr th:each="reserva : ${reservas}" th:if="${reserva.status[5].situacao == true}and ${reserva.status[5].professor.Cod_funcio == user.Cod_funcio}">
 
@@ -183,7 +209,12 @@
                             <td>
                                 <textarea cols="40" th:text="${reserva.laboratorio.descricao}" readonly="readonly">                                   
                                 </textarea>
-                            </td>                          
+                            </td> 
+                            <td>
+                                <a th:href="@{'/deletar'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status})}">
+                                    Deletar
+                                </a>
+                            </td>
                         </tr>                                           
                     </tbody>
                 </table>
