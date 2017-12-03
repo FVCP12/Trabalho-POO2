@@ -1,93 +1,187 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" 
               integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous"/> 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+              rel="stylesheet"/>
+        
         <title>Professor</title>
         <meta http-equiv="Content-Type" 
               content="text/html; charset=UTF-8" />
+        <link rel="shortcut icon" href="favicon.ico"/>
+        
+        <style>
+            
+        * {
+        margin:0;
+        padding:0;
+        }
+      
+    header{
+        width: 100%;
+        height: 50px;
+        top:0;
+        left:0;
+        background-color: darkorange;
+        position: fixed;
+        }
+        
+        .menu-icon{
+            
+        position: fixed;
+        font-size: 25px;
+        font-weight: bold;
+        padding: 5px;
+        width: 40px;
+        height: 40px;
+        text-align:center;
+        background-color:#5b859a;
+        color: #fff;
+        cursor: pointer;
+        transition: all .4s;
+        left: 200px;
+        top:0;
+        
+        }
+        
+        .menu-icon:houver{
+            background-color: #fff;
+            color:#5b859a;
+        }
+        
+            
+        
+    #chk{
+        position: absolute;
+        
+    }
+
+    .menu{
+        height: 100%;
+        position: fixed;
+        background-color: darkorange;
+        top:0;
+        overflow: hidden;
+        transition: all .2s;
+        
+    }
+    #principal{
+        width: 300px;
+    }
+    
+     
+    ul{
+        list-style: none;
+    }
+        
+    ul li a{
+        display: block;
+        font-size: 18px;
+        font-family: 'Arial';
+        padding: 10px;
+        border-bottom: solid 1px #fff;
+        color: #ccc;
+        text-decoration: none;
+        transition: all .2s;
+    
+    }
+    
+    ul li span{
+        float: right;
+        padding-right: 10px
+    }
+    
+    ul li a:houver{
+        background-color: #ff6600;
+    }
+    
+    .icone{
+        margin-top: 60px;
+        background-color: darkorange;
+    }
+    
+    .bg{
+        width: 100%;
+        height: 100%;
+        left: 0;
+        top: 0;
+        position: fixed;
+        background-color: rgba(0,0,0,.6);
+        display: none;
+    }
+    
+    
+    #chk:checked ~.bg{
+        display: block;
+    }
+    
+    #chk:checked ~ #principal{
+        transform: translateX(300px);
+    }
+    
+    #pesquisar{
+        width: 300px;
+        left: -300px;
+        top: 100px;
+    }
+    
+    #pesquisar:target{
+        transform: translateX(300px);
+        box-shadow: 2px 2px 5px 2px rgba (0,0,0,.5);
+    }
+    
+    .container{
+        position: relative;
+        top: 80px; /**/
+        left: 350px;
+        width: 290px;
+        height: 550px
+    }
+    
+    .btn{
+        font-family: arial;
+        font-size: 10px;
+        text-transform: uppercase;
+        font-weight: 700;
+        border: none;
+        padding: 10px;
+        cursor: pointer;
+    }
+    .btn-primary{
+        background: #ccc;
+        color:#fff;
+        box-shadow: 0 5px 0 gray;        
+    }
+    
+    .btn-primary:houver{
+        background: gray;
+        color:#fff;
+        box-shadow: 0 5px 0 darkgray;        
+    }
+    
+    .btn-primary:active{
+        position:relative;
+        top: 5px;
+        box-shadow: 0 5px 0 darkgray;        
+    }
+    
+        </style>      
+    
     </head>
-    <body style="background-color: #d7d6d4">
-
-        <div  style="margin: 1px;border-radius: 4px;border-color: #ccccff;border-style: solid;
-              background-color: #ffffff">
-
-            <div class="row">
-                <div class="col-11">
-                    <p><h3 th:text="${user.funcao.nomeFuncao}"/></p>
-                    <p><h3>Bem vindo ao Sistema <label th:text="${user.nomeFuncionario}" /></h3></p> 
-                </div>
-                <div class="col-1">
-                    <a href="/logar" class="btn btn-secondary btn-sm active" role="button" aria-pressed="true"
-                       style="margin: 10%;position: relative">Sair</a>
-                </div>
-            </div>
-
-        </div>
-        <div style="position: relative;margin-left: 0.5%;background-color: #ffffff;min-width: 100px">
-            <div style="float:left; background-color: #ff6600;border-bottom-right-radius: 4px;
-                 border-top-right-radius: 4px
-                 ;text-align: center">
-
-                <div style="border-bottom: solid 2px black;margin: 1px">
-                    <p style="text-align: left"><h3>Pesquisar:</h3></p>
-
-                    <div style= "background-color: #f7ba5e;">
-                        
-                        <a th:href="@{'/voltarinicio?fun='+${user.Cod_funcio}}">Inicio</a>
-
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Usuario:
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}">Alterar senha:</a>
-                            </div>
-                        </div>                        
-
-
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Laboratiorios:
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}">Pesquisar Laboratorios</a>
-                            </div>
-                        </div>                        
-
-
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Novas Reservas:
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}">Buscar Mês</a>
-                                <a class="dropdown-item" th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}">Buscar Dia</a>
-                            </div>
-                        </div>                        
-
-                        <div class="dropdown show" > 
-                            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Minhas Reservas:
-                            </a>
-
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}">Por Mês</a>
-                                <a class="dropdown-item" th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}">Por Dia</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <form action="#" th:action="@{'/alterarsenha?fun='+${user.Cod_funcio}}" 
+    
+    <body style="background-color: #f7ba5e">
+        <header><h3 style="float:left; position: relative;
+                 margin-left: 40%" th:text="'Bem vindo'+ ' '+${user.funcao.nomeFuncao}+ ' ' +${user.nomeFuncionario}" />
+        </header>  
+            
+<div class="container" style="float:left;position: relative;
+                 margin-left: 10%;background-color: #f7ba5e; width: 50%; height: auto"> 
+<form action="#" th:action="@{'/alterarsenha?fun='+${user.Cod_funcio}}" 
                   th:object="${usuario}" method="post" >
                 <p><h3>Digite a senha atual:</h3></p>
                 <p>
@@ -98,13 +192,111 @@
                     
                     <br/><br/>
                     
-                    <div >
+                    <div style="margin-left: -10%">
                         <font color ="red"><label th:text="${menssagem}" ></label></font>
                     </div>
                    
-                    
                 </div>
             </form>   
-           
+     
+</div>
+
+
+    <nav class="menu" id="principal">
+        <ul>
+            <li><img width="300" height="50" src="../logo.jpg" /></li>       
+            <li>
+                <div>
+                    <a class="collapsed" data-toggle="collapse" href="#collapseOne"> Usuário <div style="float: right;"><i class="material-icons">menu</i></div>
+                    </a>
+                </div>
+                    <div id="collapseOne" class="collapse" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Professor/AlterarSenha?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Alterar Senha
+                                    </a>
+                                </p>
+                                <hr/>
+
+                            </div>
+                        </div>
+                </li>
+                
+                <li>
+                    <div>
+                        <a class="collapsed" data-toggle="collapse" href="#collapseOne1"> Laboratorios <div style="float: right;"><i class="material-icons">menu</i></div>
+                        </a>
+                          
+                </div>
+                     <div id="collapseOne1" class="collapse" role="tabpanel" aria-labelledby="headingOne1" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Professor/prof_reserva?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                        Pesquisar Laboratorios
+                                    </a>
+                                </p>
+                                <hr/>
+                            </div>
+                        </div>
+                </li>                        
+          
+                <li>
+                    <a class="collapsed" data-toggle="collapse" href="#collapseTwo"> Novas Reservas <div style="float: right;"> <i class="material-icons">menu</i></div>
+                    </a>
+
+                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Professor/solicitarlab?fun='+${user.Cod_funcio}}" style="text-decoration: none">
+                                       Buscar Por Mês
+                                    </a></p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                   <a th:href="@{'/Professor/novareservadia?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
+                                       Buscar Por Dia 
+                                   </a>
+                                 </p>
+                            </div>
+                        </div>
+                </li>
+        
+                <li>
+                    <a class="collapsed" data-toggle="collapse" href="#collapseThree"> Minhas Reservas <div style="float: right;"><i class="material-icons">menu</i></div>
+                                </a>
+
+                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
+                            <div class="card-body" style="background-color: #f7ba5e;">
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Professor/solicitarminhasreservas?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Por Mês
+                                    </a>   
+                                </p>
+                                <hr/>
+                                <p style="margin: 1px;margin-left: 5px;text-align: center">
+                                    <a th:href="@{'/Professor/solicitarminhasreservaspordia?fun='+${user.Cod_funcio}}" style="text-decoration: none">    
+                                        Por Dia 
+                                    </a>                            
+                                </p>
+                                <hr/>
+                                
+                            </div>
+                        </div>
+                </li>
+                
+                
+                
+                <div style="margin-top: 2%">    
+
+                    <a href="/logar" class="btn btn-primary" role="button" aria-pressed="true"
+                       style="position: relative; top: 30px; left:90px; background-color: darkgray">Sair</a>
+
+                    <a href="" type="button" class="btn btn-primary"
+                       style="position: relative; top: 30px; left:110px; background-color: darkgray"><i class="material-icons" style="font-size: 15px">help</i></a>
+
+                </div>  
+        </ul> 
+    </nav>
+        
     </body>
 </html>

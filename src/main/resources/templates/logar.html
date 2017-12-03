@@ -65,10 +65,36 @@
         top: 5px;
         box-shadow: 0 5px 0 darkgray;        
     }
+    
+    .avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+      top: 300px;
+      left: calc(50% - 50px);
+    }
+    .loginBox{
+      margin-top: 60%;
+      margin-left: 27%;
+      font-weight: bold;
+    }
+    .loginBox input{
+        width: 40%;
+    }
+    
+   .loginBox input [type="text"],
+   .loginBox input [type="password"]
+   {
+       border: none;
+       border-bottom: 1px solid #fff;
+       background: transparent;
+   }
+    
         </style>
     </head>
-    <body style="background-color: white">
-        <header><marquee><h3>Sistema de Reservas de Laboratórios</h3></marquee></header>
+    <body style="background-color: #f6f6f6; background-image:linear-gradient(to bottom, #f7ba5e 0%, #f6f6f6 100%); background-attachment: fixed">
+    <center><h2>Bem vindo ao Sistema de Reservas de Laboratórios</h2></center>
             
 
         <div  style="background:url(/loginLogo.png) no-repeat;background-size:100%;margin-top: -1%;margin-left: 27%;position: absolute;
@@ -76,16 +102,16 @@
            
            <div style="margin-top: 20%;">
                  <div style="margin-top: 43%;margin-left: 32%">
-                     <h3>BEM VINDO!</h3>
+                     <img src="/avatar.PNG" class="avatar"/>
                  </div>
-            <div style="margin-top: 10%;margin-left: 27%">     
+            <div class="loginBox">     
             <form action="#" th:action="@{/logando}"
                   th:object="${funcio}" method="post" style="">
 
-                <label>Login:</label>
-                <input type="text" th:field="*{ra}"/><br/><br/>
+                <label>Login: </label>
+                <input type="text" th:field="*{ra}" placeholder="Digite seu usuario"/><br/>
                 <label>Senha:</label>
-                <input type="password" th:field="*{senha}"/><br/>
+                <input type="password" th:field="*{senha}" placeholder="********"/><br/>
 
                 <div id="cx2">
                     <button class="btn btn-primary" name="logar" type="submit">Logar</button>   
