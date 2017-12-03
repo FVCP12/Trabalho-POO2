@@ -65,10 +65,10 @@ public class AdminController {
         try {
             laboratorioDao.criar(laboratorio);
 
-            model.addAttribute("menssagem", "Laboratorio criado com sucesso");
+            model.addAttribute("menssagem", "Laboratório criado com sucesso");
 
         } catch (Exception e) {
-            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel criar o laboratorio !!!!!");
+            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel criar o laboratório !!!!!");
         }
 
         return "Administrador/adminIni";
@@ -90,7 +90,7 @@ public class AdminController {
         model.addAttribute("labs", labs);
 
         if (labs.isEmpty()) {
-            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
+            model.addAttribute("menssagem", "Não existe nenhum laboratório!");
         }
 
         return "/Administrador/admin_lista_lab";
@@ -126,9 +126,9 @@ public class AdminController {
 
         try {
             laboratorioDao.deletar(l);
-            model.addAttribute("menssagem", "Laboratorio apagado!");
+            model.addAttribute("menssagem", "Laboratório apagado!");
         } catch (Exception e) {
-            model.addAttribute("menssagem", "Não foi possivel apagar o laboratorio!");
+            model.addAttribute("menssagem", "Não foi possivel apagar o laboratório!");
         }
 
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
@@ -229,10 +229,10 @@ public class AdminController {
 
                                 switch (i) {
                                     case 0:
-                                        s[i].setHorario("1º horario manha");
+                                        s[i].setHorario("1º horario manhã");
                                         break;
                                     case 1:
-                                        s[i].setHorario("2º horario manha");
+                                        s[i].setHorario("2º horario manhã");
                                         break;
                                     case 2:
                                         s[i].setHorario("1º horario tarde");
@@ -280,7 +280,7 @@ public class AdminController {
                         fraseRetorno += "A data para o " + l.getNomeLab() + " foi criada com sucesso; ";
 
                     } else {
-                        fraseRetorno += "A data para o " + l.getNomeLab() + " ja foi criada; ";
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " já foi criada; ";
 
                     }
 
@@ -313,10 +313,10 @@ public class AdminController {
 
                                 switch (i) {
                                     case 0:
-                                        s[i].setHorario("1º horario manha");
+                                        s[i].setHorario("1º horario manhã");
                                         break;
                                     case 1:
-                                        s[i].setHorario("2º horario manha");
+                                        s[i].setHorario("2º horario manhã");
                                         break;
                                     case 2:
                                         s[i].setHorario("1º horario tarde");
@@ -364,7 +364,7 @@ public class AdminController {
                         fraseRetorno += "A data para o " + l.getNomeLab() + " foi criada com sucesso; ";
 
                     } else {
-                        fraseRetorno += "A data para o " + l.getNomeLab() + " ja foi criada; ";
+                        fraseRetorno += "A data para o " + l.getNomeLab() + " já foi criada; ";
 
                     }
 
@@ -373,7 +373,7 @@ public class AdminController {
             }
             model.addAttribute("menssagem", fraseRetorno);
         } else {
-            model.addAttribute("menssagem", "Não existe laboratorios para disponibilizar!");
+            model.addAttribute("menssagem", "Não existe laboratórios para disponibilizar!");
         }
 
         return "Administrador/adminIni";
@@ -592,7 +592,7 @@ public class AdminController {
             model.addAttribute("menssagem", "Laboratorio alterado com sucesso");
 
         } catch (Exception e) {
-            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel alterar o laboratorio !!!!!");
+            model.addAttribute("menssagem", "Ocorreu um erro e não foi possivel alterar o laboratório !!!!!");
         }
 
         List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
@@ -674,11 +674,11 @@ public class AdminController {
 
             funcionariosDao.criar(funcio);
 
-            model.addAttribute("menssagem", "Usuario criado com sucesso!!");
+            model.addAttribute("menssagem", "Usuário criado com sucesso!!");
 
         } catch (Exception e) {
 
-            model.addAttribute("menssagem", "Erro ao criar o novo usuario!!");
+            model.addAttribute("menssagem", "Erro ao criar o novo usuário!!");
         }
 
         return "/Administrador/adminIni";
@@ -717,10 +717,10 @@ public class AdminController {
             funcionarios = funcionariosDao.PegarTodos(Funcionarios.class);
 
             if (funcionarios.isEmpty()) {
-                model.addAttribute("menssagem", "Não existem funcionarios cadastrados!");
+                model.addAttribute("menssagem", "Não existem funcionários cadastrados!");
             } else {
                 funcionariosDao.atualizar(funcionario);
-                model.addAttribute("menssagem", "Funcionario alterado com sucesso!");
+                model.addAttribute("menssagem", "Funcionário alterado com sucesso!");
             }
 
         } catch (Exception e) {
@@ -767,7 +767,7 @@ public class AdminController {
             funcionarios = funcionariosDao.PegarTodos(Funcionarios.class);
 
             if (funcionarios.isEmpty()) {
-                model.addAttribute("menssagem", "Não existem funcionarios cadastrados!");
+                model.addAttribute("menssagem", "Não existem funcionários cadastrados!");
             }
 
         } catch (Exception e) {
@@ -813,7 +813,7 @@ public class AdminController {
 
             return "/Administrador/admin_pesquisar_lab_exibir";
         } else {
-            model.addAttribute("menssagem", "Não foi encontrado nenhum laboratorio com este nome!");
+            model.addAttribute("menssagem", "Não foi encontrado nenhum laboratório com este nome!");
 
             return "/Administrador/admin_pesquisar_lab_solicitarNome";
         }
@@ -849,7 +849,7 @@ public class AdminController {
         try {
 
             funcionariosDao.atualizar(funcionario);
-            model.addAttribute("menssagem", "Funcionario alterado com sucesso!");
+            model.addAttribute("menssagem", "Funcionário alterado com sucesso!");
 
         } catch (Exception e) {
 
@@ -908,7 +908,7 @@ public class AdminController {
 
             return "/Administrador/admin_pesquisar_funcio_exibir";
         } else {
-            model.addAttribute("menssagem", "Não foi encontrado nenhum funcionario com este nome!");
+            model.addAttribute("menssagem", "Não foi encontrado nenhum funcionário com este nome!");
 
             return "/Administrador/admin_pesquisar_funcio_solicitarNome";
         }
@@ -968,7 +968,7 @@ public class AdminController {
             model.addAttribute("status", new StatusLab());
 
             if (reservas.isEmpty()) {
-                model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+                model.addAttribute("messagem", "Não existe nenhum registro com esta data!!");
                 return "/Administrador/admin_pesquisa_reserva_solicitar";
             } else {
                 
