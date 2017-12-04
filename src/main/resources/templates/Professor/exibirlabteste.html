@@ -232,17 +232,17 @@
 
                     <tr>
                         <td th:text="${reserva.dataReserva}"></td>
-                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[0].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[0].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[0].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[1].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[1].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[1].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[2].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[2].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[2].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[3].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[3].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[3].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[4].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[4].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[4].situacao == true}">reservado</td>
-                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><a th:href="@{'/Professor/paginademerda'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
+                        <td class="text-success" th:if="${reserva.status[5].situacao == false}"><a th:href="@{'/Professor/paginadeexibicao'(fun=${user.Cod_funcio},stat=${reserva.status[5].Cod_status},cod =${reserva.Cod_reservas},codlab=${reserva.laboratorio.cod_labor})}">"Disponivel"</a></td>
                         <td class="text-danger" th:if="${reserva.status[5].situacao == true}">reservado</td>
                     </tr>
                     </tr>

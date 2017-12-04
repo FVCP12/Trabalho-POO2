@@ -203,8 +203,9 @@
                 <td th:text ="${reserva.dataReserva}"></td>
                 </tbody>
             </table>
+          <!--  <button><a th:href="@{'/Professor/reservaadicionada'(fun=${user.Cod_funcio},stat=${status.Cod_status},cod =${codigo})}">Reservar</a></button>-->
         </div>
-        <a th:href="@{'/Professor/reservaadicionada'(fun=${user.Cod_funcio},stat=${status.Cod_status},cod =${codigo})}">Reservar</a>
+        <button><a th:href="@{'/Professor/reservaadicionada'(fun=${user.Cod_funcio},stat=${status.Cod_status},cod =${codigo})}">Reservar</a></button>
 
         <nav class="menu" id="principal">
         <ul>

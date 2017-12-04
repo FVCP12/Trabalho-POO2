@@ -130,7 +130,7 @@ public class ProfessorController {
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    @GetMapping("/Professor/paginademerda")
+    @GetMapping("/Professor/paginadeexibicao")
     public String AdicionandoReserva(
             @RequestParam(value = "fun") long idFun,
             @RequestParam(value = "stat") long idstatus,
@@ -149,7 +149,7 @@ public class ProfessorController {
         model.addAttribute("codigo", codigo);
         model.addAttribute("reserva", reserva);
 
-        return "/Professor/paginademerda";
+        return "/Professor/paginadeexibicao";
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
