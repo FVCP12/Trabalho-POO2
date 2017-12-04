@@ -21,7 +21,7 @@ public class JdbcConfig {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/reservalab");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("123456");
+        dataSource.setPassword("tricolor");
         return dataSource;
     }
 
