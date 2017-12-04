@@ -218,14 +218,28 @@
                     </div>
                     </p> 
                     <p>  
-                        <button type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
+                        <button onclick="mostrar('carregar','tabela')" type="submit" readonly="readonly" class="btn btn-warning btn-sm">Buscar</button>
                     </p>
 
                 </form>  
 
                 <p th:text="${messagem}"></p>
 
-                <table class="table table-bordered table-dark">
+
+                <div id="carregar" style="margin: 2px;margin-left: 250px;display: none"> 
+
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../load.gif" alt="Card image cap"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Buscando reservas, aguarde....</h4>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <table id="tabela" class="table table-bordered table-dark">
                     <thead>
                         <tr>
 
@@ -840,6 +854,28 @@
             })
         </script>
 
+        <script type="text/javascript">
+
+            var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>  
 
 
     </body>

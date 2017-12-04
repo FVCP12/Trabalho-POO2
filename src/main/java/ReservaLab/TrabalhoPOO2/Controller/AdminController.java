@@ -419,12 +419,14 @@ public class AdminController {
             model.addAttribute("reservas", reservas);
             model.addAttribute("funcionarios", podeReservar);
 
-            model.addAttribute("d", reservas.get(0).getDataReserva());
+            
 
             model.addAttribute("status", new StatusLab());
 
             if (reservas.isEmpty()) {
                 model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+            }else{
+                model.addAttribute("d", reservas.get(0).getDataReserva());
             }
             return "/Administrador/admin_exibirReservas_exibindo";
         } else {

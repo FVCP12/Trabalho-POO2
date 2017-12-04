@@ -218,13 +218,48 @@
                     </div>
                     </p> 
                     <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                        <button onclick="mostrar('carregar')" type="submit" class="btn btn-warning btn-sm">Buscar</button>
                     </p>
 
                 </form>   
 
                 <label th:text="${messagem}"></label>
+                
+                <div id="carregar" style="margin: 2px;margin-left: 250px;display: none"> 
+
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../load.gif" alt="Card image cap"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Buscando reservas, aguarde....</h4>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                
             </div>
         </div>
+        
+        
+        
+        <script type="text/javascript">
+
+            var mostrar = function(ok){
+
+            var display = document.getElementById(ok).style.display;
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+
+            }
+
+        </script>  
+        
+        
     </body>
 </html>
