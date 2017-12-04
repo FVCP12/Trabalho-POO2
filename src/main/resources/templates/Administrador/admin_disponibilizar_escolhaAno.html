@@ -189,15 +189,16 @@
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
                        style="position: relative">Sair</a>
 
-                    <a href="" type="button" class="btn btn-warning btn-sm"
-                       style="position: relative"><i class="material-icons" style="font-size: 15px">help</i></a>
+                    <a th:href="@{'/Administrador/admin_duvidas'(fun=${user.Cod_funcio})}" 
+                       type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px;margin-top: 5px">help</i></a>
 
                 </div>  
 
 
                 <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
 
-                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo</p></a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo!</p></a>
 
                 </div>
 

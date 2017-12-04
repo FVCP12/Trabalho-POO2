@@ -238,15 +238,16 @@
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
                        style="position: relative">Sair</a>
 
-                    <a href="" type="button" class="btn btn-warning btn-sm"
-                       style="position: relative"><i class="material-icons" style="font-size: 15px">help</i></a>
+                    <a th:href="@{'/Administrador/admin_duvidas'(fun=${user.Cod_funcio})}" 
+                       type="button" class="btn btn-warning btn-sm"
+                       style="position: relative"><i class="material-icons" style="font-size: 15px;margin-top: 5px">help</i></a>
 
                 </div>  
 
 
                 <div id="list-example" class="list-group" style="position: fixed;margin-top: 2%">
 
-                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>topo!</p></a>
+                    <a class="list-group-item list-group-item-action" href="#list-item-1"><p>Vamos para</p><p>o topo!</p></a>
 
                 </div>
 
@@ -266,23 +267,60 @@
                     </div>
                     </p> 
                     <p>  
-                        <button type="submit" class="btn btn-warning btn-sm">Buscar</button>
+                        <button onclick="mostrar('carregar','grafico')" type="submit" class="btn btn-warning btn-sm">Buscar</button>
                     </p>
 
                 </form>   
 
                 <label th:text="${messagem}"></label>
 
-                <div class="card border-warning mb-3" style="margin-left: 150px" >
+                <div id="grafico" class="card border-warning mb-3" style="margin-left: 150px" >
                     <div class="card-header" th:text="${auxil.nomeFuncionario}"></div>
                     <div class="card-body text-warning">
                         <h4 class="card-title">Gráfico Referente as reservas do mês</h4>
-                         <div id="chart_div" ></div>
+                        <div id="chart_div" ></div>
                     </div>
                 </div>
-                   
+                
+                <div id="carregar" style="margin: 2px;margin-left: 23%;display: none"> 
+
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../load.gif" alt="Card image cap"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Gerando grafico, aguarde....</h4>
+
+                        </div>
+                    </div>
+
 
                 </div>
+
+
             </div>
+        </div>
+        
+        <script type="text/javascript">
+
+           var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>  
+        
     </body>
 </html>

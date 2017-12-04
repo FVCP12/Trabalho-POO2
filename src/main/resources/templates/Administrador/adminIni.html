@@ -191,7 +191,8 @@
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
                        style="position: relative;font-size: 15px;">Sair</a>
 
-                    <a href="" type="button" class="btn btn-warning btn-sm"
+                    <a th:href="@{'/Administrador/admin_duvidas'(fun=${user.Cod_funcio})}" 
+                       type="button" class="btn btn-warning btn-sm"
                        style="position: relative"><i class="material-icons" style="font-size: 15px;margin-top: 5px">help</i></a>
 
                 </div>  

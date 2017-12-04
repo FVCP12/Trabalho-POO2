@@ -36,6 +36,7 @@
                  text-align: center;">
 
 
+
                 <div id="accordion" role="tablist">
                     <div class="card" style=" background-color: #ff6600">
                         <div class="card-header" role="tab" id="headingOne">
@@ -98,14 +99,15 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_pesquisar_funcio_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Usuários 
-                                    </a> 
+                                    </a>
+
                                 </p>
                                 <hr/>
 
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_pesquisa_reserva_solicitar'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Reservas 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -135,7 +137,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
                                         Usuários 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -181,13 +183,13 @@
                 </div>
 
 
-                <div style="margin-top: 2%">                
+                <div style="margin-top: 2%">    
                     <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
                        type="button" class="btn btn-warning btn-sm"
-                       style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
+                       style="position: relative"><i class="material-icons" style="font-size: 15px;margin-top: 5px">settings</i></a>
 
                     <a href="/logar" type="button" class="btn btn-warning btn-sm"
-                       style="position: relative">Sair</a>
+                       style="position: relative;font-size: 15px;">Sair</a>
 
                     <a th:href="@{'/Administrador/admin_duvidas'(fun=${user.Cod_funcio})}" 
                        type="button" class="btn btn-warning btn-sm"
@@ -204,59 +206,88 @@
 
 
             </div>
-            <div  class="container" style="float:left;
-                  position: relative;margin-left: 1%;background-color: #ffffff;width: auto;height: auto">
-                <div style="margin-left: 2%">
-                    <span><h3>Alterando Usuário:</h3></span>
-                    <br/>
-                    <br/>
-                    <form action="#" th:action="@{'/alterandoFuncionario?fun='+${user.Cod_funcio}}"
-                          th:object="${funcionario}" method="post">
+            <div class="container" style="float:left;position: relative;
+                 margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
-                        <div class="row">
+                <div class="card" style="margin-top: 5px">
+                    <div class="card-body">
+                        <h4 class="card-title">O que cada coisa faz?</h4>
+                        <nav class="nav nav-tabs" id="myTab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-listar-tab" data-toggle="tab" href="#nav-listar" role="tab" aria-controls="nav-listar" aria-selected="true">Listar</a>
+                            <a class="nav-item nav-link" id="nav-pesquisar-tab" data-toggle="tab" href="#nav-pesquisar" role="tab" aria-controls="nav-pesquisar" aria-selected="false">Pesquisar</a>
+                            <a class="nav-item nav-link" id="nav-adicionar-tab" data-toggle="tab" href="#nav-adicionar" role="tab" aria-controls="nav-adicionar" aria-selected="false">Adicionar</a>
+                            <a class="nav-item nav-link" id="nav-reservas-tab" data-toggle="tab" href="#nav-reservas" role="tab" aria-controls="nav-reservas" aria-selected="false">Reservas</a>
 
-                            <div class="col-sm">
-                                <label>Id do Funcionário:</label> 
-                                <br/><br/>
-                                <label>Nome do Usuário:</label>
-                                <br/><br/>
-                                <label>Registro acadêmico:</label>
-                                <br/><br/>
-                                <label>Senha:</label>
-                                <br/><br/>
-                                <label>Função:</label>
-                            </div>    
-                            <div class="col-sm">
-                                <input type="text" th:field="*{Cod_funcio}" readonly="readonly"/>
-                                <br/><br/>
-                                <input type="text" th:field="*{nomeFuncionario}"/>
-                                <br/><br/>
-                                <input type="text" th:field="*{ra}"/>
-                                <br/><br/>
-                                <input type="password" th:field="*{senha}"/>
-                                <br/><br/>
-                                <select th:field="*{funcao.Cod_funcoes}">
+                        </nav>
+                        <div class="tab-content" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab"><p>
+                                <ul>
+                                    <li><b>Laboratórios</b></li>
+                                    <br/>
+                                    <p>Lista todos os laboratórios no sistema com 
+                                        as opções de alterar e excluir (a opção de excluir apaga todas as reservas criadas do laboratório) </p>
+                                    <li><b>Usuários</b></li>
+                                    <br/>
+                                    <p>Lista todos os usuários do sistema com
+                                        as opções de alterar e excluir (a opção de excluir apaga todas as reservas criadas pelo usuário) </p>
+                                </ul>
+                                </p></div>
+                            <div class="tab-pane fade" id="nav-pesquisar" role="tabpanel" aria-labelledby="nav-pesquisar-tab">
+                                <ul>
+                                    <br/>
+                                    <li><b>Laboratórios</b></li>
+                                    <br/>
+                                    <p>Lista os laboratórios a partir de um nome escolhido com
+                                        as opções de alterar e excluir (alterar  ou excluir um laboratório retornar uma lista com todos) </p>
+                                    <li><b>Usuários</b></li>
+                                    <br/>
+                                    <p>Lista os usuários a partir de um nome escolhido com 
+                                        as opções de alterar e excluir (alterar  ou excluir um usuário retornar uma lista com todos) </p>
+                                    <li><b>Reservas</b></li>
+                                    <br/>
+                                    <p>Lista as reservas  de um laboratório escolhido em 
+                                        um intervalo de tempo pré-selecionado (reservar ou cancelar uma reserva não cancela o filtro) </p>
 
-                                    <option th:each="fun : ${funcoes}"
-                                            th:value="${fun.Cod_funcoes}"
-                                            th:text="${fun.nomeFuncao}"></option>
+                                </ul>
 
-                                </select> 
-                            </div> 
+                            </div>
+                            <div class="tab-pane fade" id="nav-adicionar" role="tabpanel" aria-labelledby="nav-adicionar-tab">
+                                <ul>
+                                    <br/>
+                                    <li><b>Laboratórios</b></li>
+                                    <br/>
+                                    <p>Cria um novo laboratório no sistema (O laboratório criado 
+                                        não pode ser reservado ate que seja criado as reservas ) </p>
+                                    <li><b>Usuários</b></li>
+                                    <br/>
+                                    <p>Cria um novo usuário no sistema</p>
+                                </ul>
+                            </div>
+                            <div class="tab-pane fade" id="nav-reservas" role="tabpanel" aria-labelledby="nav-reservas-tab">
+                                <ul>
+                                    <br/>
+                                    <li><b>Exibir</b></li>
+                                    <br/>
+                                    <p>Exibi todas as reservas de todos os laboratórios de um
+                                        mês selecionado (Essa opção pode demorar um pouco )  </p>
+                                    <li><b>Disponibilizar</b></li>
+                                    <br/>
+                                    <p>Cria as reservas para todos os laboratórios do sistema em um
+                                        determinado semestre, selecionado o ano e depois o semestre. 
+                                        Laboratórios com as reservas já criadas são ignorados. Esta opção 
+                                        demora muito, é recomendado que deixe o sistema off-line enquanto processa.  </p>
+                                    <li><b>Gráfico</b></li>
+                                    <br/>
+                                    <p>Cria um gráfico com a quantidade de reservas em um mês para todos
+                                        os laboratórios, exibindo a quantidade reservada e disponível. </p>
 
+                                </ul>
+                            </div>
                         </div>
-                        <br/><br/>
-                        <div style="margin-bottom: 1%">
-                            <button class="btn btn-warning btn-sm" name="alterar" type="submit">Alterar</button>
-                            <a th:href="@{'/Administrador/admin_lista_funcionario'(fun=${user.Cod_funcio})}"
-                               class="btn btn-warning btn-sm " role="button" aria-disabled="true">
-                                Cancelar
-                            </a>
-                        </div>
-
-                    </form>
-
+                    </div>
                 </div>
+
+
 
             </div>
         </div>

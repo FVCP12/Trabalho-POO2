@@ -971,9 +971,9 @@ public class AdminController {
                 model.addAttribute("messagem", "Não existe nenhum registro com esta data!!");
                 return "/Administrador/admin_pesquisa_reserva_solicitar";
             } else {
-                
+
                 model.addAttribute("d", reservas.get(0).getDataReserva());
-                
+
                 return "/Administrador/admin_pesquisa_reserva_exibir";
             }
         } else {
@@ -1237,5 +1237,17 @@ public class AdminController {
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
         return "/Administrador/admin_reservas_grafico";
+    }
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Administrador/admin_duvidas")
+    public String duvidas(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        return "/Administrador/admin_duvidas";
     }
 }
