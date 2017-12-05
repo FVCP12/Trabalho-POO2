@@ -10,11 +10,10 @@ import ReservaLab.TrabalhoPOO2.DAO.FuncionariosDao;
 import ReservaLab.TrabalhoPOO2.DAO.LaboratorioDao;
 import ReservaLab.TrabalhoPOO2.DAO.ReservasDao;
 import ReservaLab.TrabalhoPOO2.DAO.StatusDao;
-import ReservaLab.TrabalhoPOO2.Model.Funcionarios;
-import ReservaLab.TrabalhoPOO2.Model.Laboratorio;
-import ReservaLab.TrabalhoPOO2.Model.Reservas;
+import ReservaLab.TrabalhoPOO2.Model.*;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,49 +40,29 @@ public class PorteiroController {
     @Autowired
     StatusDao statusDao;
 
-    @GetMapping("Portaria/port_verLabDisponivel")
-    public String labDisponivel(
-            @RequestParam(value = "fun") long idFun,
-            @ModelAttribute Funcionarios aux,
-            Model model
-    ) {
-
-        model.addAttribute("aux", aux);
-        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-
-        Date d1 = new Date(System.currentTimeMillis());
-
-        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
-
-        model.addAttribute("reservas", reservas);
-        model.addAttribute("d", d1);
-
-        if (reservas.isEmpty()) {
-            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
-        }
-
-        return "/Portaria/port_verLabDisponivel";
-
-    }
-
     @GetMapping("Portaria/port_verLabAgendado")
     public String labAgendado(
             @RequestParam(value = "fun") long idFun,
-            @ModelAttribute Funcionarios aux,
             Model model
     ) {
 
-        model.addAttribute("aux", aux);
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
 
-        Date d1 = new Date(System.currentTimeMillis());
+        Date d1 = new Date();
 
         List<Reservas> reservas = reservasDao.buscaPorDia(d1);
 
         model.addAttribute("reservas", reservas);
-        model.addAttribute("d", d1);
 
-        if (reservas.isEmpty()) {
+        long n = 0;
+        n += reservas.stream().filter(x -> x.getStatus()[0].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[1].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[2].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[3].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[4].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[5].isSituacao() == true).count();
+
+        if (n == 0) {
             model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
         }
 
@@ -91,45 +70,6 @@ public class PorteiroController {
 
     }
 
-    @GetMapping("Portaria/port_verLabEmUso")
-    public String ListLabEmUso(
-            @RequestParam(value = "fun") long idFun,
-            Model model
-    ) {
-        Funcionarios f = funcionariosDao.buscaId(Funcionarios.class, idFun);
-        model.addAttribute("user", f);
-        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
-        model.addAttribute("labs", labs);
-        if (labs.isEmpty()) {
-            model.addAttribute("menssagem", "Não existe nenhum laboratorio!");
-        }
-        return "Portaria/port_verLabEmUso";
-    }
-
-    @PostMapping("/Portaria/port_verTodosDia")
-    public String buscandoreservaspordia(
-            @RequestParam(value = "fun") long idFun,
-            @ModelAttribute Funcionarios aux,
-            Model model
-    ) {
-
-        model.addAttribute("aux", aux);
-        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-
-        String data = aux.getNomeFuncionario();
-        data = data.replaceAll("-", "/");
-
-        Date d1 = new Date(data);//inicio
-
-        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
-
-        model.addAttribute("reservas", reservas);
-
-        if (reservas.isEmpty()) {
-            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
-        }
-        return "/Portaria/port_verTodosDia";
-    }
 
     @GetMapping("Portaria/port_vertTodos")
     public String ExibirReservaspordiaSolicitar(
@@ -138,33 +78,87 @@ public class PorteiroController {
     ) {
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-        model.addAttribute("aux", new Funcionarios());
 
-        return "/Portaria/port_verTodosDia";
+        Date d1 = new Date();
+
+        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
+        
+        
+        
+        List<Reservas> r0 = reservas.stream().filter(x -> x.getStatus()[0].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+        List<Reservas> r1 = reservas.stream().filter(x -> x.getStatus()[1].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+        List<Reservas> r2 = reservas.stream().filter(x -> x.getStatus()[2].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+        List<Reservas> r3 = reservas.stream().filter(x -> x.getStatus()[3].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+        List<Reservas> r4 = reservas.stream().filter(x -> x.getStatus()[4].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+        List<Reservas> r5 = reservas.stream().filter(x -> x.getStatus()[5].getDescricaoChave().getCod_chaves() == 2).collect(Collectors.toList());
+
+        
+        
+        model.addAttribute("r0", r0);
+        model.addAttribute("r1", r1);
+        model.addAttribute("r2", r2);
+        model.addAttribute("r3", r3);
+        model.addAttribute("r4", r4);
+        model.addAttribute("r5", r5);
+        
+        long n = 0;
+        n += r0.size();
+        n += r1.size();
+        n += r2.size();
+        n += r3.size();
+        n += r4.size();
+        n += r5.size();
+
+        if (n == 0) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+        
+        
+
+        return "Portaria/port_vertTodos";
 
     }
 
-    @GetMapping("Portaria/port_chavesDisponiveis")
-    public String ChavesDisponiveis(
+    @GetMapping("/alterandoChave")
+    public String alterarChave(
             @RequestParam(value = "fun") long idFun,
+            @RequestParam(value = "idSta") long idStat,
             Model model
     ) {
 
-        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-        model.addAttribute("aux", new Funcionarios());
-
-        return "Portaria/port_chavesDisponiveis";
-    }
-    
-    @GetMapping("Portaria/port_chavesEmprestada")
-    public String ChavesEmprestada(
-            @RequestParam(value = "fun") long idFun,
-            Model model
-    ) {
+        System.out.println("Entrei aqui");
 
         model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
-        model.addAttribute("aux", new Funcionarios());
 
-        return "Portaria/port_chavesEmprestada";
+        StatusLab s = statusDao.buscaId(StatusLab.class, idStat);
+
+        if (s.getDescricaoChave().getCod_chaves() == 1) {
+            s.getDescricaoChave().setCod_chaves(2);
+        } else {
+            s.getDescricaoChave().setCod_chaves(1);
+        }
+
+        statusDao.atualizar(s);
+
+        Date d1 = new Date();
+
+        List<Reservas> reservas = reservasDao.buscaPorDia(d1);
+
+        model.addAttribute("reservas", reservas);
+
+        long n = 0;
+        n += reservas.stream().filter(x -> x.getStatus()[0].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[1].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[2].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[3].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[4].isSituacao() == true).count();
+        n += reservas.stream().filter(x -> x.getStatus()[5].isSituacao() == true).count();
+
+        if (n == 0) {
+            model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
+        }
+
+        return "Portaria/port_verLabAgendado";
     }
+
 }
