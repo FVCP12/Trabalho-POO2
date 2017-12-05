@@ -8,20 +8,20 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
-        
-        
+
+
         <title>.::Reserva de Laboratórios::.</title>
         <link rel="shurtcut icon" href="../favicon.ico" />
         <style type="text/css">
-            
-        header{
-        width: 100%;
-        height: 30px;
-        top:0;
-        left:0;
-        background-color: darkorange;
-        position: absolute;
-        }
+
+            header{
+                width: 100%;
+                height: 30px;
+                top:0;
+                left:0;
+                background-color: darkorange;
+                position: absolute;
+            }
             #cx1{
                 position: relative;
                 top: 320px; /**/
@@ -30,7 +30,7 @@
             #cx2{
                 position: relative;
                 top: 20px;
-                left:85px;
+                left:80px;
             }
 
             #cx3{
@@ -38,97 +38,104 @@
                 top: 15%;
                 left:4%;
             }
-            
+
             .btn{
-        font-family: arial black;
-        font-size: 10px;
-        text-transform: uppercase;
-        font-weight: 700;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-    }
-    .btn-primary{
-        background: #ccc;
-        color: black;
-        box-shadow: 0 5px 0 gray;        
-    }
-    
-    .btn-primary:houver{
-        background: gray;
-        color:#fff;
-        box-shadow: 0 5px 0 darkgray;        
-    }
-    
-    .btn-primary:active{
-        position:relative;
-        top: 5px;
-        box-shadow: 0 5px 0 darkgray;        
-    }
-    
-    .avatar {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      position: absolute;
-      top: 300px;
-      left: calc(50% - 50px);
-    }
-    .loginBox{
-      margin-top: 60%;
-      margin-left: 27%;
-      font-weight: bold;
-    }
-    .loginBox input{
-        width: 40%;
-    }
-    
-   .loginBox input [type="text"],
-   .loginBox input [type="password"]
-   {
-       border: none;
-       border-bottom: 1px solid #fff;
-       background: transparent;
-   }
-    
+                font-family: arial black;
+                font-size: 10px;
+                text-transform: uppercase;
+                font-weight: 700;
+                border: none;
+                padding: 10px;
+                cursor: pointer;
+            }
+            .btn-primary{
+                background: #ccc;
+                color: black;
+                box-shadow: 0 5px 0 gray;        
+            }
+
+            .btn-primary:houver{
+                background: gray;
+                color:#fff;
+                box-shadow: 0 5px 0 darkgray;        
+            }
+
+            .btn-primary:active{
+                position:relative;
+                top: 5px;
+                box-shadow: 0 5px 0 darkgray;        
+            }
+
+            .avatar {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                position: absolute;
+                top: 300px;
+                left: calc(50% - 50px);
+            }
+            .loginBox{
+                margin-top: 60%;
+                margin-left: 27%;
+                font-weight: bold;
+            }
+            .loginBox input{
+                width: 40%;
+            }
+
+            .loginBox input [type="text"],
+            .loginBox input [type="password"]
+            {
+                border: none;
+                border-bottom: 1px solid #fff;
+                background: transparent;
+            }
+
         </style>
     </head>
     <body style="background-color: #f6f6f6; background-image:linear-gradient(to bottom, #f7ba5e 0%, #f6f6f6 100%); background-attachment: fixed">
     <center><h2>Bem vindo ao Sistema de Reservas de Laboratórios</h2></center>
-            
 
-        <div  style="background:url(/loginLogo.png) no-repeat;background-size:100%;margin-top: -1%;margin-left: 27%;position: absolute;
-                     min-width: 600px;max-width: 600px;min-height: 700px;max-height: 700px" >
-           
-           <div style="margin-top: 20%;">
-                 <div style="margin-top: 43%;margin-left: 32%">
-                     <img src="/avatar.PNG" class="avatar"/>
-                 </div>
-            <div class="loginBox">     
-            <form action="#" th:action="@{/logando}"
-                  th:object="${funcio}" method="post" style="">
 
-                <label>Login: </label>
-                <input type="text" th:field="*{ra}" placeholder="Digite seu usuario"/><br/>
-                <label>Senha:</label>
-                <input type="password" th:field="*{senha}" placeholder="********"/><br/>
+    <div  style="background:url(/loginLogo.png) no-repeat;background-size:100%;margin-top: -4%;margin-left: 32%;position: absolute;
+          min-width: 500px;max-width: 500px;min-height: 600px;max-height: 600px" >
 
-                <div id="cx2">
-                    <button class="btn btn-primary" name="logar" type="submit">Logar</button>   
-                    
-                    <br/><br/><br/><br/><br/>
-                    
-                    <div style="margin-left: -27%;margin-top: -19%">
-                        <label th:text="${menssagem}"></label>
-                    </div>
-                   
-                    
-                </div>
-            </form>
+        <div style="margin-top: 20%;">
+            <div style="margin-top: 10%;margin-left: 32%">
+                <img style="margin-top: -55px;margin-left: 10px" src="/avatar.PNG" class="avatar"/>
             </div>
+            <div class="loginBox">     
+                <form action="#" th:action="@{/logando}"
+                      th:object="${funcio}" method="post" style="">
+
+                    <div class="row" style="margin-left: 4px">
+                    <div class="col-2">
+                        <label>Login:&nbsp;</label>
+                        <br/>
+                        <label>Senha:</label>
+                    </div>
+                    <div class="col-10" style="margin-left: -11px">
+                        <input type="text" th:field="*{ra}" placeholder="Digite seu usuario"/><br/>
+                        <input type="password" th:field="*{senha}" placeholder="********"/><br/>
+                    </div>
+                </div>
+                    
+                    <div id="cx2" style="margin-left: -10px">
+                        <button class="btn btn-primary" name="logar" type="submit">Logar</button>   
+
+                        <br/><br/><br/><br/><br/>
+
+                        <div style="margin-left: -32%;margin-top: -25%">
+                            <label th:text="${menssagem}"></label>
+                        </div>
+
+
+                    </div>
+                </form>
             </div>
         </div>
+    </div>
 
 
-    </body>
+</body>
 </html>

@@ -242,12 +242,26 @@
 
                     <br/>
 
-                    <button type="submit" class="btn btn-warning btn-sm">Pesquisar</button>
+                    <button onclick="mostrar('carregar','tabela')" type="submit" class="btn btn-warning btn-sm">Pesquisar</button>
                 </form> 
 
                 <p th:text="${messagem}"></p>
+                
+                <div id="carregar" style="margin: 2px;margin-left: 250px;display: none"> 
 
-                <table class="table table-bordered table-dark">
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../load.gif" alt="Card image cap"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Buscando reservas, aguarde....</h4>
+
+                        </div>
+                    </div>
+
+
+                </div>
+                
+
+                <table id="tabela"  class="table table-bordered table-dark">
                     <thead>
                         <tr>
 
@@ -313,7 +327,7 @@
                                                         <label th:text="${reserva.status[0].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -356,7 +370,7 @@
                                                     <label th:text="${reserva.status[0].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[0].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -410,7 +424,7 @@
                                                         <label th:text="${reserva.status[1].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -451,7 +465,7 @@
                                                     <label th:text="${reserva.status[1].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[1].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -504,7 +518,7 @@
                                                         <label th:text="${reserva.status[2].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -545,7 +559,7 @@
                                                     <label th:text="${reserva.status[2].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[2].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -598,7 +612,7 @@
                                                         <label th:text="${reserva.status[3].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -639,7 +653,7 @@
                                                     <label th:text="${reserva.status[3].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[3].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -692,7 +706,7 @@
                                                         <label th:text="${reserva.status[4].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -733,7 +747,7 @@
                                                     <label th:text="${reserva.status[4].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[4].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -786,7 +800,7 @@
                                                         <label th:text="${reserva.status[5].horario}"></label> 
                                                     </p>
 
-                                                    <button class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
+                                                    <button onclick="mostrar('carregar','tabela')" class="btn btn-success btn-sm" name="criar" type="submit">Criar</button>
 
                                                 </form>
                                             </div>
@@ -827,7 +841,7 @@
                                                     <label th:text="${reserva.status[5].horario}"></label> 
                                                 </p>
 
-                                                <a th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
+                                                <a onclick="mostrar('carregar','tabela')" th:href="@{'/ExcluirP'(fun=${user.Cod_funcio},sta=${reserva.status[5].Cod_status},dataini=${aux.laboratorio.andar},datafim=${aux.laboratorio.descricao},codlab=${aux.laboratorio.cod_labor})}"
                                                    class="btn btn-danger btn-sm " role="button" aria-disabled="true">
                                                     Excluir
                                                 </a>
@@ -861,7 +875,28 @@
             $('[data-toggle="tooltip"]').tooltip()
             })
         </script>
+        <script type="text/javascript">
 
+            var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>  
 
 
     </body>
