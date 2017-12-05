@@ -479,6 +479,7 @@ public class AdminController {
         atualizar.setProfessor(funReserva);
         atualizar.setDataOperacao(new Date());
         atualizar.setSituacao(true);
+        atualizar.getDescricaoChave().setCod_chaves(1);//alterei aqui
 
         statusDao.atualizar(atualizar);
 
@@ -531,6 +532,7 @@ public class AdminController {
         atualizar.setProfessor(null);
         atualizar.setDataOperacao(null);
         atualizar.setSituacao(false);
+        atualizar.getDescricaoChave().setCod_chaves(1);//alterei aqui
 
         statusDao.atualizar(atualizar);
 
@@ -759,6 +761,7 @@ public class AdminController {
                 s.setDataOperacao(null);
                 s.setSituacao(false);
                 s.setProfessor(null);
+                s.getDescricaoChave().setCod_chaves(1);//alterei aqui
                 statusDao.atualizar(s);
             }
 
@@ -1038,6 +1041,7 @@ public class AdminController {
         atualizar.setProfessor(funReserva);
         atualizar.setDataOperacao(new Date());
         atualizar.setSituacao(true);
+        atualizar.getDescricaoChave().setCod_chaves(1);//alterei aqui
 
         statusDao.atualizar(atualizar);
 
@@ -1099,6 +1103,7 @@ public class AdminController {
         atualizar.setProfessor(null);
         atualizar.setDataOperacao(null);
         atualizar.setSituacao(false);
+        atualizar.getDescricaoChave().setCod_chaves(1);//alterei aqui
 
         statusDao.atualizar(atualizar);
 
