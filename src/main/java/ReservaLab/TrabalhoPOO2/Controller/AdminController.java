@@ -419,13 +419,11 @@ public class AdminController {
             model.addAttribute("reservas", reservas);
             model.addAttribute("funcionarios", podeReservar);
 
-            
-
             model.addAttribute("status", new StatusLab());
 
             if (reservas.isEmpty()) {
                 model.addAttribute("messagem", "Não existe nenhum regitro com esta data!!");
-            }else{
+            } else {
                 model.addAttribute("d", reservas.get(0).getDataReserva());
             }
             return "/Administrador/admin_exibirReservas_exibindo";
@@ -1183,6 +1181,12 @@ public class AdminController {
         Funcionarios aux;
         long contador = 0;
 
+        if (reservas.isEmpty()) {
+
+            model.addAttribute("messagem", "Não existe dados para gerar o gráfico com esses parâmetros!!");
+            return "/Administrador/admin_reserva_solicitar_mesGrafico";
+        }
+        
         List<Reservas> r1 = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r2 = reservas.stream().filter(x -> x.getStatus()[1].getProfessor() != null).collect(Collectors.toList());
         List<Reservas> r3 = reservas.stream().filter(x -> x.getStatus()[2].getProfessor() != null).collect(Collectors.toList());
@@ -1257,4 +1261,142 @@ public class AdminController {
 
         return "/Administrador/admin_duvidas";
     }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+    @GetMapping("/Administrador/admin_pesquisar_grafico_solicitar")
+    public String PesquisarGraficoSolicitar(
+            @RequestParam(value = "fun") long idFun,
+            Model model
+    ) {
+
+        Reservas aux = new Reservas();
+
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("aux", aux);
+
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        return "/Administrador/admin_pesquisar_grafico_solicitar";
+    }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @PostMapping("/GerarGraficoPesquisa")
+    public String GerarGraficoPesquisa(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute Reservas aux,
+            Model model
+    ) {
+        
+        List<Laboratorio> labs = laboratorioDao.PegarTodos(Laboratorio.class);
+
+        model.addAttribute("labs", labs);
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+        model.addAttribute("aux", aux);
+        Laboratorio lab = laboratorioDao.buscaId(Laboratorio.class, aux.getLaboratorio().getCod_labor());
+        
+        model.addAttribute("l", lab);
+        
+        if (aux.getLaboratorio().getAndar().equals("") || aux.getLaboratorio().getDescricao().equals("")) {
+
+            model.addAttribute("messagem", "Selecione uma data primeiro!!");
+            return "/Administrador/admin_pesquisar_grafico_solicitar";
+        }
+        
+        //data
+        String dataInicio = aux.getLaboratorio().getAndar();
+        String dataFim = aux.getLaboratorio().getDescricao();
+        dataInicio = dataInicio.replaceAll("-", "/");
+        dataFim = dataFim.replaceAll("-", "/");
+
+        Date d1 = new Date(dataInicio);//inicio
+        Date d2 = new Date(dataFim);//fim
+        //
+
+        List<Reservas> reservas = reservasDao.buscaPorLab_Periodo(lab, d1, d2);
+        List<Funcionarios> funcioCompleto = funcionariosDao.podeReservarLab();
+        List<Funcionarios> f = new ArrayList<Funcionarios>();
+        Funcionarios aux2;
+        long contador = 0;
+        
+        if (reservas.isEmpty()) {
+
+            model.addAttribute("messagem", "Não existe dados para gerar o gráfico com esses parâmetros!!");
+            return "/Administrador/admin_pesquisar_grafico_solicitar";
+        }
+        
+
+        List<Reservas> r1 = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r2 = reservas.stream().filter(x -> x.getStatus()[1].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r3 = reservas.stream().filter(x -> x.getStatus()[2].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r4 = reservas.stream().filter(x -> x.getStatus()[3].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r5 = reservas.stream().filter(x -> x.getStatus()[4].getProfessor() != null).collect(Collectors.toList());
+        List<Reservas> r6 = reservas.stream().filter(x -> x.getStatus()[5].getProfessor() != null).collect(Collectors.toList());
+
+        for (Funcionarios i : funcioCompleto) {
+            contador = 0;
+            contador = r1.stream().filter(x -> x.getStatus()[0].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r2.stream().filter(x -> x.getStatus()[1].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r3.stream().filter(x -> x.getStatus()[2].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r4.stream().filter(x -> x.getStatus()[3].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r5.stream().filter(x -> x.getStatus()[4].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+            contador += r6.stream().filter(x -> x.getStatus()[5].getProfessor().getNomeFuncionario().
+                    equals(i.getNomeFuncionario())).count();
+
+            aux2 = new Funcionarios();
+            aux2.setCod_funcio(contador);
+            aux2.setNomeFuncionario(i.getNomeFuncionario());
+
+            f.add(aux2);
+        }
+
+        contador = 0;
+        contador = reservas.stream().filter(x -> x.getStatus()[0].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[1].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[2].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[3].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[4].getProfessor() == null).count();
+        contador += reservas.stream().filter(x -> x.getStatus()[5].getProfessor() == null).count();
+
+        aux2 = new Funcionarios();
+        aux2.setCod_funcio(contador);
+        aux2.setNomeFuncionario("Disponivel");
+
+        f.add(aux2);
+
+        model.addAttribute("dados", f);
+
+        return "/Administrador/admin_pesquisar_grafico_exibir";
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @GetMapping("/Administrador/admin_pesquisar_grafico_exibir")
+    public String ReservaGraficoPesquisa(
+            @RequestParam(value = "fun") long idFun,
+            @ModelAttribute List<Funcionarios> f,
+            @ModelAttribute Reservas aux,
+            @ModelAttribute List<Laboratorio> labs,
+            @ModelAttribute Laboratorio lab,
+            Model model
+    ) {
+
+        labs = laboratorioDao.PegarTodos(Laboratorio.class);
+        Laboratorio l = lab;
+        
+        model.addAttribute("l", l);
+        model.addAttribute("labs", labs);
+        model.addAttribute("aux", aux);
+        model.addAttribute("dados", f);
+        model.addAttribute("user", funcionariosDao.buscaId(Funcionarios.class, idFun));
+
+        return "/Administrador/admin_pesquisar_grafico_exibir";
+    }
+
 }

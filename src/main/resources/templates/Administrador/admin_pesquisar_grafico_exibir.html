@@ -7,6 +7,53 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script> 
 
+        <script type="text/javascript" src="https://www.google.com/jsapi "></script>
+        <script type="text/javascript" th:inline="javascript">
+
+
+            google.load('visualization', '1.0', {'packages':['corechart']});
+
+
+            google.setOnLoadCallback(drawChart);
+
+
+            function drawChart() {
+
+            // Cria a tabela
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Linguagem'); 
+            data.addColumn('number', 'Porcentagem');
+
+            /*<![CDATA[*/    
+            var dados =  /*[[${dados}]]*/
+
+            /*]]>*/
+
+
+            for (var i = dados.length - 1; i >= 0; i--) {
+
+
+            data.addRows([ //Adiciona as linhas da tabela com os valores
+
+            [dados[i].nomeFuncionario, dados[i].cod_funcio]
+
+            ]);
+
+
+            }
+
+
+
+            var options = {'width':750, 'height':550, 'is3D':true,
+            'legend':'left', 'fontSize':15};
+
+
+            var chart = new google.visualization.PieChart(document.getElementById
+            ('chart_div'));
+            chart.draw(data, options);
+            }
+        </script>
+
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
               rel="stylesheet"/>
 
@@ -34,6 +81,7 @@
 
             <div style="float:left;
                  text-align: center;">
+
 
 
                 <div id="accordion" role="tablist">
@@ -99,13 +147,14 @@
                                     <a th:href="@{'/Administrador/admin_pesquisar_funcio_solicitarNome'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Usuários 
                                     </a>
+
                                 </p>
                                 <hr/>
 
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_pesquisa_reserva_solicitar'(fun=${user.Cod_funcio})}" style="text-decoration: none">
                                         Reservas 
-                                    </a> 
+                                    </a>
                                 </p>
                                 <hr/>
 
@@ -114,6 +163,7 @@
                                         Gráfico 
                                     </a>
                                 </p>
+                                
                             </div>
                         </div>
                     </div>
@@ -142,7 +192,7 @@
                                 <p style="margin: 1px;margin-left: 5px;text-align: center">
                                     <a th:href="@{'/Administrador/admin_add_funcionario?fun='+${user.Cod_funcio}}" style="text-decoration: none"> 
                                         Usuários 
-                                    </a> 
+                                    </a>
                                 </p>
                             </div>
                         </div>
@@ -188,7 +238,7 @@
                 </div>
 
 
-                <div style="margin-top: 2%">                
+                <div style="margin-top: 2%">    
                     <a th:href="@{'/Administrador/admin_altera_seuUsuario'(fun=${user.Cod_funcio},idfunAlterar=${user.Cod_funcio})}"
                        type="button" class="btn btn-warning btn-sm"
                        style="position: relative"><i class="material-icons" style="font-size: 15px">settings</i></a>
@@ -214,38 +264,99 @@
             <div class="container" style="float:left;position: relative;
                  margin-left: 1%;background-color: #ffffff;width: auto;height: auto">  
 
+                <span><h4>
+                        <p>Pesquisar</p>
+                        <p>Gerar gráfico pelo recurso e por um intervalo de tempo:</p>
+                    </h4></span>
 
-                <p>
-                <h3> Alterando laboratório:</h3>
-                </p>
+                <form action="#" th:action="@{'/GerarGraficoPesquisa'(fun=${user.Cod_funcio})}"
+                      th:object="${aux}" method="post">
 
-                <form action="#" th:action="@{'/AlterandoLab?fun='+${user.Cod_funcio}}"
-                      th:object="${lab}" method="post">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1" >Escolha o recurso:</span>
+                        <select th:field="*{laboratorio.cod_labor}" class="form-control" placeholder="Username" 
+                                aria-label="Username" aria-describedby="sizing-addon1">
+                            <option th:each="lab : ${labs}"
+                                    th:value="${lab.cod_labor}"
+                                    th:text="${lab.nomeLab}"></option>
 
-                    <label>Código do Laboratório:</label>
-                    <input type="text" th:field="*{cod_labor}" readonly="readonly"/>
+                        </select>
+                    </div> 
+
                     <br/>
-                    <label>Nome do Laboratório:</label><br/>
-                    <input type="text" th:field="*{nomeLab}"/>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data inicio:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.andar}"/>
+                    </div>    
+
                     <br/>
-                    <label>Andar:</label><br/>
-                    <input type="text" th:field="*{andar}"/>
-                    <br/>
-                    <label>Descrição:</label><br/>
-                    <textarea th:field="*{descricao}" rows="5" cols="60" maxlength="255"></textarea>
-                    <br/><br/>
-                    <div style="margin-bottom: 1%">
-                        <button class="btn btn-warning btn-sm" type="submit">Alterar</button>  
-                        <a th:href="@{'/Administrador/admin_lista_lab?fun='+${user.Cod_funcio}}"
-                           class="btn btn-warning btn-sm " role="button" aria-disabled="true" 
-                           style="margin: 1%">
-                            Cancelar</a> 
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-addon" id="sizing-addon1">Data fim:</span>
+                        <input type="date" class="form-control" placeholder="Username" 
+                               aria-label="Username" aria-describedby="sizing-addon1" th:field="*{laboratorio.descricao}"/>
                     </div>
 
-                </form>
+                    <br/>
+
+                    <button onclick="mostrar('carregar')" type="submit" class="btn btn-warning btn-sm">Pesquisar</button>
+                </form>   
+
+                <label th:text="${messagem}"></label>
+
+                <div id="grafico" class="card border-warning mb-3" style="margin-left: 150px" >
+                    <div class="card-header" >
+                        <label th:text="${l.nomeLab}"></label>
+                        <label>&nbsp; de &nbsp;</label>
+                        <label th:text="${aux.laboratorio.andar}"></label>
+                        <label>&nbsp; até &nbsp;</label>
+                        <label th:text="${aux.laboratorio.descricao}"></label>
+                    </div>
+                    <div class="card-body text-warning">
+                        <h4 class="card-title">Gráfico Referente a pesquisa</h4>
+                        <div id="chart_div" ></div>
+                    </div>
+                </div>
+                
+                <div id="carregar" style="margin: 2px;margin-left: 23%;display: none"> 
+
+                    <div class="card" style="width: 20rem;">
+                        <img class="card-img-top" src="../load.gif" alt="Card image cap"/>
+                        <div class="card-body">
+                            <h4 class="card-title">Gerando grafico, aguarde....</h4>
+
+                        </div>
+                    </div>
+
+
+                </div>
 
 
             </div>
         </div>
+        
+        <script type="text/javascript">
+
+           var mostrar = function(ok,ok1){
+
+            var display = document.getElementById(ok).style.display;
+            var display1 = document.getElementById(ok1).style.display;
+
+            if(display1 == "none")
+            document.getElementById(ok1).style.display = 'block';
+            else
+            document.getElementById(ok1).style.display = 'none';
+
+
+            if(display == "none")
+            document.getElementById(ok).style.display = 'block';
+            else
+            document.getElementById(ok).style.display = 'none';
+
+
+            }
+
+        </script>  
+        
     </body>
 </html>
